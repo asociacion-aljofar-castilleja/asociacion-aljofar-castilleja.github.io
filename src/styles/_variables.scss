@@ -1,8 +1,8 @@
 // src/styles/_variables.scss
 @use "sass:map";
 
-// Paleta base – cámbialas a tu gusto
-$primary:   #6f42c1; // morado "unicornio"
+// Paleta base
+$primary:   #6f42c1;
 $secondary: #0dcaf0;
 $success:   #198754;
 $info:      #0dcaf0;
@@ -11,7 +11,7 @@ $danger:    #dc3545;
 $light:     #f8f9fa;
 $dark:      #212529;
 
-// Mapa de colores del tema de Bootstrap
+// Mapa de colores para Bootstrap
 $theme-colors: (
   "primary":   $primary,
   "secondary": $secondary,
@@ -23,12 +23,11 @@ $theme-colors: (
   "dark":      $dark
 );
 
-// (Opcional) modo oscuro/claro con CSS variables
+// Variables CSS opcionales (tema claro/oscuro)
 :root[data-bs-theme="light"] {
   --bs-body-bg: #ffffff;
   --bs-body-color: #212529;
 }
-
 :root[data-bs-theme="dark"] {
   --bs-body-bg: #0f0f13;
   --bs-body-color: #eaeaea;

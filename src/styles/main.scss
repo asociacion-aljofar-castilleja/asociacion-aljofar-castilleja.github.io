@@ -12,36 +12,36 @@
 );
 
 // Iconos (CSS plano, OK que vaya después)
-@import "bootstrap-icons/font/bootstrap-icons.css";
+@use "bootstrap-icons/font/bootstrap-icons.css";
 
 // Importación de componentes del layout
-@import "../components/layout/BaseLayout/_BaseLayout";
-@import "../components/layout/Header/_Header";
-@import "../components/layout/Footer/_Footer";
+@use "../components/layout/BaseLayout/_BaseLayout";
+@use "../components/layout/Header/_Header";
+@use "../components/layout/Footer/_Footer";
 
 // Importación de componentes de las secciones del home
-@import "../components/sections/Hero/_Hero";
-@import "../components/sections/WhatWeDo/_WhatWeDo";
-@import "../components/sections/ImpactStats/_ImpactStats";
-@import "../components/sections/Partners/_Partners";
-@import "../components/sections/Headquarters/_Headquarters";
-@import "../components/sections/FbFeed/_FbFeed";
+@use "../components/sections/Hero/_Hero";
+@use "../components/sections/WhatWeDo/_WhatWeDo";
+@use "../components/sections/ImpactStats/_ImpactStats";
+@use "../components/sections/Partners/_Partners";
+@use "../components/sections/Headquarters/_Headquarters";
+@use "../components/sections/FbFeed/_FbFeed";
 
 // Importación de componentes de las secciones del quienes somos
-@import "../components/sections/Pillars/_Pillars.scss";
-@import "../components/sections/Timeline/_Timeline.scss";
-@import "../components/sections/Org/_Org.scss";
+@use "../components/sections/Pillars/_Pillars";
+@use "../components/sections/Timeline/_Timeline";
+@use "../components/sections/Org/_Org";
 
 
 // Importación de componentes de las secciones del que hacemos
-@import "../components/sections/ServicesGrid/_ServicesGrid.scss";
-@import "../components/sections/ProjectsList/_ProjectsList.scss";
-@import "../components/sections/Workshops/_Workshops.scss";
+@use "../components/sections/ServicesGrid/_ServicesGrid";
+@use "../components/sections/ProjectsList/_ProjectsList";
+@use "../components/sections/Workshops/_Workshops";
 
 // Importación de componentes de las secciones del contacto
-@import "../components/sections/ContactInfo/_ContactInfo.scss";
-@import "../components/sections/MapEmbed/_MapEmbed.scss";
-@import "../components/sections/SocialLinks/_SocialLinks.scss";
+@use "../components/sections/ContactInfo/_ContactInfo";
+@use "../components/sections/MapEmbed/_MapEmbed";
+@use "../components/sections/SocialLinks/_SocialLinks";
 
 // Estilos globales adicionales asociados a las paginas
 //@import "../pages/home/_Home";

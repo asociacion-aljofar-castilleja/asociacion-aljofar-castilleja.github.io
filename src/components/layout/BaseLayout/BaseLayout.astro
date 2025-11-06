@@ -6,11 +6,8 @@ import { getEntry } from "astro:content";
 // SCSS global (Astro lo compila e inyecta)
 import "../../../styles/main.scss";
 
-// Para producción: resuelve a asset final con hash
-import appJsUrl from "../../../scripts/app.ts?url";
-
-// En dev servimos directamente el source; en build usamos el asset
-const appSrc = import.meta.env.DEV ? "/src/scripts/app.ts" : appJsUrl;
+// URL del bundle generada por Vite (sirve en dev y en build)
+import appSrc from "../../../scripts/app.ts?url";
 
 type Lang = "es" | "en";
 interface Props { lang?: Lang; title?: string; description?: string; otherHref?: string; }
@@ -52,7 +49,7 @@ const skipText = I.skipToContent ?? (lang === "en" ? "Skip to content" : "Saltar
 
     <Footer lang={lang} />
 
-    <!-- En dev: /src/scripts/app.ts ; en build: /assets/app.[hash].js -->
+    <!-- Dev/Build: Vite resuelve la URL del módulo automáticamente -->
     <script type="module" src={appSrc}></script>
   </body>
 </html>
