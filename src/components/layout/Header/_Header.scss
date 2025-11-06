@@ -1,0 +1,31 @@
+/* src/components/layout/Header/_header.scss */
+
+/* Afinado visual del header */
+.header .navbar-brand svg { flex-shrink: 0; }
+.header .navbar-brand span { white-space: nowrap; }
+
+/* Estado activo claro en nav */
+.header .nav-link.active {
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: .35em;
+}
+
+/* Accesible: foco visible en links */
+.header .nav-link:focus-visible {
+  outline: 2px solid rgba(var(--bs-primary-rgb), .5);
+  outline-offset: 2px;
+}
+
+/* Botones pequeños más legibles */
+.header .btn.btn-sm { --bs-btn-font-size: .85rem; }
+
+/* Dropdown con sombra suave */
+.header .dropdown-menu { box-shadow: 0 .5rem 1rem rgba(0,0,0,.08); }
+
+/* Solo dropdown del Header para el selector de tema */
+.header .dropdown-menu .dropdown-item.active {
+  font-weight: 600;
+  color: var(--bs-primary);
+  background-color: var(--bs-primary-bg-subtle);
+}
