@@ -3,17 +3,17 @@ import Header from "../Header/Header.astro";
 import Footer from "../Footer/Footer.astro";
 import { getEntry } from "astro:content";
 
-// ⬇️ IMPORTA los assets de /src como URL compilada
-import mainCssUrl from "../../styles/main.scss?url";
-import appJsUrl from "../../scripts/app.ts?url"; // compila TS y te da la URL final
+// SCSS global (Astro lo compila e inyecta)
+import "../../../styles/main.scss";
+
+// Para producción: resuelve a asset final con hash
+import appJsUrl from "../../../scripts/app.ts?url";
+
+// En dev servimos directamente el source; en build usamos el asset
+const appSrc = import.meta.env.DEV ? "/src/scripts/app.ts" : appJsUrl;
 
 type Lang = "es" | "en";
-interface Props {
-  lang?: Lang;
-  title?: string;
-  description?: string;
-  otherHref?: string;
-}
+interface Props { lang?: Lang; title?: string; description?: string; otherHref?: string; }
 
 const {
   lang = "es",
@@ -24,17 +24,10 @@ const {
 
 const compIdMap = { es: "baselayout/es", en: "baselayout/en" } as const;
 type CompId = typeof compIdMap[Lang];
+interface LayoutI18n { skipToContent?: string; }
 
-interface LayoutI18n {
-  skipToContent?: string;
-}
-
-const entry = await getEntry({
-  collection: "ui",
-  id: compIdMap[lang] as CompId,
-});
+const entry = await getEntry({ collection: "ui", id: compIdMap[lang] as CompId });
 const I = (entry?.data ?? {}) as LayoutI18n;
-
 const skipText = I.skipToContent ?? (lang === "en" ? "Skip to content" : "Saltar al contenido");
 ---
 <!DOCTYPE html>
@@ -45,14 +38,8 @@ const skipText = I.skipToContent ?? (lang === "en" ? "Skip to content" : "Saltar
     <title>{title}</title>
     <meta name="description" content={description} />
 
-    <!-- Usa el favicon real que tienes en /public -->
     <link rel="icon" href="/favicon.svg" />
-
-    <!-- Opcional: Bootstrap Icons CDN -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
-
-    <!-- ✅ CSS compilado por Astro/Vite -->
-    <link rel="stylesheet" href={mainCssUrl} />
   </head>
   <body>
     <a class="visually-hidden-focusable" href="#main-content">{skipText}</a>
@@ -65,7 +52,7 @@ const skipText = I.skipToContent ?? (lang === "en" ? "Skip to content" : "Saltar
 
     <Footer lang={lang} />
 
-    <!-- ✅ JS compilado por Astro/Vite -->
-    <script type="module" src={appJsUrl}></script>
+    <!-- En dev: /src/scripts/app.ts ; en build: /assets/app.[hash].js -->
+    <script type="module" src={appSrc}></script>
   </body>
 </html>
