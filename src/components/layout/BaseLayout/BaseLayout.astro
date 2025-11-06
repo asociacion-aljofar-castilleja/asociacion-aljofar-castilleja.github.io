@@ -3,8 +3,11 @@ import Header from "../Header/Header.astro";
 import Footer from "../Footer/Footer.astro";
 import { getEntry } from "astro:content";
 
-// SCSS global (Astro compila e inyecta)
+// SCSS global (Astro lo compila e inyecta)
 import "../../../styles/main.scss";
+
+// ✅ Importa la URL *del asset* (Vite resuelve en dev y en build)
+import appUrl from "../../../scripts/app.entry.js?url";
 
 type Lang = "es" | "en";
 interface Props { lang?: Lang; title?: string; description?: string; otherHref?: string; }
@@ -31,7 +34,6 @@ const skipText = I.skipToContent ?? (lang === "en" ? "Skip to content" : "Saltar
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
-
     <link rel="icon" href="/favicon.svg" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
   </head>
@@ -46,7 +48,7 @@ const skipText = I.skipToContent ?? (lang === "en" ? "Skip to content" : "Saltar
 
     <Footer lang={lang} />
 
-    <!-- 🔥 Clave: apunta al entry dentro de /src; Vite lo sirve en dev y lo rescribe a /assets en build -->
-    <script type="module" src="/src/scripts/app.entry.js"></script>
+    <!-- ✅ Vite reescribe esta URL en dev y emite /_astro/app.entry.[hash].js en build -->
+    <script type="module" src={appUrl}></script>
   </body>
 </html>
