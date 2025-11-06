@@ -24,7 +24,7 @@ contacto:
 
 ubicacion:
   # URL de Google Maps embebible (más simple)
-  embedUrl: "https://www.google.com/maps/embed?pb=[CAMBIAR_POR_TU_EMBED_URL]"
+  embedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3967.1197993956!2d-6.064694523551861!3d37.3805290347713!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd126dbde88dea07%3A0xca1299ff9a1f7a8e!2zQXNvY2lhY2nDs24gQWxqw7NmYXI!5e1!3m2!1ses!2ses!4v1762434450621!5m2!1ses!2ses" 
 
 sedeFoto:
   src: "/images/location/sede.svg"
