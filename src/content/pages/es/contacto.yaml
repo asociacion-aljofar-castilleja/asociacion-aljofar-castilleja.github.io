@@ -5,19 +5,18 @@ heroSubtitle: "Estamos cerca: escríbenos, llámanos o ven a vernos."
 
 contacto:
   telefono:
-    display: "+34 600 000 000"
-    tel: "+34600000000"   # para enlaces tel:
+    display: "+34 636 420 756"
+    tel: "+34636420756"   # para enlaces tel:
   email:
-    display: "hola@tu-asociacion.org"
-    mailto: "hola@tu-asociacion.org"   # para enlaces mailto:
+    display: "aljofar.castilleja@hotmail.com"
+    mailto: "aljofar.castilleja@hotmail.com"   # para enlaces mailto:
   horario:
     - "Lunes a Viernes: 10:00 – 13:00"
-    - "Tardes (con cita): 17:00 – 19:00"
   direccion:
-    linea1: "Centro Cívico Nombre del Centro"
-    linea2: "C/ Ejemplo, 12"
-    cp: "41000"
-    localidad: "Sevilla"
+    linea1: "Asocioación Aljófar"
+    linea2: "Av. Juan Carlos I, S/N"
+    cp: "41950"
+    localidad: "Castilleja de la cuesta"
     provincia: "Sevilla"
     pais: "España"
   notas: "Atención accesible con lectura fácil y apoyos. Escríbenos si necesitas ajustes."
