@@ -7,7 +7,7 @@ import { getEntry } from "astro:content";
 import "../../../styles/main.scss";
 
 // ✅ Importa la URL del asset final (Vite la resuelve en dev y en build)
-import appUrl from "../../../scripts/app.entry.js?url";
+import appUrl from "../../../scripts/app.ts?url";
 
 type Lang = "es" | "en";
 interface Props { lang?: Lang; title?: string; description?: string; otherHref?: string; }
