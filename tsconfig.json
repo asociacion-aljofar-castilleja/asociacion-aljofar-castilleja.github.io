@@ -1,5 +1,27 @@
 {
   "extends": "astro/tsconfigs/strict",
+  "compilerOptions": {
+    // ✅ Evita que el bundler intente empaquetar tipos por error
+    "verbatimModuleSyntax": true,
+
+    // ✅ Aliases cómodos (ajusta a tus rutas reales)
+    "baseUrl": ".",
+    "paths": {
+      "@components/*": ["./src/components/*"],
+      "@sections/*": ["./src/components/sections/*"],
+      "@layout/*": ["./src/components/layout/*"],
+      "@styles/*": ["./src/styles/*"],
+      "@scripts/*": ["./src/scripts/*"],
+      "@content/*": ["./src/content/*"]
+    },
+
+    // ✅ Mejor soporte TS para .astro en el editor (ya lo mete la extensión de VSCode,
+    // pero no molesta y ayuda si no la tienes)
+    "plugins": [{ "name": "@astrojs/ts-plugin" }]
+
+    // (Opcional) Si usas React/Preact/Solid con JSX dentro de .ts/.tsx
+    // "jsxImportSource": "react" 
+  },
   "include": [".astro/types.d.ts", "**/*"],
-  "exclude": ["dist"]
+  "exclude": ["dist", "node_modules"]
 }
