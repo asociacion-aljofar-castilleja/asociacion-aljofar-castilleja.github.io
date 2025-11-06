@@ -3,11 +3,8 @@ import Header from "../Header/Header.astro";
 import Footer from "../Footer/Footer.astro";
 import { getEntry } from "astro:content";
 
-// SCSS global (Astro lo compila e inyecta)
+// SCSS global
 import "../../../styles/main.scss";
-
-// ✅ Importa la URL del asset final (Vite la resuelve en dev y en build)
-import appUrl from "../../../scripts/app.ts?url";
 
 type Lang = "es" | "en";
 interface Props { lang?: Lang; title?: string; description?: string; otherHref?: string; }
@@ -46,7 +43,9 @@ const skipText = I.skipToContent ?? (lang === "en" ? "Skip to content" : "Saltar
     </main>
     <Footer lang={lang} />
 
-    <!-- ✅ Vite servirá el módulo en dev y emitirá /_astro/app.entry.[hash].js en build -->
-    <script type="module" src={appUrl}></script>
+    <!-- ✅ En dev importa /src/...; en build Vite lo reescribe a /_astro/app.[hash].js -->
+    <script type="module">
+      import "/src/scripts/app.ts";
+    </script>
   </body>
 </html>
