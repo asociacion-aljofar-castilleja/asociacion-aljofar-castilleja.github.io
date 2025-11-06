@@ -227,3 +227,110 @@ Todos los comandos se ejecutan desde la raíz del proyecto, en una terminal:
 ## 👀 Deseas aprender más?
 
 Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+
+---
+
+## 🌐 Despliegue en GitHub Pages con dominio propio (Astro)
+
+### 1) Configuración del dominio en la organización
+1. En **GitHub (org)** ve a: **Settings → Pages → Custom domains** *(si aplica a nivel org)*.  
+2. En tu **proveedor DNS**, crea los registros hacia GitHub Pages:
+   - **Dominio raíz** (`asociacionaljofarcastilleja.es`): usa **A/AAAA** o “ALIAS/ANAME” según tu DNS (apuntamiento al root de GitHub Pages).  
+   - **Subdominio** (`www` si lo usas): **CNAME** → `your-org.github.io`.  
+3. Espera la propagación DNS.
+
+> Si solo usas el dominio raíz, configura también una **redirección de `www` → raíz** en tu DNS/hosting.
+
+---
+
+### 2) Configurar el repositorio para HTTPS y dominio propio
+1. En tu repo: **Settings → Pages**.  
+2. En **Custom domain**, escribe:
+```
+asociacionaljofarcastilleja.es
+```
+3. Activa **Enforce HTTPS** cuando el certificado esté emitido.
+
+---
+
+### 3) Añadir el `CNAME` en la carpeta pública
+Crea el archivo **`public/CNAME`** para que se incluya en el build:
+```
+public/CNAME
+──────────────────────────
+asociacionaljofarcastilleja.es
+```
+
+> Esto evita que GitHub Pages “olvide” tu dominio tras cada despliegue.
+
+---
+
+### 4) Definir el workflow de GitHub Actions
+Crea **`.github/workflows/deploy.yml`** con despliegue automático **tras merge a `main`** o manual con `workflow_dispatch`:
+
+```yaml
+name: Deploy to GitHub Pages
+
+on:
+  # Trigger the workflow every time you push to the `main` branch
+  # Using a different branch name? Replace `main` with your branch’s name
+  push:
+    branches: [ main ]
+  # Allows you to run this workflow manually from the Actions tab on GitHub.
+  workflow_dispatch:
+
+# Allow this job to clone the repo and create a page deployment
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout your repository using git
+        uses: actions/checkout@v5
+      - name: Install, build, and upload your site
+        uses: withastro/action@v5
+        # with:
+          # path: . # The root location of your Astro project inside the repository. (optional)
+          # node-version: 24 # The specific version of Node that should be used to build your site. Defaults to 22. (optional)
+          # package-manager: pnpm@latest # The Node package manager that should be used to install dependencies and build your site. Automatically detected based on your lockfile. (optional)
+          # build-cmd: pnpm run build # The command to run to build your site. Runs the package build script/task by default. (optional)
+        # env:
+          # PUBLIC_POKEAPI: 'https://pokeapi.co/api/v2' # Use single quotation marks for the variable value. (optional)
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+```
+
+---
+
+### 5) Cambiar Pages para usar **Actions** (no “Deploy from a branch”)
+En el repo: **Settings → Pages**  
+- **Build and deployment → Source**: selecciona **GitHub Actions**.  
+- No elijas rama/carpeta; el **workflow** publica el artefacto.
+
+---
+
+### 6) (Opcional) Ajustes en `astro.config.mjs`
+Para dominio en raíz:
+```js
+// astro.config.mjs
+import { defineConfig } from 'astro/config';
+export default defineConfig({
+  site: 'https://asociacionaljofarcastilleja.es',
+  base: '/',
+});
+```
+
+---
