@@ -1,0 +1,8 @@
+title: "Contact"
+ariaSection: "Contact section"
+labels:
+  telefono: "Phone"
+  email: "Email"
+  horario: "Opening hours"
+  direccion: "Address"
+  notas: "Notes"

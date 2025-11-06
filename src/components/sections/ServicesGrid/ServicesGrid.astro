@@ -1,0 +1,99 @@
+---
+import { getEntry } from "astro:content";
+
+type Lang = "es" | "en";
+type Service = {
+  nombre?: string;
+  objetivo?: string;
+  destinatarios?: string;
+  requisitos?: string;
+  horario_lugar?: string;
+  como_solicitar?: string;
+  accesibilidad?: string;
+};
+
+interface Props {
+  lang: Lang;
+  items: Service[];
+  titleOverride?: string;
+  columns?: string; // clases de grid (Bootstrap)
+}
+
+const {
+  lang,
+  items = [],
+  titleOverride,
+  columns = "row row-cols-1 row-cols-md-2 g-4",
+} = Astro.props as Props;
+
+// i18n del componente (colección 'ui': services/es | services/en)
+const idMap = { es: "services/es", en: "services/en" } as const;
+type I18n = {
+  title?: string;
+  ariaSection?: string;
+  labels?: {
+    objetivo?: string;
+    destinatarios?: string;
+    requisitos?: string;
+    horario_lugar?: string;
+    como_solicitar?: string;
+    accesibilidad?: string;
+  };
+  empty?: string;
+};
+const entry = await getEntry({ collection: "ui", id: idMap[lang] });
+const I = (entry?.data ?? {}) as I18n;
+
+const title = titleOverride ?? I.title ?? (lang === "en" ? "Services & Programs" : "Servicios y Programas");
+const ariaSection = I.ariaSection ?? title;
+const L = {
+  objetivo: I.labels?.objetivo ?? (lang === "en" ? "Objective" : "Objetivo"),
+  destinatarios: I.labels?.destinatarios ?? (lang === "en" ? "Who it's for" : "A quién va dirigido"),
+  requisitos: I.labels?.requisitos ?? (lang === "en" ? "Requirements" : "Requisitos"),
+  horario_lugar: I.labels?.horario_lugar ?? (lang === "en" ? "Schedule / Place" : "Horario / lugar"),
+  como_solicitar: I.labels?.como_solicitar ?? (lang === "en" ? "How to apply" : "Cómo solicitarlo"),
+  accesibilidad: I.labels?.accesibilidad ?? (lang === "en" ? "Accessibility" : "Accesibilidad"),
+};
+const emptyText = I.empty ?? (lang === "en" ? "No services defined yet." : "Aún no hay servicios definidos.");
+---
+
+<section class="whatwedo-services py-3" aria-label={ariaSection} data-module="ServicesGrid">
+  <div class="container">
+    <h2 class="h4 mb-3">{title}</h2>
+
+    {items.length === 0 ? (
+      <p class="text-muted">{emptyText}</p>
+    ) : (
+      <div class={columns}>
+        {items.map((s) => (
+          <div class="col d-flex">
+            <article class="service-card card border-0 shadow-sm w-100">
+              <div class="card-body">
+                {s.nombre && <h3 class="h5 card-title mb-2">{s.nombre}</h3>}
+
+                {s.objetivo && (
+                  <p class="mb-1"><strong>{L.objetivo}:</strong> {s.objetivo}</p>
+                )}
+                {s.destinatarios && (
+                  <p class="mb-1"><strong>{L.destinatarios}:</strong> {s.destinatarios}</p>
+                )}
+                {s.requisitos && (
+                  <p class="mb-1"><strong>{L.requisitos}:</strong> {s.requisitos}</p>
+                )}
+                {s.horario_lugar && (
+                  <p class="mb-1"><strong>{L.horario_lugar}:</strong> {s.horario_lugar}</p>
+                )}
+                {s.como_solicitar && (
+                  <p class="mb-1"><strong>{L.como_solicitar}:</strong> {s.como_solicitar}</p>
+                )}
+                {s.accesibilidad && (
+                  <p class="service-access mb-0"><strong>{L.accesibilidad}:</strong> {s.accesibilidad}</p>
+                )}
+              </div>
+            </article>
+          </div>
+        ))}
+      </div>
+    )}
+  </div>
+</section>

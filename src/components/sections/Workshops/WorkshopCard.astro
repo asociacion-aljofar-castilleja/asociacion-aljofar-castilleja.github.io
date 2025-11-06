@@ -1,0 +1,55 @@
+---
+type Lang = "es" | "en";
+type Img = { src: string; alt?: string };
+type Workshop = { titulo?: string; descripcion?: string; horario_lugar?: string; imagenes?: Img[] };
+
+interface Props { lang: Lang; w: Workshop; idBase: string; }
+const { lang, w, idBase } = Astro.props;
+
+const imgs = Array.isArray(w.imagenes) ? w.imagenes : [];
+const carouselId = `${idBase}-carousel`;
+const hasMultiple = imgs.length > 1;
+---
+
+<article class="workshop-card card border-0 shadow-sm w-100">
+  {imgs.length > 0 && (
+    <div id={carouselId} class={`carousel slide workshop-carousel ${hasMultiple ? "" : "is-single"}`} data-bs-ride="false">
+      <div class="carousel-inner">
+        {imgs.map((img, i) => (
+          <div class={`carousel-item ${i === 0 ? "active" : ""}`}>
+            <img
+              class="d-block w-100 workshop-img"
+              src={img.src}
+              alt={img.alt ?? (w.titulo ?? (lang==="en"?"Workshop image":"Imagen del taller"))}
+              width="1200" height="675"
+              loading={i > 0 ? "lazy" : "eager"}
+              decoding="async"
+            />
+          </div>
+        ))}
+      </div>
+
+      {hasMultiple && (
+        <>
+          <button class="carousel-control-prev" type="button" data-bs-target={`#${carouselId}`} data-bs-slide="prev" aria-label={lang==="en"?"Previous image":"Imagen anterior"}>
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target={`#${carouselId}`} data-bs-slide="next" aria-label={lang==="en"?"Next image":"Imagen siguiente"}>
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          </button>
+          <div class="carousel-indicators">
+            {imgs.map((_, i) => (
+              <button type="button" data-bs-target={`#${carouselId}`} data-bs-slide-to={i} class={i===0?"active":""} aria-label={(lang==="en"?"Slide ":"Diapositiva ") + (i+1)}></button>
+            ))}
+          </div>
+        </>
+      )}
+    </div>
+  )}
+
+  <div class="card-body">
+    {w.titulo && <h3 class="h5 card-title">{w.titulo}</h3>}
+    {w.descripcion && <p class="mb-2">{w.descripcion}</p>}
+    {w.horario_lugar && <p class="text-muted m-0">{w.horario_lugar}</p>}
+  </div>
+</article>

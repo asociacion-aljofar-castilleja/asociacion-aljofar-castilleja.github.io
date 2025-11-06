@@ -1,0 +1,108 @@
+---
+import { getEntry } from "astro:content";
+
+type Lang = "es" | "en";
+
+type Project = {
+  titulo?: string;
+  financiacion?: string;
+  resultados?: string;
+  notas?: string;
+  url?: string;           // opcional: enlace a memoria/proyecto externo
+  fecha?: string;         // opcional: año o rango (p.ej. "2023–2024")
+};
+
+interface Props {
+  lang: Lang;
+  items: Project[];
+  titleOverride?: string;
+  showIcons?: boolean;    // muestra iconitos decorativos (por defecto true)
+}
+
+const {
+  lang,
+  items = [],
+  titleOverride,
+  showIcons = true,
+} = Astro.props as Props;
+
+// i18n del componente (colección 'ui': projects/es | projects/en)
+const idMap = { es: "projects/es", en: "projects/en" } as const;
+
+type I18n = {
+  title?: string;
+  ariaSection?: string;
+  labels?: {
+    financiacion?: string;
+    resultados?: string;
+    notas?: string;
+    leerMas?: string;
+    fecha?: string;
+  };
+  empty?: string;
+};
+
+const entry = await getEntry({ collection: "ui", id: idMap[lang] });
+const I = (entry?.data ?? {}) as I18n;
+
+const title = titleOverride ?? I.title ?? (lang === "en" ? "Projects" : "Proyectos");
+const ariaSection = I.ariaSection ?? title;
+const L = {
+  financiacion: I.labels?.financiacion ?? (lang === "en" ? "Funding" : "Financiación"),
+  resultados:   I.labels?.resultados   ?? (lang === "en" ? "Results" : "Resultados"),
+  notas:        I.labels?.notas        ?? (lang === "en" ? "Notes" : "Notas"),
+  leerMas:      I.labels?.leerMas      ?? (lang === "en" ? "Read more" : "Leer más"),
+  fecha:        I.labels?.fecha        ?? (lang === "en" ? "Date" : "Fecha"),
+};
+const emptyText = I.empty ?? (lang === "en" ? "No projects listed yet." : "Aún no hay proyectos.");
+---
+
+<section class="whatwedo-projects py-3" aria-label={ariaSection} data-module="ProjectsList">
+  <div class="container">
+    <h2 class="h4 mb-3">{title}</h2>
+
+    {items.length === 0 ? (
+      <p class="text-muted">{emptyText}</p>
+    ) : (
+      <ul class="project-list list-unstyled m-0">
+        {items.map((p) => (
+          <li class="project-item">
+            <div class="project-header">
+              {p.titulo && <h3 class="h6 project-title m-0">{p.titulo}</h3>}
+              {p.fecha && <span class="project-date" aria-label={`${L.fecha}: ${p.fecha}`}>{p.fecha}</span>}
+            </div>
+
+            <div class="project-body">
+              {p.financiacion && (
+                <p class="m-0">
+                  {showIcons && <span class="project-icon" aria-hidden="true">💶</span>}
+                  <strong>{L.financiacion}:</strong> {p.financiacion}
+                </p>
+              )}
+              {p.resultados && (
+                <p class="m-0">
+                  {showIcons && <span class="project-icon" aria-hidden="true">✅</span>}
+                  <strong>{L.resultados}:</strong> {p.resultados}
+                </p>
+              )}
+              {p.notas && (
+                <p class="m-0">
+                  {showIcons && <span class="project-icon" aria-hidden="true">📝</span>}
+                  <strong>{L.notas}:</strong> {p.notas}
+                </p>
+              )}
+            </div>
+
+            {p.url && (
+              <div class="project-footer">
+                <a class="btn btn-sm btn-outline-primary" href={p.url} target="_blank" rel="noopener">
+                  {L.leerMas}
+                </a>
+              </div>
+            )}
+          </li>
+        ))}
+      </ul>
+    )}
+  </div>
+</section>

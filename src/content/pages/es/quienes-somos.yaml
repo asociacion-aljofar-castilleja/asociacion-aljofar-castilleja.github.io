@@ -1,0 +1,30 @@
+title: "Quiénes somos"
+description: "Conoce nuestra misión, visión y valores."
+heroTitle: "Somos comunidad y tecnología"
+heroSubtitle: "Aprender creando, para transformar el entorno."
+
+sections:
+  - title: "Misión"
+    paragraphs:
+      - "Impulsar la inclusión digital y el desarrollo de competencias tecnológicas en nuestra comunidad."
+      - "Acompañamos procesos de aprendizaje con proyectos con impacto social."
+  - title: "Visión"
+    paragraphs:
+      - "Una sociedad donde la tecnología sea una palanca de oportunidades accesible para todas las personas."
+  - title: "Valores"
+    paragraphs:
+      - "Aprendizaje activo, colaboración, accesibilidad, ética y servicio."
+
+timeline:
+  - year: "2019"
+    text: "Nace la iniciativa con un grupo de estudiantes y docentes."
+  - year: "2021"
+    text: "Se consolidan proyectos de servicio a la comunidad."
+  - year: "2024"
+    text: "Ampliamos la red de alianzas y voluntariado."
+
+org:
+  - "Presidencia"
+  - "Coordinación de proyectos"
+  - "Formación y mentoría"
+  - "Comunicación y alianzas"

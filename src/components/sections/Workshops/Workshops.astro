@@ -1,0 +1,55 @@
+---
+import { getEntry } from "astro:content";
+import WorkshopCard from "./WorkshopCard.astro";
+
+type Lang = "es" | "en";
+type Img = { src: string; alt?: string };
+type Workshop = { titulo?: string; descripcion?: string; horario_lugar?: string; imagenes?: Img[] };
+
+interface Props {
+  lang: Lang;
+  items: Workshop[];
+  titleOverride?: string;
+  columns?: string; // clases de grid Bootstrap
+}
+
+const {
+  lang,
+  items = [],
+  titleOverride,
+  columns = "row row-cols-1 row-cols-md-2 g-4",
+} = Astro.props as Props;
+
+// i18n (colección 'ui': workshops/es | workshops/en)
+const idMap = { es: "workshops/es", en: "workshops/en" } as const;
+type I18n = {
+  title?: string;
+  ariaSection?: string;
+  empty?: string;
+};
+
+const entry = await getEntry({ collection: "ui", id: idMap[lang] });
+const I = (entry?.data ?? {}) as I18n;
+
+const title = titleOverride ?? I.title ?? (lang === "en" ? "Workshops & Activities" : "Talleres y Actividades");
+const ariaSection = I.ariaSection ?? title;
+const emptyText = I.empty ?? (lang === "en" ? "No workshops yet." : "Aún no hay talleres.");
+---
+
+<section class="whatwedo-workshops py-3" aria-label={ariaSection} data-module="Workshops">
+  <div class="container">
+    <h2 class="h4 mb-3">{title}</h2>
+
+    {items.length === 0 ? (
+      <p class="text-muted">{emptyText}</p>
+    ) : (
+      <div class={columns}>
+        {items.map((w, idx) => (
+          <div class="col d-flex">
+            <WorkshopCard lang={lang} w={w} idBase={`workshop-${idx}`} />
+          </div>
+        ))}
+      </div>
+    )}
+  </div>
+</section>

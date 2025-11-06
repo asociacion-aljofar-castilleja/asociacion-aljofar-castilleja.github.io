@@ -1,0 +1,97 @@
+---
+import { getEntry } from "astro:content";
+
+type Lang = "es" | "en";
+type Partner = { name: string; url: string; logo: string; alt?: string };
+
+interface Props {
+  lang: Lang;
+  partners: Partner[];
+  layout?: "marquee" | "grid";     // default: marquee
+  logoHeight?: number;             // px, default 48
+  seeAllHref?: string;             // si lo pasas, muestra el botón
+  titleOverride?: string;          // título manual
+}
+
+const {
+  lang,
+  partners = [],
+  layout = "marquee",
+  logoHeight = 48,
+  seeAllHref,
+  titleOverride,
+} = Astro.props as Props;
+
+// i18n
+const idMap = { es: "partners/es", en: "partners/en" } as const;
+type I18n = { title?: string; ariaSection?: string; ariaLink?: string; seeAll?: string };
+
+const entry = await getEntry({ collection: "ui", id: idMap[lang] });
+const I = (entry?.data ?? {}) as I18n;
+
+const title = titleOverride ?? I.title ?? (lang === "en" ? "Partners" : "Alianzas");
+const ariaSection = I.ariaSection ?? title;
+const ariaLink = (name: string) =>
+  String(I.ariaLink ?? (lang === "en" ? "{{name}}: open website" : "{{name}}: abrir sitio web"))
+    .replace("{{name}}", name);
+
+const colGrid = "row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-6 g-4";
+---
+
+<section class="partners-section py-5" aria-label={ariaSection} data-module="Partners">
+  <div class="container">
+    <div class="d-flex align-items-center justify-content-between mb-4">
+      <h2 class="mb-0">{title}</h2>
+      {seeAllHref && (
+        <a class="btn btn-outline-secondary btn-sm" href={seeAllHref}>
+          {I.seeAll ?? (lang === "en" ? "See all" : "Ver todas")}
+        </a>
+      )}
+    </div>
+
+    {layout === "grid" ? (
+      <div class={colGrid}>
+        {partners.map((p) => (
+          <div class="col d-flex">
+            <a
+              href={p.url}
+              class="card shadow-sm border-0 w-100 align-items-center justify-content-center d-flex"
+              target="_blank" rel="noopener"
+              aria-label={ariaLink(p.name)}
+            >
+              <img
+                src={p.logo}
+                alt={p.alt ?? p.name}
+                height={logoHeight}
+                class="opacity-75 partners__logo"
+                loading="lazy"
+                decoding="async"
+              />
+            </a>
+          </div>
+        ))}
+      </div>
+    ) : (
+      <div class="partners-marquee" role="list">
+        {[...partners, ...partners].map((p, i) => (
+          <a
+            role="listitem"
+            href={p.url}
+            class="partners-marquee__item"
+            target="_blank" rel="noopener"
+            aria-label={ariaLink(p.name)}
+          >
+            <img
+              src={p.logo}
+              alt={p.alt ?? p.name}
+              height={logoHeight}
+              class="opacity-75 partners__logo"
+              loading={i > 6 ? "lazy" : "eager"}
+              decoding="async"
+            />
+          </a>
+        ))}
+      </div>
+    )}
+  </div>
+</section>

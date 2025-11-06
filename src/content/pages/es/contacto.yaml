@@ -1,0 +1,49 @@
+title: "Contacto"
+description: "Datos de contacto, ubicación y redes sociales."
+heroTitle: "Hablemos"
+heroSubtitle: "Estamos cerca: escríbenos, llámanos o ven a vernos."
+
+contacto:
+  telefono:
+    display: "+34 600 000 000"
+    tel: "+34600000000"   # para enlaces tel:
+  email:
+    display: "hola@tu-asociacion.org"
+    mailto: "hola@tu-asociacion.org"   # para enlaces mailto:
+  horario:
+    - "Lunes a Viernes: 10:00 – 13:00"
+    - "Tardes (con cita): 17:00 – 19:00"
+  direccion:
+    linea1: "Centro Cívico Nombre del Centro"
+    linea2: "C/ Ejemplo, 12"
+    cp: "41000"
+    localidad: "Sevilla"
+    provincia: "Sevilla"
+    pais: "España"
+  notas: "Atención accesible con lectura fácil y apoyos. Escríbenos si necesitas ajustes."
+
+ubicacion:
+  # URL de Google Maps embebible (más simple)
+  embedUrl: "https://www.google.com/maps/embed?pb=[CAMBIAR_POR_TU_EMBED_URL]"
+
+sedeFoto:
+  src: "/images/location/sede.svg"
+  alt: "Fachada de la sede de la asociación"
+
+redes:
+  - nombre: "Facebook"
+    handle: "@tuasociacion"
+    url: "https://www.facebook.com/tuasociacion"
+    icon: "facebook"     # usa tu set de iconos (ej. bootstrap, lucide)
+  - nombre: "Instagram"
+    handle: "@tuasociacion"
+    url: "https://www.instagram.com/tuasociacion"
+    icon: "instagram"
+  - nombre: "X"
+    handle: "@tuasociacion"
+    url: "https://x.com/tuasociacion"
+    icon: "x"
+  - nombre: "YouTube"
+    handle: "Tu Asociación"
+    url: "https://www.youtube.com/@tuasociacion"
+    icon: "youtube"

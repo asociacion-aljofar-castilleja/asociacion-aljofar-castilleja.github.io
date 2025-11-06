@@ -1,0 +1,9 @@
+.about-timeline { color: var(--text); }
+.about-timeline__list {
+  border-left: 2px solid var(--border);
+}
+.about-timeline__dot {
+  background: currentColor;        /* Usa el color del texto actual (contraste OK en ambos temas) */
+  opacity: .9;
+}
+.about-timeline__text { color: var(--text); opacity: .95; }

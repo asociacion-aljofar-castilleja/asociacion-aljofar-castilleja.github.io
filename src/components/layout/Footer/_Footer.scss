@@ -1,0 +1,9 @@
+.footer {
+  /* Ajustes finos del pie */
+  .text-muted { opacity: .85; }
+  padding-block: 1.25rem;
+
+  @media (prefers-reduced-motion: no-preference) {
+    transition: background-color .3s ease, color .3s ease, border-color .3s ease;
+  }
+}

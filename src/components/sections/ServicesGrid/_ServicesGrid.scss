@@ -1,0 +1,22 @@
+.whatwedo-services { color: var(--bs-body-color, var(--text, #212529)); }
+
+.service-card {
+  background: var(--bs-card-bg, var(--card-bg, #fff));
+  border: 1px solid var(--bs-border-color, var(--card-border, rgba(0,0,0,.12)));
+  border-radius: var(--bs-border-radius-lg, .75rem);
+  box-shadow: var(--elev-shadow, 0 1px 2px rgba(0,0,0,.06));
+
+  @media (prefers-reduced-motion: no-preference) {
+    @media (hover: hover) {
+      transition: transform .2s ease, box-shadow .2s ease;
+      &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 .5rem 1.25rem rgba(0,0,0,.08);
+      }
+    }
+  }
+}
+
+.service-access {
+  color: var(--bs-secondary-color, var(--muted, rgba(0,0,0,.65)));
+}

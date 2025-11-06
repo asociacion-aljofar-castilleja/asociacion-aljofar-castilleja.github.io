@@ -1,0 +1,61 @@
+---
+// src/pages/index.astro
+import BaseLayout from "../components/layout/BaseLayout/BaseLayout.astro";
+import Hero from "../components/sections/Hero/Hero.astro";
+import WhatWeDo from "../components/sections/WhatWeDo/WhatWeDo.astro";
+import ImpactStats from "../components/sections/ImpactStats/ImpactStats.astro";
+import Partners from "../components/sections/Partners/Partners.astro";
+import Headquarters from "../components/sections/Headquarters/Headquarters.astro";
+import FbFeed from "../components/sections/FbFeed/FbFeed.astro";
+import { getEntry } from "astro:content";
+
+const lang = "es";
+const entry = await getEntry({ collection: "pages", id: "es/home" });
+const data = entry?.data ?? {};
+
+// URL equivalente EN (ajústala a tu routing real)
+const otherHref = "/en";
+
+const hero = data.hero ?? {};
+const wwd  = data.whatWeDo ?? {};
+const stats = data.stats ?? [];
+const partners = data.partners ?? [];
+const hq = data.hq ?? {};
+const fb = data.facebook ?? {};
+---
+<BaseLayout lang={lang} title={data.title} description={data.description} otherHref={otherHref}>
+  <main id="main-content">
+    <Hero
+      lang={lang}
+      lema={hero.lema}
+      subtitle={hero.subtitle}
+      ctaText={hero.ctaText}
+      ctaHref={hero.ctaHref}
+      bg={hero.bg}
+    />
+
+    <WhatWeDo
+      lang={lang}
+      services={wwd.services}
+      projects={wwd.projects}
+      workshops={wwd.workshops}
+      activities={wwd.activities}
+    />
+
+    {stats.length > 0 && <ImpactStats lang={lang} stats={stats} />}
+
+    {partners.length > 0 && <Partners lang={lang} partners={partners} seeAllHref="/colaboradores" />}
+
+    <Headquarters
+      lang={lang}
+      text={hq.text}
+      images={hq.images}
+      badges={hq.badges}
+      address={hq.address}
+      mapsUrl={hq.mapsUrl}
+      mapEmbedUrl={hq.mapEmbedUrl}
+    />
+
+    {fb.pageUrl && <FbFeed lang={lang} pageUrl={fb.pageUrl} height={600} />}
+  </main>
+</BaseLayout>

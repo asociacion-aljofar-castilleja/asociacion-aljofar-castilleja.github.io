@@ -1,0 +1,49 @@
+title: "Qué hacemos"
+description: "Descripción breve de lo que ofrecéis (servicios, proyectos, talleres…)."
+heroTitle: "Lema o claim principal de acción"
+heroSubtitle: "Subtítulo que refuerza el enfoque y el impacto"
+
+# ------- Servicios / Programas -------
+servicios:
+  - nombre: "Nombre del servicio o programa"
+    objetivo: "¿Qué persigue? Beneficio o cambio esperado."
+    destinatarios: "¿A quién va dirigido? (p. ej., infancia, familias, socios/as, comunidad general)"
+    requisitos: "Condiciones de acceso, documentación, coste, etc. (opcional)"
+    horario_lugar: "Cuándo y dónde: días/horas, sede, online/presencial"
+    como_solicitar: "Proceso de solicitud: formulario, email, ventanilla, teléfono"
+    accesibilidad: "Medidas de accesibilidad del servicio/lugar (lectura fácil, bucle magnético, accesos, apoyos…)"
+  - nombre: "Otro servicio o programa"
+    objetivo: "…"
+    destinatarios: "…"
+    requisitos: "…"
+    horario_lugar: "…"
+    como_solicitar: "…"
+    accesibilidad: "…"
+
+# ------- Proyectos (financiados, subvenciones, resultados) -------
+proyectos:
+  - titulo: "Título del proyecto"
+    financiacion: "Financiación/subvención/donación/autogestión"
+    resultados: "Resultados o entregables (indicadores, actividades, impacto)"
+    notas: "Notas adicionales (fechas, partners, hitos) (opcional)"
+  - titulo: "Otro proyecto"
+    financiacion: "…"
+    resultados: "…"
+    notas: "…"
+
+# ------- Talleres y Actividades (con galería opcional) -------
+talleres:
+  - titulo: "Nombre del taller/actividad"
+    descripcion: "Breve descripción (objetivos y tipo de actividad)"
+    horario_lugar: "Fechas/horarios/lugar o modalidad"
+    imagenes:
+      - src: "/img/quehacemos/ejemplo1.jpg"
+        alt: "Descripción de la imagen para accesibilidad"
+      - src: "/img/quehacemos/ejemplo2.jpg"
+        alt: "Otra descripción"
+  - titulo: "Otra actividad"
+    descripcion: "…"
+    horario_lugar: "…"
+    imagenes:
+      - src: "/img/quehacemos/otra1.jpg"
+        alt: "…"

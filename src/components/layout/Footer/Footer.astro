@@ -1,0 +1,33 @@
+---
+import { getEntry } from "astro:content";
+
+type Lang = 'es' | 'en';
+interface Props { lang?: Lang; }
+
+const { lang = 'es' } = Astro.props as Props;
+
+// Defaults seguros por si falta algún campo
+const defaults = {
+  tagline: "¡Somos Unicornios! ¡SOMOS FULL STACK WEB DEVELOPERS!",
+  copyright: "© {year} AlixarCoders",
+};
+
+// IDs literales para satisfacer TypeScript (evita el error de overload)
+const idMap = { es: "footer/es", en: "footer/en" } as const;
+
+// Leemos mensajes del Footer desde la colección `components`
+const entry = await getEntry({ collection: 'ui', id: idMap[lang] });
+const data = (entry?.data ?? {}) as Partial<typeof defaults>;
+
+const year = new Date().getFullYear();
+const tagline = data.tagline ?? defaults.tagline;
+const copyright = (data.copyright ?? defaults.copyright).replace('{year}', String(year));
+---
+
+<footer class="footer py-4 border-top">
+  <div class="container text-center small">
+    <span class="text-muted">
+      {copyright} — {tagline}
+    </span>
+  </div>
+</footer>

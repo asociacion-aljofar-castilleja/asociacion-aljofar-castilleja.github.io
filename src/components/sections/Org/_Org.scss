@@ -1,0 +1,15 @@
+.org-section { color: var(--text); }
+
+.org-list__item {
+  border-bottom: 1px solid var(--border);
+}
+.org-role { color: var(--text); }
+.org-person { color: var(--text); opacity: .9; }
+.org-sep { color: var(--muted); }
+
+.org-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--elev-shadow);
+}

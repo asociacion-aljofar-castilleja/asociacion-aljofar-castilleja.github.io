@@ -1,0 +1,26 @@
+nav:
+  - { href: "/about-us",      label: "About Us" }
+  - { href: "/what-we-do",    label: "What We Do" }
+  - { href: "/get-involved",  label: "Get Involved" }
+  - { href: "/news",          label: "News" }
+  - { href: "/transparency",  label: "Transparency" }
+  - { href: "/contact",       label: "Contact" }
+
+theme:
+  button: "Theme"
+  light: "Light"
+  dark: "Dark"
+  auto: "Automatic"
+  tooltip: "Select theme"
+
+a11y:
+  fontDecrease: "Decrease font size"
+  fontReset: "Default font size"
+  fontIncrease: "Increase font size"
+
+lang:
+  current: "Language"
+  esLabel: "Spanish"
+  enLabel: "English"
+
+

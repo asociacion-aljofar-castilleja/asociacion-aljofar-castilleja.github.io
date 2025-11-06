@@ -1,0 +1,106 @@
+---
+import { getEntry } from "astro:content";
+
+type Lang = "es" | "en";
+type ContactData = {
+  telefono?: { display?: string; tel?: string };
+  email?: { display?: string; mailto?: string };
+  horario?: string[];
+  direccion?: {
+    linea1?: string; linea2?: string; cp?: string; localidad?: string; provincia?: string; pais?: string;
+  };
+  notas?: string;
+  sedeFoto?: { src?: string; alt?: string }; // por si decides inyectarla aquí
+};
+
+interface Props {
+  lang: Lang;
+  data: ContactData;
+  titleOverride?: string;
+  showPhoto?: boolean; // si quieres mostrar sedeFoto arriba
+}
+
+const { lang, data, titleOverride, showPhoto = false } = Astro.props;
+
+// i18n
+const idMap = { es: "contactinfo/es", en: "contactinfo/en" } as const;
+type I18n = {
+  title?: string;
+  labels?: {
+    telefono?: string; email?: string; horario?: string; direccion?: string; notas?: string;
+  };
+  ariaSection?: string;
+};
+const entry = await getEntry({ collection: "ui", id: idMap[lang] });
+const I = (entry?.data ?? {}) as I18n;
+
+const title = titleOverride ?? I.title ?? (lang === "en" ? "Contact" : "Contacto");
+const ariaSection = I.ariaSection ?? title;
+
+const L = {
+  telefono:  I.labels?.telefono  ?? (lang === "en" ? "Phone" : "Teléfono"),
+  email:     I.labels?.email     ?? (lang === "en" ? "Email" : "Email"),
+  horario:   I.labels?.horario   ?? (lang === "en" ? "Opening hours" : "Horario"),
+  direccion: I.labels?.direccion ?? (lang === "en" ? "Address" : "Dirección"),
+  notas:     I.labels?.notas     ?? (lang === "en" ? "Notes" : "Notas"),
+};
+---
+
+<section class="contact-info py-3" aria-label={ariaSection} data-module="ContactInfo">
+  <div class="container">
+    <h2 class="h4 mb-3">{title}</h2>
+
+    {showPhoto && data?.sedeFoto?.src && (
+      <figure class="contact-photo mb-3">
+        <img src={data.sedeFoto.src} alt={data.sedeFoto.alt ?? title} class="img-fluid rounded" width="600" height="300" loading="lazy" decoding="async" />
+      </figure>
+    )}
+
+    <div class="row g-3">
+      <div class="col-12 col-md-6">
+        <div class="card contact-card border-0 shadow-sm">
+          <div class="card-body">
+            {data?.telefono?.display && (
+              <p class="mb-2"><strong>{L.telefono}:</strong> <a href={`tel:${data.telefono.tel ?? data.telefono.display}`}>{data.telefono.display}</a></p>
+            )}
+            {data?.email?.display && (
+              <p class="mb-2"><strong>{L.email}:</strong> <a href={`mailto:${data.email.mailto ?? data.email.display}`}>{data.email.display}</a></p>
+            )}
+            {Array.isArray(data?.horario) && data.horario.length > 0 && (
+              <div class="mb-2">
+                <strong>{L.horario}:</strong>
+                <ul class="list-unstyled mb-0 mt-1">
+                  {data.horario.map((h) => <li>{h}</li>)}
+                </ul>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 col-md-6">
+        <div class="card contact-card border-0 shadow-sm">
+          <div class="card-body">
+            {(data?.direccion?.linea1 || data?.direccion?.linea2) && (
+              <>
+                <strong>{L.direccion}:</strong>
+                <address class="mb-2 mt-1 not-italic">
+                  {data.direccion?.linea1 && <div>{data.direccion.linea1}</div>}
+                  {data.direccion?.linea2 && <div>{data.direccion.linea2}</div>}
+                  <div>
+                    {(data.direccion?.cp ?? "")} {(data.direccion?.localidad ?? "")}
+                    {data.direccion?.provincia ? `, ${data.direccion.provincia}` : ""}
+                  </div>
+                  {data.direccion?.pais && <div>{data.direccion.pais}</div>}
+                </address>
+              </>
+            )}
+            {data?.notas && (
+              <p class="text-muted small mb-0">{data.notas}</p>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

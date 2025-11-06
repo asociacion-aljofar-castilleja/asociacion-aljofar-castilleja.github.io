@@ -1,0 +1,4 @@
+title: "Organization"
+ariaSection: "Organization section"
+ariaItem: "{{role}} — {{person}}"
+empty: "No roles defined yet."

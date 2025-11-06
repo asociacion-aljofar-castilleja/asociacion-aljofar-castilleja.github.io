@@ -1,0 +1,73 @@
+---
+import BaseLayout from "../components/layout/BaseLayout/BaseLayout.astro";
+import ServicesGrid from "../components/sections/ServicesGrid/ServicesGrid.astro";
+import ProjectsList from "../components/sections/ProjectsList/ProjectsList.astro";
+import Workshops from "../components/sections/Workshops/Workshops.astro";
+import { getEntry } from "astro:content";
+
+const lang = "es";
+const otherHref = "/en/what-we-do";
+
+type Service = {
+  nombre?: string;
+  objetivo?: string;
+  destinatarios?: string;
+  requisitos?: string;
+  horario_lugar?: string;
+  como_solicitar?: string;
+  accesibilidad?: string;
+};
+
+type Project = {
+  titulo?: string;
+  financiacion?: string;
+  resultados?: string;
+  notas?: string;
+  url?: string;    // opcional: enlace externo
+  fecha?: string;  // opcional: año o rango (p.ej. "2023–2024")
+};
+
+type WorkshopImg = { src: string; alt?: string };
+type Workshop = {
+  titulo?: string;
+  descripcion?: string;
+  horario_lugar?: string;
+  imagenes?: WorkshopImg[];
+};
+
+type PageData = {
+  title?: string;
+  description?: string;
+  heroTitle?: string;
+  heroSubtitle?: string;
+  servicios?: Service[];
+  proyectos?: Project[];
+  talleres?: Workshop[]; // ⬅️ añadimos talleres
+};
+
+const entry = await getEntry({ collection: "pages", id: "es/que-hacemos" });
+const data = (entry?.data ?? {}) as PageData;
+
+const pageTitle = data.heroTitle ?? data.title ?? "Qué hacemos";
+---
+
+<BaseLayout lang={lang} title={data.title} description={data.description} otherHref={otherHref}>
+  <section class="container py-4">
+    <h1 class="display-5 fw-bold">{pageTitle}</h1>
+    {data.heroSubtitle && <p class="fs-5">{data.heroSubtitle}</p>}
+
+    <article class="content mt-4">
+      {Array.isArray(data.servicios) && data.servicios.length > 0 && (
+        <ServicesGrid lang={lang} items={data.servicios} />
+      )}
+
+      {Array.isArray(data.proyectos) && data.proyectos.length > 0 && (
+        <ProjectsList lang={lang} items={data.proyectos} />
+      )}
+
+      {Array.isArray(data.talleres) && data.talleres.length > 0 && (
+        <Workshops lang={lang} items={data.talleres} />
+      )}
+    </article>
+  </section>
+</BaseLayout>

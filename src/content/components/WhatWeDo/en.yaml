@@ -1,0 +1,9 @@
+title: "What we do"
+sectionId: "what-we-do"
+viewMore: "View more"
+ariaView: "View {{title}}"
+tabs:
+  services: "Services"
+  projects: "Projects"
+  workshops: "Workshops"
+  activities: "Activities"

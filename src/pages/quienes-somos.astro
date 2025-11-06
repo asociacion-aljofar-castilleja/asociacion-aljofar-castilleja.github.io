@@ -1,0 +1,53 @@
+---
+import BaseLayout from "../components/layout/BaseLayout/BaseLayout.astro";
+import Pillars from "../components/sections/Pillars/Pillars.astro";
+import Timeline from "../components/sections/Timeline/Timeline.astro";
+import Org from "../components/sections/Org/Org.astro";
+import { getEntry } from "astro:content";
+
+const lang = "es";
+const otherHref = "/en/about-us";
+
+type Section = { title?: string; paragraphs?: string[] };
+type TimelineItem = { year?: string; text?: string };
+type PageData = {
+  title?: string; description?: string; heroTitle?: string; heroSubtitle?: string;
+  html?: string; content?: string[]; sections?: Section[]; timeline?: TimelineItem[]; org?: unknown;
+};
+
+const entry = await getEntry({ collection: "pages", id: "es/quienes-somos" });
+const data = (entry?.data ?? {}) as PageData;
+const pageTitle = data.heroTitle ?? data.title ?? "Quiénes somos";
+
+// Pillars
+const pillarsItems: Section[] =
+  Array.isArray(data.sections) && data.sections.length > 0
+    ? data.sections
+    : Array.isArray(data.content) && data.content.length > 0
+    ? [{ paragraphs: data.content }]
+    : [];
+
+// Org (normalizamos por si viniera objeto { rol: persona })
+const roles = Array.isArray(data.org)
+  ? (data.org as any[])
+  : data.org && typeof data.org === "object"
+  ? Object.entries(data.org as Record<string, unknown>).map(([role, person]) => ({ role, person: String(person ?? "") }))
+  : [];
+---
+
+<BaseLayout lang={lang} title={data.title} description={data.description} otherHref={otherHref}>
+  <section class="container py-4">
+    <h1 class="display-5 fw-bold">{pageTitle}</h1>
+    {data.heroSubtitle && <p class="fs-5">{data.heroSubtitle}</p>}
+
+    <article class="content mt-4">
+      {data.html && <div set:html={data.html} />}
+
+      {!data.html && pillarsItems.length > 0 && <Pillars lang={lang} items={pillarsItems} />}
+
+      {Array.isArray(data.timeline) && data.timeline.length > 0 && <Timeline lang="es" items={data.timeline} />}
+
+      {roles.length > 0 && <Org lang="es" roles={roles} layout="list" />}
+    </article>
+  </section>
+</BaseLayout>

@@ -1,0 +1,67 @@
+---
+import { getEntry } from "astro:content";
+
+type Lang = "es" | "en";
+type PillarItem = { title?: string; paragraphs?: string[] };
+
+interface Props {
+  lang: Lang;
+  items: PillarItem[];
+  layout?: "cards" | "list";                 // default: cards
+  titleOverride?: string;                    // título manual
+  columns?: string;                          // grid bootstrap: "row row-cols-1 row-cols-md-3 g-4"
+}
+
+const {
+  lang,
+  items = [],
+  layout = "cards",
+  titleOverride,
+  columns = "row row-cols-1 row-cols-md-3 g-4",
+} = Astro.props as Props;
+
+// i18n desde colección 'ui'
+const idMap = { es: "pillars/es", en: "pillars/en" } as const;
+type I18n = { title?: string; ariaSection?: string; ariaCard?: string };
+
+const entry = await getEntry({ collection: "ui", id: idMap[lang] });
+const I = (entry?.data ?? {}) as I18n;
+
+const title = titleOverride ?? I.title ?? (lang === "en" ? "Mission, Vision & Values" : "Misión, Visión y Valores");
+const ariaSection = I.ariaSection ?? title;
+const ariaCard = (name: string) =>
+  String(I.ariaCard ?? (lang === "en" ? "{{name}}: read pillar" : "{{name}}: leer pilar"))
+    .replace("{{name}}", name || (lang === "en" ? "Pillar" : "Pilar"));
+---
+
+<section class="pillars-section py-4" aria-label={ariaSection} data-module="Pillars">
+  <div class="container">
+    <h2 class="mb-3">{title}</h2>
+
+    {layout === "list" ? (
+      <div class="vstack gap-3">
+        {items.map((it) => (
+          <article class="pillars__card card shadow-sm border-0" aria-label={ariaCard(it.title ?? "")}>
+            <div class="card-body">
+              {it.title && <h3 class="h5 card-title mb-2">{it.title}</h3>}
+              {Array.isArray(it.paragraphs) && it.paragraphs.map((p) => <p class="mb-2">{p}</p>)}
+            </div>
+          </article>
+        ))}
+      </div>
+    ) : (
+      <div class={columns}>
+        {items.map((it) => (
+          <div class="col d-flex">
+            <article class="pillars__card card shadow-sm border-0 w-100" aria-label={ariaCard(it.title ?? "")}>
+              <div class="card-body">
+                {it.title && <h3 class="h5 card-title mb-2">{it.title}</h3>}
+                {Array.isArray(it.paragraphs) && it.paragraphs.map((p) => <p class="mb-2">{p}</p>)}
+              </div>
+            </article>
+          </div>
+        ))}
+      </div>
+    )}
+  </div>
+</section>

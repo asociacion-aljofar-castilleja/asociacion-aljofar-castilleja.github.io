@@ -1,0 +1,54 @@
+---
+import BaseLayout from "../../components/layout/BaseLayout/BaseLayout.astro";
+import ContactInfo from "../../components/sections/ContactInfo/ContactInfo.astro";
+import MapEmbed from "../../components/sections/MapEmbed/MapEmbed.astro";
+import SocialLinks from "../../components/sections/SocialLinks/SocialLinks.astro";
+import { getEntry } from "astro:content";
+
+const lang = "en";
+const otherHref = "/contacto";
+
+type ContactData = {
+  telefono?: { display?: string; tel?: string };
+  email?: { display?: string; mailto?: string };
+  horario?: string[];
+  direccion?: { linea1?: string; linea2?: string; cp?: string; localidad?: string; provincia?: string; pais?: string };
+  notas?: string;
+};
+type MapData = { embedUrl?: string; lat?: number; lng?: number; placeId?: string; zoom?: number; ariaLabel?: string };
+type Social = { nombre?: string; handle?: string; url?: string; icon?: string };
+
+type PageData = {
+  title?: string; description?: string; heroTitle?: string; heroSubtitle?: string;
+  contacto?: ContactData;
+  ubicacion?: MapData;
+  sedeFoto?: { src?: string; alt?: string };
+  redes?: Social[];
+};
+
+const entry = await getEntry({ collection: "pages", id: "en/contact" });
+const data = (entry?.data ?? {}) as PageData;
+
+const pageTitle = data.heroTitle ?? data.title ?? "Contact";
+---
+
+<BaseLayout lang={lang} title={data.title} description={data.description} otherHref={otherHref}>
+  <section class="container py-4">
+    <h1 class="display-5 fw-bold">{pageTitle}</h1>
+    {data.heroSubtitle && <p class="fs-5">{data.heroSubtitle}</p>}
+
+    <article class="content mt-4">
+      {data.contacto && (
+        <ContactInfo lang={lang} data={{ ...data.contacto, sedeFoto: data.sedeFoto }} showPhoto={true} />
+      )}
+
+      {data.ubicacion && (
+        <MapEmbed lang={lang} data={data.ubicacion} height={420} />
+      )}
+
+      {Array.isArray(data.redes) && data.redes.length > 0 && (
+        <SocialLinks lang={lang} items={data.redes} />
+      )}
+    </article>
+  </section>
+</BaseLayout>

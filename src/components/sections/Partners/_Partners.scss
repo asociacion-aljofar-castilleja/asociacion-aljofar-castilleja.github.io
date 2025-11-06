@@ -1,0 +1,95 @@
+/* ===== Partners ===== */
+
+.partners-section {
+  /* el espaciado ya viene por .py-5 */
+  color: var(--bs-body-color, var(--text, #212529));
+}
+
+/* Tamaño y comportamiento de los logos */
+.partners__logo {
+  /* controla la altura desde el componente (o aquí por defecto) */
+  --logo-h: 48px;
+
+  display: block;
+  height: var(--logo-h);
+  width: auto;
+  max-width: 100%;
+  object-fit: contain;
+  opacity: .8;
+  will-change: transform;
+
+  /* Transiciones solo si hay hover real y el usuario no reduce movimiento */
+  @media (prefers-reduced-motion: no-preference) {
+    @media (hover: hover) {
+      transition: opacity .2s ease, transform .2s ease;
+      &:hover { opacity: 1 !important; transform: translateY(-1px); }
+    }
+  }
+}
+
+/* En dark mode, algunos logos oscuros se ven mal.
+   Aplica esta clase opcional desde HTML cuando lo necesites. */
+.partners__logo--invert { filter: brightness(0) invert(1); }
+
+/* ===== Marquee accesible =====
+   Requiere duplicar los items en el HTML/ASTRO (ya lo haces) para el loop perfecto.
+*/
+.partners-marquee {
+  --speed: 40s;           /* velocidad de scroll */
+  --gap: 1rem;            /* separación horizontal */
+
+  overflow: hidden;
+  position: relative;
+  mask-image: linear-gradient(90deg, transparent 0, #000 2rem, #000 calc(100% - 2rem), transparent 100%); /* fade bordes */
+
+  /* Pausa animación al interactuar */
+  &:hover,
+  &:focus-within { .partners-marquee__track { animation-play-state: paused; } }
+}
+
+/* Pista interna: flex para alinear items y poder animar el conjunto */
+.partners-marquee__track {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gap);
+  white-space: nowrap;
+
+  @media (prefers-reduced-motion: no-preference) {
+    animation: partners-scroll-ltr var(--speed) linear infinite;
+  }
+}
+
+/* Item dentro de la pista */
+.partners-marquee__item {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding-inline: var(--gap);
+}
+
+/* Keyframes: con duplicado de contenido, -50% cierra el bucle perfecto */
+@keyframes partners-scroll-ltr {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* RTL: invierte dirección si el documento es RTL */
+:dir(rtl) .partners-marquee .partners-marquee__track {
+  @media (prefers-reduced-motion: no-preference) {
+    animation-name: partners-scroll-rtl;
+  }
+}
+@keyframes partners-scroll-rtl {
+  from { transform: translateX(-50%); }
+  to   { transform: translateX(0); }
+}
+
+/* Alto contraste: más opacidad y borde opcional en logos */
+@media (prefers-contrast: more) {
+  .partners__logo { opacity: 1; }
+}
+
+/* Reduce motion: sin animación */
+@media (prefers-reduced-motion: reduce) {
+  .partners-marquee__track { animation: none !important; }
+}

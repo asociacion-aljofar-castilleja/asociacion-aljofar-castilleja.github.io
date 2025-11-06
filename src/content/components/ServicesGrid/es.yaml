@@ -1,0 +1,10 @@
+title: "Servicios y Programas"
+ariaSection: "Sección de servicios"
+labels:
+  objetivo: "Objetivo"
+  destinatarios: "A quién va dirigido"
+  requisitos: "Requisitos"
+  horario_lugar: "Horario / lugar"
+  como_solicitar: "Cómo solicitarlo"
+  accesibilidad: "Accesibilidad"
+empty: "Aún no hay servicios definidos."

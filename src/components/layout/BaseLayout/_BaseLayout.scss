@@ -1,0 +1,42 @@
+/* Aajuste del skip link si usas .visually-hidden-focusable */
+.visually-hidden-focusable:active,
+.visually-hidden-focusable:focus {
+  position: static !important;
+  width: auto;
+  height: auto;
+  margin: 0;
+  overflow: visible;
+  clip: auto;
+}
+
+
+/* Base accesible: tamaño de fuente controlado por variable */
+:root { --base-font-size: 16px; } /* lo modifica el script del header */
+html { font-size: var(--base-font-size); }
+
+/* Mejor foco visible */
+:focus-visible {
+  outline: 3px solid rgba(var(--bs-primary-rgb), .6);
+  outline-offset: 2px;
+}
+
+/* Transiciones suaves entre temas */
+@media (prefers-reduced-motion: no-preference) {
+  html { color-scheme: light dark; }
+
+  body {
+    transition: background-color .3s ease, color .3s ease, border-color .3s ease;
+  }
+
+  :where(.navbar, .card, .dropdown-menu, .offcanvas, .modal-content,
+         .list-group, .list-group-item, .table, .toast, .btn,
+         .form-control, .form-select, .alert, .badge, .accordion-button,
+         .nav-link, .btn-close) {
+    transition: background-color .3s ease, color .3s ease,
+                border-color .3s ease, box-shadow .3s ease;
+  }
+}
+
+.bg-body, .bg-body-secondary, .bg-body-tertiary {
+  transition: background-color .3s ease, color .3s ease, border-color .3s ease;
+}

@@ -1,0 +1,10 @@
+title: "Services & Programs"
+ariaSection: "Services section"
+labels:
+  objetivo: "Objective"
+  destinatarios: "Who it's for"
+  requisitos: "Requirements"
+  horario_lugar: "Schedule / Place"
+  como_solicitar: "How to apply"
+  accesibilidad: "Accessibility"
+empty: "No services defined yet."

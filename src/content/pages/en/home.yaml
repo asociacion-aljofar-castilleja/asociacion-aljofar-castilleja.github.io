@@ -1,0 +1,42 @@
+hero:
+  lema: "Technology with social impact"
+  subtitle: "Training and web development serving the community."
+  ctaText: "What we do"
+  ctaHref: "#what-we-do"
+  bg: "/img/hero.jpg"
+
+whatWeDo:
+  services:
+    - { title: "Digital support", excerpt: "Guidance for online procedures.", href: "/services/support", icon: "bi bi-life-preserver" }
+    - { title: "Web training", excerpt: "Courses and mentoring for web dev.", href: "/services/training", icon: "bi bi-motherboard" }
+  projects:
+    - { title: "Solidarity websites", excerpt: "Websites for nonprofits.", href: "/projects/solidarity-web", icon: "bi bi-globe2" }
+  workshops:
+    - { title: "Accessible HTML", excerpt: "WCAG best practices.", href: "/workshops/accessible-html", icon: "bi bi-universal-access" }
+  activities:
+    - { title: "Coding club", excerpt: "Learn by building together.", href: "/activities/club", icon: "bi bi-braces" }
+
+stats:
+  - { label: "Beneficiaries", value: 350 }
+  - { label: "Active projects", value: 8 }
+  - { label: "Years active", value: 6 }
+  - { label: "Volunteers", value: 24 }
+
+partners:
+  - { name: "City Council", url: "https://example.org", logo: "/img/partners/ayto.svg", alt: "City Council" }
+  - { name: "NGO X",        url: "https://example.org", logo: "/img/partners/ongx.svg" }
+  - { name: "IES Alixar",   url: "https://example.org", logo: "/img/partners/ies.svg" }
+
+hq:
+  title: "Our Headquarters"
+  text: "An open, accessible space designed for learning by doing."
+  badges: ["Ramp", "Accessible restroom", "Signage", "Door width +90cm"]
+  images:
+    - { src: "/img/sede/1.jpg", alt: "Accessible classroom" }
+    - { src: "/img/sede/2.jpg", alt: "Entrance ramp" }
+    - { src: "/img/sede/3.jpg", alt: "Collaborative area" }
+    - { src: "/img/sede/4.jpg", alt: "High-contrast signage" }
+
+facebook:
+  pageUrl: "https://www.facebook.com/p/Asociación-Aljofar-100079476353855"
+  limit: 3

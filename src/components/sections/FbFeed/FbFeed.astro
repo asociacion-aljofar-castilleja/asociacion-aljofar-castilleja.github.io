@@ -1,0 +1,78 @@
+---
+import { getEntry } from "astro:content";
+
+type Lang = "es" | "en";
+interface Props {
+  lang: Lang;
+  pageUrl: string;   // URL de la página de Facebook
+  height?: number;   // alto del iframe, por defecto 600
+  showNote?: boolean;
+}
+
+const { lang, pageUrl, height = 600, showNote = true } = Astro.props as Props;
+
+// i18n (colección "ui", id: "FbFeed/es|en")
+const idMap = { es: "fbfeed/es", en: "fbfeed/en" } as const;
+type FbFeedI18n = {
+  title?: string;
+  ariaSection?: string;
+  viewOnFacebook?: string;
+  openInNew?: string;
+  privacyNote?: string;
+};
+
+const i18nEntry = await getEntry({ collection: "ui", id: idMap[lang] });
+const I = (i18nEntry?.data ?? {}) as FbFeedI18n;
+
+const title = I.title ?? (lang === "en" ? "Latest news" : "Últimas noticias");
+const ariaSection = I.ariaSection ?? title;
+
+// URL del plugin
+const pluginSrc = `https://www.facebook.com/plugins/page.php?href=${encodeURIComponent(
+  pageUrl
+)}&tabs=timeline&hide_cover=false&show_facepile=false`;
+---
+
+<section class="fbfeed-section py-5" aria-label={ariaSection} data-module="FbFeed">
+  <div class="container">
+    <div class="d-flex align-items-center justify-content-between gap-3 mb-3">
+      <h2 class="mb-0">{title}</h2>
+      <a class="btn btn-outline-secondary btn-sm" href={pageUrl} target="_blank" rel="noopener">
+        {I.viewOnFacebook ?? (lang === "en" ? "View on Facebook" : "Ver en Facebook")}
+        <span class="visually-hidden">
+          — {I.openInNew ?? (lang === "en" ? "Opens in a new window" : "Se abre en una ventana nueva")}
+        </span>
+      </a>
+    </div>
+
+    {showNote && (
+      <p class="small text-body-secondary mb-3">
+        {I.privacyNote ?? (lang === "en"
+          ? "This block loads content from Facebook. It may use cookies."
+          : "Este bloque carga contenido de Facebook. Puede usar cookies.")}
+      </p>
+    )}
+
+    <div class="fbfeed-embed position-relative" style={`--fbfeed-h:${height}px`}>
+      <div class="skeleton rounded-3" aria-hidden="true"></div>
+
+      <iframe
+        class="position-relative d-block w-100"
+        data-fb-embed
+        title={title}
+        src={pluginSrc}
+        loading="lazy"
+        style="border:0; overflow:hidden;"
+        allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+      ></iframe>
+
+      <noscript>
+        <div class="mt-3">
+          <a class="btn btn-outline-secondary btn-sm" href={pageUrl} target="_blank" rel="noopener">
+            {I.viewOnFacebook ?? (lang === "en" ? "View on Facebook" : "Ver en Facebook")}
+          </a>
+        </div>
+      </noscript>
+    </div>
+  </div>
+</section>

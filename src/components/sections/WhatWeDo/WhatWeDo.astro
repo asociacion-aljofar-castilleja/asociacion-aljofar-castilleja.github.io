@@ -1,0 +1,101 @@
+---
+import { getEntry } from "astro:content";
+
+type Lang = "es" | "en";
+type Item = { title: string; excerpt: string; href: string; icon?: string };
+
+interface Props {
+  lang: Lang;
+  services?: Item[];
+  projects?: Item[];
+  workshops?: Item[];
+  activities?: Item[];
+}
+
+const { lang, services = [], projects = [], workshops = [], activities = [] } = Astro.props as Props;
+
+// i18n (colección 'ui', ids WhatWeDo/es|en)
+const idMap = { es: "whatwedo/es", en: "whatwedo/en" } as const;
+type I18nData = {
+  title?: string;
+  ariaView?: string;
+  sectionId?: string;
+  viewMore?: string;
+  tabs?: Partial<Record<"services"|"projects"|"workshops"|"activities", string>>;
+};
+
+const entry = await getEntry({ collection: "ui", id: idMap[lang] });
+const I = (entry?.data ?? {}) as I18nData;
+
+// Fallbacks
+const tabsLabels = {
+  services: I.tabs?.services ?? (lang === "en" ? "Services"  : "Servicios"),
+  projects: I.tabs?.projects ?? (lang === "en" ? "Projects"  : "Proyectos"),
+  workshops:I.tabs?.workshops?? (lang === "en" ? "Workshops" : "Talleres"),
+  activities:I.tabs?.activities??(lang === "en" ? "Activities": "Actividades"),
+};
+
+const sectionTitle = I.title ?? (lang === "en" ? "What we do" : "Qué hacemos");
+const sectionId = I.sectionId ?? (lang === "en" ? "what-we-do" : "que-hacemos");
+const viewMoreLabel = I.viewMore ?? (lang === "en" ? "View more" : "Ver más");
+const ariaView = (title: string) => String(I.ariaView ?? (lang === "en" ? "View {{title}}" : "Ver {{title}}")).replace("{{title}}", title);
+
+const tabs = [
+  { id: "services",  label: tabsLabels.services,  items: services },
+  { id: "projects",  label: tabsLabels.projects,  items: projects },
+  { id: "workshops", label: tabsLabels.workshops, items: workshops },
+  { id: "activities",label: tabsLabels.activities,items: activities },
+].filter(t => t.label && t.items.length);
+---
+
+<section id={sectionId} class="whatwedo-section py-5" data-module="WhatWeDo" aria-label={sectionTitle}>
+  <div class="container">
+    <div class="d-flex align-items-end justify-content-between mb-3">
+      <h2 class="mb-0">{sectionTitle}</h2>
+
+      {tabs.length > 1 && (
+        <ul class="nav nav-pills whatwedo-tabs" role="tablist" aria-label={sectionTitle}>
+          {tabs.map((t, i) => (
+            <li class="nav-item" role="presentation">
+              <button
+                class={`nav-link ${i===0 ? 'active' : ''}`}
+                data-bs-toggle="pill"
+                data-bs-target={`#tab-${t.id}`}
+                id={`tabbtn-${t.id}`}
+                type="button"
+                role="tab"
+                aria-controls={`tab-${t.id}`}
+                aria-selected={i===0 ? 'true' : 'false'}
+              >
+                {t.label}
+              </button>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+
+    <div class="tab-content">
+      {tabs.map((t, i) => (
+        <div class={`tab-pane fade ${i===0 ? 'show active' : ''}`} id={`tab-${t.id}`} role="tabpanel" aria-labelledby={`tabbtn-${t.id}`}>
+          <div class="row row-cols-1 row-cols-md-3 g-4">
+            {t.items.slice(0, 6).map((it) => (
+              <div class="col">
+                <article class="card h-100 shadow-sm">
+                  {it.icon && <div class="whatwedo-icon p-3 fs-2" aria-hidden="true"><i class={it.icon}></i></div>}
+                  <div class="card-body">
+                    <h3 class="h5">{it.title}</h3>
+                    <p class="text-muted mb-3">{it.excerpt}</p>
+                    <a class="stretched-link" href={it.href} aria-label={ariaView(it.title)}>
+                      {viewMoreLabel}
+                    </a>
+                  </div>
+                </article>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

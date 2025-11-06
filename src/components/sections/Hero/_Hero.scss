@@ -1,0 +1,77 @@
+.hero {
+  /* Altura y fondo */
+  --hero-minvh: 65vh;
+  --hero-bg: none;                /* url(...) o none */
+  --hero-parallax: 0px;
+
+  /* Overlay tokens (se sobreescriben por tema y preferencias) */
+  --hero-ov-start: rgba(0, 0, 0, .48); /* arriba */
+  --hero-ov-mid:   rgba(0, 0, 0, .30); /* 30% */
+  --hero-ov-end:   rgba(0, 0, 0, .48); /* abajo */
+
+  position: relative;
+  min-height: var(--hero-minvh);
+  isolation: isolate; /* aísla contexto para overlay y z-index */
+
+  /* Fondo */
+  .hero__bg {
+    position: absolute;
+    inset: 0;
+    background-image: var(--hero-bg),
+      linear-gradient(180deg, #0b1220 0%, #0b1220 100%); /* fallback si no hay imagen */
+    background-size: cover, 100% 100%;
+    background-position: center, center;
+    background-repeat: no-repeat, no-repeat;
+    transform: translateY(var(--hero-parallax));
+    will-change: transform;
+
+    @media (prefers-reduced-motion: no-preference) {
+      transition: transform .1s linear;
+    }
+  }
+
+  /* Overlay para legibilidad del texto sobre foto */
+  .hero__overlay {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(180deg, var(--hero-ov-start), var(--hero-ov-mid) 30%, var(--hero-ov-end));
+    /* pequeñas mejoras visuales */
+    background-clip: padding-box;
+  }
+
+  .hero__row {
+    min-height: var(--hero-minvh);
+    padding-block: clamp(2rem, 5vw, 4rem);
+  }
+}
+
+/* Tema claro/oscuro (usa tu data-theme en <html> o <body>) */
+[data-theme="light"] .hero {
+  --hero-ov-start: rgba(0, 0, 0, .45);
+  --hero-ov-mid:   rgba(0, 0, 0, .25);
+  --hero-ov-end:   rgba(0, 0, 0, .45);
+}
+[data-theme="dark"] .hero {
+  /* un poco más de densidad para fotos claras en oscuro */
+  --hero-ov-start: rgba(0, 0, 0, .58);
+  --hero-ov-mid:   rgba(0, 0, 0, .42);
+  --hero-ov-end:   rgba(0, 0, 0, .58);
+}
+
+/* Alta preferencia de contraste: sube opacidad del overlay */
+@media (prefers-contrast: more) {
+  .hero {
+    --hero-ov-start: rgba(0, 0, 0, .70);
+    --hero-ov-mid:   rgba(0, 0, 0, .55);
+    --hero-ov-end:   rgba(0, 0, 0, .70);
+  }
+}
+
+/* Reduce motion: sin transición ni parallax */
+@media (prefers-reduced-motion: reduce) {
+  .hero .hero__bg {
+    transform: none !important;
+    transition: none !important;
+  }
+}

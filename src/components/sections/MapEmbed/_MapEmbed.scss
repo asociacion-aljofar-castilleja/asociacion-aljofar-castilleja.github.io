@@ -1,0 +1,13 @@
+.map-embed { color: var(--bs-body-color, var(--text, #212529)); }
+.map-embed__frame {
+  --map-h: 360px;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--bs-border-color, var(--border, rgba(0,0,0,.12)));
+}
+.map-embed__frame iframe {
+  display: block;
+  width: 100%;
+  height: var(--map-h);
+  border: 0;
+}

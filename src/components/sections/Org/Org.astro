@@ -1,0 +1,76 @@
+---
+import { getEntry } from "astro:content";
+
+type Lang = "es" | "en";
+type RoleItem = string | { role?: string; person?: string };
+
+interface Props {
+  lang: Lang;
+  roles: RoleItem[];
+  layout?: "list" | "grid";
+  titleOverride?: string;
+  columns?: string;
+}
+
+const {
+  lang,
+  roles = [],
+  layout = "list",
+  titleOverride,
+  columns = "row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3",
+} = Astro.props as Props;
+
+// i18n
+const idMap = { es: "org/es", en: "org/en" } as const;
+type I18n = { title?: string; ariaSection?: string; ariaItem?: string; empty?: string };
+
+const entry = await getEntry({ collection: "ui", id: idMap[lang] });
+const I = (entry?.data ?? {}) as I18n;
+
+const title = titleOverride ?? I.title ?? (lang === "en" ? "Organization" : "Organigrama");
+const ariaSection = I.ariaSection ?? title;
+const emptyText = I.empty ?? (lang === "en" ? "No roles defined yet." : "Aún no hay roles definidos.");
+
+const normalize = (r: RoleItem) => (typeof r === "string" ? { role: r, person: undefined } : { role: r.role ?? "", person: r.person });
+const items = (Array.isArray(roles) ? roles : []).map(normalize);
+
+const ariaItem = (role?: string, person?: string) => {
+  const tpl = I.ariaItem ?? (lang === "en" ? "{{role}} — {{person}}" : "{{role}} — {{person}}");
+  return tpl
+    .replace("{{role}}", role || (lang === "en" ? "Role" : "Rol"))
+    .replace("{{person}}", person || (lang === "en" ? "Unassigned" : "Por asignar"));
+};
+---
+
+<section class="org-section py-3" aria-label={ariaSection} data-module="OrgList">
+  <div class="container">
+    <h2 class="h4 mb-3">{title}</h2>
+
+    {items.length === 0 ? (
+      <p class="text-muted">{emptyText}</p>
+    ) : layout === "grid" ? (
+      <div class={columns}>
+        {items.map((it) => (
+          <div class="col d-flex">
+            <article class="org-card card border-0 shadow-sm w-100" aria-label={ariaItem(it.role, it.person)}>
+              <div class="card-body">
+                <strong class="org-role">{it.role}</strong>
+                <span class="org-person d-block">{it.person ?? (lang === "en" ? "Unassigned" : "Por asignar")}</span>
+              </div>
+            </article>
+          </div>
+        ))}
+      </div>
+    ) : (
+      <ul class="org-list list-unstyled m-0">
+        {items.map((it) => (
+          <li class="org-list__item" aria-label={ariaItem(it.role, it.person)}>
+            <span class="org-role">{it.role}</span>
+            <span class="org-sep">·</span>
+            <span class="org-person">{it.person ?? (lang === "en" ? "Unassigned" : "Por asignar")}</span>
+          </li>
+        ))}
+      </ul>
+    )}
+  </div>
+</section>

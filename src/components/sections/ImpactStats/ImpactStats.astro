@@ -1,0 +1,50 @@
+---
+import { getEntry } from "astro:content";
+
+type Lang = "es" | "en";
+type Stat = { label: string; value: number; suffix?: string };
+
+interface Props {
+  lang: Lang;
+  stats: Stat[];
+  title?: string; // override opcional
+}
+
+const { lang, stats = [], title } = Astro.props as Props;
+
+// i18n del componente (colección 'ui', ids ImpactStats/es|en)
+const idMap = { es: "impactStats/es", en: "impactStats/en" } as const;
+type I18n = { title?: string; ariaSection?: string };
+
+const entry = await getEntry({ collection: "ui", id: idMap[lang] });
+const I = (entry?.data ?? {}) as I18n;
+
+const sectionTitle = title ?? I.title ?? (lang === "en" ? "Impact" : "Impacto");
+const ariaSection   = I.ariaSection ?? sectionTitle;
+
+// locale para formatear números
+const locale = lang === "en" ? "en-US" : "es-ES";
+---
+
+<section class="impact-section py-5 bg-body-tertiary" aria-label={ariaSection} data-module="ImpactStats">
+  <div class="container">
+    <h2 class="text-center mb-4">{sectionTitle}</h2>
+
+    <div class="row row-cols-2 row-cols-md-4 g-4 text-center">
+      {stats.map((s) => (
+        <div class="col">
+          <div class="impact-card p-3 rounded-3 shadow-sm bg-white h-100 d-flex flex-column justify-content-center">
+            <div
+              class="impact-counter display-5 fw-bold"
+              data-target={s.value}
+              data-locale={locale}
+            >0</div>
+            <div class="small text-muted mt-1">
+              {s.label}{s.suffix ? ` (${s.suffix})` : ''}
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,9 @@
+.pillars-section { color: var(--text); }
+.pillars__card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--elev-shadow);
+}
+.pillars__card .card-title { color: var(--text); }
+.pillars__p { color: var(--text); opacity: .95; }

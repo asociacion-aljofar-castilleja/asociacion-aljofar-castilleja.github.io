@@ -1,0 +1,4 @@
+title: "Organigrama"
+ariaSection: "Sección de organigrama"
+ariaItem: "{{role}} — {{person}}"
+empty: "Aún no hay roles definidos."

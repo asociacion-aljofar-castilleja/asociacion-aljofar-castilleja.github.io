@@ -1,0 +1,48 @@
+title: "Contact"
+description: "Contact details, location and social media."
+heroTitle: "Let's talk"
+heroSubtitle: "Reach us by email, phone, or visit us on site."
+
+contacto:   # mantenemos la misma clave para simplificar componentes
+  telefono:
+    display: "+34 600 000 000"
+    tel: "+34600000000"
+  email:
+    display: "hello@your-association.org"
+    mailto: "hello@your-association.org"
+  horario:
+    - "Monday to Friday: 10:00 – 13:00"
+    - "Afternoons (by appointment): 17:00 – 19:00"
+  direccion:
+    linea1: "Civic Center Example"
+    linea2: "Example St, 12"
+    cp: "41000"
+    localidad: "Seville"
+    provincia: "Seville"
+    pais: "Spain"
+  notas: "Accessible service with easy-reading materials and support. Tell us if you need adjustments."
+
+ubicacion:
+  embedUrl: "https://www.google.com/maps/embed?pb=[CAMBIAR_POR_TU_EMBED_URL]"
+
+sedeFoto:
+  src: "/imgages/location/sede.svg"
+  alt: "Front of the association office"
+
+redes:
+  - nombre: "Facebook"
+    handle: "@yourassociation"
+    url: "https://www.facebook.com/yourassociation"
+    icon: "facebook_logo_icon"
+  - nombre: "Instagram"
+    handle: "@yourassociation"
+    url: "https://www.instagram.com/yourassociation"
+    icon: "instagram_logo_icon"
+  - nombre: "X"
+    handle: "@yourassociation"
+    url: "https://x.com/yourassociation"
+    icon: "x_logo_icon"
+  - nombre: "YouTube"
+    handle: "Your Association"
+    url: "https://www.youtube.com/@yourassociation"
+    icon: "youtube_logo_icon"

@@ -1,0 +1,49 @@
+title: "What we do"
+description: "Short description of what you offer (services, projects, workshops…)."
+heroTitle: "Primary action-focused tagline"
+heroSubtitle: "Subtitle that reinforces focus and impact"
+
+# ------- Services / Programs -------
+servicios: # keep the same key for simplicity with your components (or rename to 'services' and update code)
+  - nombre: "Service or program name"
+    objetivo: "What does it aim for? Expected benefit or change."
+    destinatarios: "Target audience (e.g., children, families, members, general community)"
+    requisitos: "Access conditions, documents, fees, etc. (optional)"
+    horario_lugar: "When & where: days/hours, venue, online/in-person"
+    como_solicitar: "How to apply: form, email, front desk, phone"
+    accesibilidad: "Accessibility measures of the service/venue (easy reading, hearing loop, access, assistance…)"
+  - nombre: "Another service or program"
+    objetivo: "…"
+    destinatarios: "…"
+    requisitos: "…"
+    horario_lugar: "…"
+    como_solicitar: "…"
+    accesibilidad: "…"
+
+# ------- Projects (funded, grants, results) -------
+proyectos:
+  - titulo: "Project title"
+    financiacion: "Funding/grant/donation/self-financed"
+    resultados: "Results or deliverables (indicators, activities, impact)"
+    notas: "Additional notes (dates, partners, milestones) (optional)"
+  - titulo: "Another project"
+    financiacion: "…"
+    resultados: "…"
+    notas: "…"
+
+# ------- Workshops & Activities (with optional gallery) -------
+talleres:
+  - titulo: "Workshop/activity name"
+    descripcion: "Short description (goals and type of activity)"
+    horario_lugar: "Dates/schedule/location or modality"
+    imagenes:
+      - src: "/img/whatwedo/sample1.jpg"
+        alt: "Accessible description of the image"
+      - src: "/img/whatwedo/sample2.jpg"
+        alt: "Another description"
+  - titulo: "Another activity"
+    descripcion: "…"
+    horario_lugar: "…"
+    imagenes:
+      - src: "/img/whatwedo/another1.jpg"
+        alt: "…"

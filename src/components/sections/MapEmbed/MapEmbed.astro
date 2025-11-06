@@ -1,0 +1,62 @@
+---
+import { getEntry } from "astro:content";
+
+type Lang = "es" | "en";
+type MapData = {
+  embedUrl?: string;
+  lat?: number;
+  lng?: number;
+  placeId?: string;
+  zoom?: number;
+  ariaLabel?: string;
+};
+
+interface Props {
+  lang: Lang;
+  data: MapData;
+  titleOverride?: string;
+  height?: number; // px
+}
+
+const { lang, data, titleOverride, height = 360 } = Astro.props;
+
+// i18n
+const idMap = { es: "mapembed/es", en: "mapembed/en" } as const;
+type I18n = { title?: string; ariaSection?: string; fallback?: string };
+const entry = await getEntry({ collection: "ui", id: idMap[lang] });
+const I = (entry?.data ?? {}) as I18n;
+
+const title = titleOverride ?? I.title ?? (lang === "en" ? "Location" : "Ubicación");
+const ariaSection = I.ariaSection ?? title;
+const ariaLabel = data.ariaLabel ?? (lang === "en" ? "Map with office location" : "Mapa con la ubicación de la sede");
+
+// Fallback simple si no hay embedUrl: construimos un link a Google Maps con lat/lng si existen
+const gmapsLink = (data.lat && data.lng)
+  ? `https://www.google.com/maps?q=${data.lat},${data.lng}`
+  : undefined;
+---
+
+<section class="map-embed py-3" aria-label={ariaSection} data-module="MapEmbed">
+  <div class="container">
+    <h2 class="h4 mb-3">{title}</h2>
+
+    {data.embedUrl ? (
+      <div class="map-embed__frame rounded shadow-sm" style={`--map-h:${height}px`}>
+        <iframe
+          src={data.embedUrl}
+          width="600" height={height}
+          style="border:0;" allowfullscreen="" loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade" title={ariaLabel}
+        ></iframe>
+      </div>
+    ) : gmapsLink ? (
+      <p class="text-muted">
+        {I.fallback ?? (lang === "en" ? "Open location in Google Maps:" : "Abrir ubicación en Google Maps:")}
+        {" "}
+        <a href={gmapsLink} target="_blank" rel="noopener">Google Maps</a>
+      </p>
+    ) : (
+      <p class="text-muted">{I.fallback ?? (lang === "en" ? "Location will be available soon." : "La ubicación estará disponible próximamente.")}</p>
+    )}
+  </div>
+</section>

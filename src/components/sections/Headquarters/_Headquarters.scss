@@ -1,0 +1,110 @@
+/* ===== Headquarters / HQ ===== */
+
+.hq-section {
+  /* Ajusta si necesitas margen adicional */
+  color: var(--bs-body-color, var(--text, #212529));
+}
+
+/* Media helpers */
+.hq-object-cover {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Contenedor con relación de aspecto para evitar CLS (opcional) */
+.hq-media {
+  --hq-aspect: 16/9;              /* cámbialo por 4/3 o 1/1 según tu caso */
+  position: relative;
+  width: 100%;
+  aspect-ratio: var(--hq-aspect);
+  overflow: hidden;
+  border-radius: var(--bs-border-radius-lg, .75rem);
+  background: var(--bs-secondary-bg, var(--surface, #f8f9fa));
+}
+
+/* ===== Carousel (Bootstrap) ===== */
+.hq-carousel {
+  position: relative;
+
+  /* Controles: visibilidad y estados */
+  .carousel-control-prev,
+  .carousel-control-next {
+    opacity: .85;
+    transition: opacity .2s ease, transform .2s ease;
+    filter: drop-shadow(0 2px 8px rgba(0,0,0,.25));
+  }
+
+  &:hover .carousel-control-prev,
+  &:hover .carousel-control-next {
+    opacity: 1;
+  }
+
+  /* Accesibilidad: foco visible con teclado */
+  .carousel-control-prev:focus-visible,
+  .carousel-control-next:focus-visible {
+    outline: 2px solid var(--bs-primary, #0d6efd);
+    outline-offset: 2px;
+  }
+
+  /* Indicadores más accesibles (mayor área táctil) */
+  .carousel-indicators [data-bs-target] {
+    width: .9rem;
+    height: .9rem;
+    border-radius: 50%;
+    margin: 0 .25rem;
+    background-color: rgba(255,255,255,.75);
+    border: 1px solid rgba(0,0,0,.25);
+  }
+  .carousel-indicators .active {
+    background-color: var(--bs-primary, #0d6efd);
+    border-color: var(--bs-primary, #0d6efd);
+  }
+
+  /* Imágenes dentro del item: cubrir sin deformar */
+  .carousel-item .hq-object-cover {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+/* Tema claro/oscuro (si usas data-theme) */
+[data-theme="dark"] .hq-carousel {
+  .carousel-indicators [data-bs-target] {
+    background-color: rgba(255,255,255,.5);
+    border-color: rgba(255,255,255,.25);
+  }
+}
+
+/* Reduce motion: desactiva animaciones deslizantes */
+@media (prefers-reduced-motion: reduce) {
+  .hq-carousel .carousel-item {
+    transition: none !important;
+  }
+  .hq-carousel .carousel-control-prev,
+  .hq-carousel .carousel-control-next {
+    transition: none !important;
+  }
+}
+
+/* ===== Caso “solo 1 slide” =====
+   Opción A (progresiva): CSS :has() oculta controles e indicadores si no hay 2º .carousel-item.
+   Nota: :has() ya está soportado en los navegadores modernos principales.
+*/
+.hq-carousel:not(:has(.carousel-item + .carousel-item)) {
+  .carousel-control-prev,
+  .carousel-control-next,
+  .carousel-indicators {
+    display: none !important;
+  }
+}
+
+/* Opción B (fallback): añade .is-single desde JS/SSR si detectas 1 slide */
+.hq-carousel.is-single {
+  .carousel-control-prev,
+  .carousel-control-next,
+  .carousel-indicators {
+    display: none !important;
+  }
+}

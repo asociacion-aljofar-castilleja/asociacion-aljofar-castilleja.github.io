@@ -1,0 +1,30 @@
+title: "About Us"
+description: "Learn about our mission, vision and values."
+heroTitle: "We are community and technology"
+heroSubtitle: "Learning by creating, to transform our environment."
+
+sections:
+  - title: "Mission"
+    paragraphs:
+      - "To promote digital inclusion and the development of technology skills within our community."
+      - "We support learning through projects with real social impact."
+  - title: "Vision"
+    paragraphs:
+      - "A society where technology is an accessible lever for opportunity for everyone."
+  - title: "Values"
+    paragraphs:
+      - "Active learning, collaboration, accessibility, ethics, and service."
+
+timeline:
+  - year: "2019"
+    text: "The initiative is born from a group of students and teachers."
+  - year: "2021"
+    text: "Community service projects consolidate."
+  - year: "2024"
+    text: "We expand our network of partners and volunteers."
+
+org:
+  - "President"
+  - "Project Coordination"
+  - "Training & Mentoring"
+  - "Communications & Partnerships"

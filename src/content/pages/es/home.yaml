@@ -1,0 +1,45 @@
+title: "Inicio"
+description: "Formación y desarrollo web al servicio de la comunidad."
+
+hero:
+  lema: "Tecnología con impacto social"
+  subtitle: "Formación y desarrollo web al servicio de la comunidad."
+  ctaText: "Qué hacemos"
+  ctaHref: "#que-hacemos"
+  bg: "/img/hero.jpg"
+
+whatWeDo:
+  services:
+    - { title: "Acompañamiento digital", excerpt: "Orientación para trámites online.", href: "/servicios/soporte", icon: "bi bi-life-preserver" }
+    - { title: "Formación web",          excerpt: "Cursos y mentoría en desarrollo web.", href: "/servicios/formacion", icon: "bi bi-motherboard" }
+  projects:
+    - { title: "Webs solidarias", excerpt: "Sitios web para entidades sociales.", href: "/proyectos/web-solidaria", icon: "bi bi-globe2" }
+  workshops:
+    - { title: "HTML accesible", excerpt: "Buenas prácticas WCAG.", href: "/talleres/html-accesible", icon: "bi bi-universal-access" }
+  activities:
+    - { title: "Club de código", excerpt: "Aprende construyendo en equipo.", href: "/actividades/club", icon: "bi bi-braces" }
+
+stats:
+  - { label: "Beneficiarios",      value: 350 }
+  - { label: "Proyectos activos",  value: 8 }
+  - { label: "Años en activo",     value: 6 }
+  - { label: "Voluntarios",        value: 24 }
+
+partners:
+  - { name: "Ayuntamiento", url: "https://example.org", logo: "/img/partners/ayto.svg", alt: "Ayuntamiento" }
+  - { name: "ONG X",        url: "https://example.org", logo: "/img/partners/ongx.svg" }
+  - { name: "IES Alixar",   url: "https://example.org", logo: "/img/partners/ies.svg" }
+
+hq:
+  title: "Nuestra sede"
+  text: "Un espacio abierto, accesible y pensado para aprender creando."
+  badges: ["Rampa", "Baño adaptado", "Señalética", "Ancho de paso +90cm"]
+  images:
+    - { src: "/img/sede/1.jpg", alt: "Aula accesible" }
+    - { src: "/img/sede/2.jpg", alt: "Rampa de entrada" }
+    - { src: "/img/sede/3.jpg", alt: "Zona colaborativa" }
+    - { src: "/img/sede/4.jpg", alt: "Señalética de alto contraste" }
+
+facebook:
+  pageUrl: "https://www.facebook.com/p/Asociación-Aljofar-100079476353855"
+  limit: 3

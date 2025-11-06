@@ -1,0 +1,61 @@
+---
+import { getEntry } from "astro:content";
+
+type Lang = "es" | "en";
+type TimelineItem = { year?: string; text?: string };
+
+interface Props {
+  lang: Lang;
+  items: TimelineItem[];
+  titleOverride?: string;      // título manual
+  dense?: boolean;             // compresión vertical (default: false)
+}
+
+const {
+  lang,
+  items = [],
+  titleOverride,
+  dense = false,
+} = Astro.props as Props;
+
+// i18n (colección 'ui', ids: timeline/es | timeline/en)
+const idMap = { es: "timeline/es", en: "timeline/en" } as const;
+
+type I18n = {
+  title?: string;
+  ariaSection?: string;
+  ariaItem?: string;   // "({{year}}) {{text}}"
+};
+
+const entry = await getEntry({ collection: "ui", id: idMap[lang] });
+const I = (entry?.data ?? {}) as I18n;
+
+const title = titleOverride ?? I.title ?? (lang === "en" ? "History" : "Historia");
+const ariaSection = I.ariaSection ?? title;
+const ariaItem = (year: string, text: string) =>
+  String(I.ariaItem ?? (lang === "en" ? "({{year}}) {{text}}" : "({{year}}) {{text}}"))
+    .replace("{{year}}", year || "")
+    .replace("{{text}}", text || "");
+---
+
+<section
+  class={`about-timeline py-3 ${dense ? "about-timeline--dense" : ""}`}
+  aria-label={ariaSection}
+  data-module="AboutTimeline"
+>
+  <div class="container">
+    <h2 class="h4 mb-3">{title}</h2>
+
+    <ol class="about-timeline__list list-unstyled">
+      {items.map((it) => (
+        <li class="about-timeline__item" aria-label={ariaItem(it.year ?? "", it.text ?? "")}>
+          <div class="about-timeline__dot" aria-hidden="true"></div>
+          <div class="about-timeline__content">
+            {it.year && <strong class="about-timeline__year me-2">{it.year}</strong>}
+            <span class="about-timeline__text">{it.text}</span>
+          </div>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>

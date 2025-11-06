@@ -1,0 +1,9 @@
+title: "Qué hacemos"
+sectionId: "que-hacemos"
+viewMore: "Ver más"
+ariaView: "Ver {{title}}"
+tabs:
+  services: "Servicios"
+  projects: "Proyectos"
+  workshops: "Talleres"
+  activities: "Actividades"

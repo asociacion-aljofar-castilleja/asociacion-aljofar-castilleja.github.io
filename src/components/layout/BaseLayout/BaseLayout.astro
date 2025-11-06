@@ -1,0 +1,75 @@
+---
+import Header from "../Header/Header.astro";
+import Footer from "../Footer/Footer.astro";
+import { getEntry } from "astro:content";
+
+type Lang = "es" | "en";
+interface Props {
+  lang?: Lang;
+  title?: string;
+  description?: string;
+  otherHref?: string;
+}
+
+const {
+  lang = "es",
+  title = "Proyecto Web Solidario",
+  description = "Plantilla Astro + Bootstrap + Sass",
+  otherHref,
+} = Astro.props as Props;
+
+// Mapa literal de IDs válidos (coinciden con tus archivos en /content/components/BaseLayout/)
+const compIdMap = {
+  es: "baselayout/es",
+  en: "baselayout/en",
+} as const;
+
+type CompId = typeof compIdMap[Lang];
+
+// Tipar el shape que esperas (opcional pero útil)
+interface LayoutI18n {
+  skipToContent?: string;
+  // añade aquí más claves si las usas en el futuro
+}
+
+// ✅ Colección correcta: "components"
+const entry = await getEntry({
+  collection: "ui",
+  id: compIdMap[lang] as CompId,
+});
+const I = (entry?.data ?? {}) as LayoutI18n;
+
+const skipText = I.skipToContent ?? (lang === "en" ? "Skip to content" : "Saltar al contenido");
+---
+<!DOCTYPE html>
+<html lang={lang} data-bs-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+
+    <link rel="icon" href="/favicon.ico" />
+
+    <!-- Opcional: Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+
+    <!-- CSS global -->
+    <!-- consejo: usa una ruta absoluta o BASE_URL para evitar rutas frágiles -->
+    <link rel="stylesheet" href="/src/styles/main.scss" />
+  </head>
+  <body>
+    <a class="visually-hidden-focusable" href="#main-content">{skipText}</a>
+
+    <Header lang={lang} otherHref={otherHref} />
+
+    <main id="main-content" class="py-4">
+      <slot />
+    </main>
+
+    <Footer lang={lang} />
+
+    <!-- JS global -->
+    <script type="module" src="/src/scripts/app.ts"></script>
+  </body>
+</html>

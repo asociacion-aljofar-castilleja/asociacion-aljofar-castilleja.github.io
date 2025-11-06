@@ -1,0 +1,143 @@
+---
+import { getEntry } from "astro:content";
+
+
+type Lang = "es" | "en";
+interface Props {
+  lang?: Lang;
+  otherHref?: string;
+}
+
+const { lang = "es", otherHref } = Astro.props as Props;
+
+// UI global (nav + labels) desde la colección que ahora te funciona: "ui"
+const ui = await getEntry({ collection: "ui", id: `header/${lang}` });
+
+type NavItem = { href: string; label: string };
+const navItems: NavItem[] = Array.isArray(ui?.data?.nav) ? ui.data.nav : [];
+
+const T = {
+  themeBtn: ui?.data?.theme?.button ?? "Tema",
+  themeLight: ui?.data?.theme?.light ?? "Claro",
+  themeDark: ui?.data?.theme?.dark ?? "Oscuro",
+  themeAuto: ui?.data?.theme?.auto ?? "Automático",
+  themeTooltip: ui?.data?.theme?.tooltip ?? "Seleccionar tema",
+  a11yDec: ui?.data?.a11y?.fontDecrease ?? "Disminuir tamaño de fuente",
+  a11yReset: ui?.data?.a11y?.fontReset ?? "Tamaño por defecto",
+  a11yInc: ui?.data?.a11y?.fontIncrease ?? "Aumentar tamaño de fuente",
+  langCurrent: ui?.data?.lang?.current ?? "Idioma",
+  langEs: ui?.data?.lang?.esLabel ?? "Español",
+  langEn: ui?.data?.lang?.enLabel ?? "Inglés",
+};
+
+// Normalización con BASE_URL (útil en GH Pages)
+const BASE = import.meta.env.BASE_URL ?? "/";
+const withBase = (h: string) => BASE + (h || "/").replace(/^\//, "");
+
+// Path actual sin base
+const pathnameRaw = Astro.url?.pathname ?? "/";
+const pathname = pathnameRaw.startsWith(BASE) ? pathnameRaw.slice(BASE.length - 1) : pathnameRaw;
+
+// Activo
+const isActive = (href: string) => {
+  const h = href || "/";
+  return pathname === h || pathname.startsWith(h + "/");
+};
+
+// Home por idioma
+const homeHref = lang === "en" ? "/en" : "/";
+
+// Selector idioma
+const esHref = lang === "es" ? pathname : (otherHref ?? "/");
+const enHref = lang === "en" ? pathname : (otherHref ?? "/en");
+---
+
+<header class="header navbar navbar-expand-lg border-bottom bg-body" role="banner" data-module="Header">
+  <div class="container">
+    <a class="navbar-brand d-flex align-items-center gap-2" href={withBase(homeHref)} aria-label="Inicio">
+      <svg width="28" height="28" viewBox="0 0 64 64" aria-hidden="true">
+        <defs>
+          <linearGradient id="g" x1="0" x2="1">
+            <stop offset="0" stop-color="var(--bs-primary)" />
+            <stop offset="1" stop-color="var(--bs-secondary)" />
+          </linearGradient>
+        </defs>
+        <circle cx="32" cy="32" r="30" fill="url(#g)" />
+        <path d="M20 38c10-2 12-10 12-16 6 4 12 6 12 14 0 8-8 12-14 12-6 0-10-4-10-10z" fill="white" opacity=".9" />
+      </svg>
+      <span class="fw-bold">AlixarCoders - Proyecto solidario</span>
+    </a>
+
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#mainNav"
+      aria-controls="mainNav"
+      aria-expanded="false"
+      aria-label="Abrir menú"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <nav id="mainNav" class="collapse navbar-collapse" aria-label="Menú principal">
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        {navItems.map((item: NavItem) => {
+          const active = isActive(item.href);
+          return (
+            <li class="nav-item">
+              <a
+                class={`nav-link ${active ? "active" : ""}`}
+                href={withBase(item.href)}
+                aria-current={active ? "page" : undefined}
+              >
+                {item.label}
+              </a>
+            </li>
+          );
+        })}
+      </ul>
+
+      <div class="d-flex align-items-center gap-2 ms-lg-3">
+        <!-- Tema -->
+        <div class="dropdown">
+          <button
+            class="btn btn-outline-secondary btn-sm dropdown-toggle d-flex align-items-center gap-2"
+            type="button"
+            id="themeDropdown"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+            title={T.themeTooltip}
+          >
+            <i class="bi bi-circle-half" id="themeIcon"></i>
+            <span class="d-none d-lg-inline">{T.themeBtn}</span>
+          </button>
+
+          <ul class="dropdown-menu dropdown-menu-end shadow-sm" aria-labelledby="themeDropdown">
+            <li><button class="dropdown-item d-flex align-items-center gap-2" data-theme-value="light" type="button"><i class="bi bi-sun"></i> {T.themeLight}</button></li>
+            <li><button class="dropdown-item d-flex align-items-center gap-2" data-theme-value="dark"  type="button"><i class="bi bi-moon"></i> {T.themeDark}</button></li>
+            <li><button class="dropdown-item d-flex align-items-center gap-2" data-theme-value="auto"  type="button"><i class="bi bi-circle-half"></i> {T.themeAuto}</button></li>
+          </ul>
+        </div>
+
+        <!-- Tamaño de fuente -->
+        <div class="btn-group" role="group" aria-label="Tamaño de fuente">
+          <button class="btn btn-outline-secondary btn-sm" type="button" data-font="dec"   title={T.a11yDec}   aria-label={T.a11yDec}>A−</button>
+          <button class="btn btn-outline-secondary btn-sm" type="button" data-font="reset" title={T.a11yReset} aria-label={T.a11yReset}>A</button>
+          <button class="btn btn-outline-secondary btn-sm" type="button" data-font="inc"   title={T.a11yInc}   aria-label={T.a11yInc}>A+</button>
+        </div>
+
+        <!-- Idioma -->
+        <div class="dropdown">
+          <button class="btn btn-outline-secondary btn-sm dropdown-toggle" type="button" id="langDropdown" data-bs-toggle="dropdown" aria-expanded="false" title={T.langCurrent}>
+            {lang.toUpperCase()}
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="langDropdown">
+            <li><a class={`dropdown-item d-flex justify-content-between ${lang === "es" ? "active" : ""}`} href={withBase(esHref)}>ES <span class="ms-3 small text-muted">{T.langEs}</span></a></li>
+            <li><a class={`dropdown-item d-flex justify-content-between ${lang === "en" ? "active" : ""}`} href={withBase(enHref)}>EN <span class="ms-3 small text-muted">{T.langEn}</span></a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </div>
+</header>

@@ -1,0 +1,24 @@
+nav:
+  - { href: "/quienes-somos", label: "Quiénes somos" }
+  - { href: "/que-hacemos",   label: "Qué hacemos" }
+  - { href: "/participa",     label: "Participa" }
+  - { href: "/noticias",      label: "Noticias" }
+  - { href: "/transparencia", label: "Transparencia" }
+  - { href: "/contacto",      label: "Contacto" }
+
+theme:
+  button: "Tema"
+  light: "Claro"
+  dark: "Oscuro"
+  auto: "Automático"
+  tooltip: "Seleccionar tema"
+
+a11y:
+  fontDecrease: "Disminuir tamaño de fuente"
+  fontReset: "Tamaño de fuente por defecto"
+  fontIncrease: "Aumentar tamaño de fuente"
+
+lang:
+  current: "Idioma"
+  esLabel: "Español"
+  enLabel: "Inglés"
