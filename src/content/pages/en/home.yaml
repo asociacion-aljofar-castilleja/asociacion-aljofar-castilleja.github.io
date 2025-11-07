@@ -7,14 +7,18 @@ hero:
 
 whatWeDo:
   services:
-    - { title: "Digital support", excerpt: "Guidance for online procedures.", href: "/services/support", icon: "bi bi-life-preserver" }
-    - { title: "Web training", excerpt: "Courses and mentoring for web dev.", href: "/services/training", icon: "bi bi-motherboard" }
+    - { title: "Morning classroom", excerpt: "Reinforcement of reading, writing, numeracy and memory. Oct–Jun · Mon–Fri 10:00–13:00 · Civic Center.", href: "/en/what-we-do#services", icon: "bi bi-mortarboard" }
+    - { title: "IT basics (user level)", excerpt: "Web searches and Word documents. Small groups with 3 computers.", href: "/en/what-we-do#services", icon: "bi bi-pc-display" }
   projects:
-    - { title: "Solidarity websites", excerpt: "Websites for nonprofits.", href: "/projects/solidarity-web", icon: "bi bi-globe2" }
+    - { title: "Municipal venue", excerpt: "Stable headquarters at the Civic Center of Nueva Sevilla for all activities.", href: "/en/what-we-do#projects", icon: "bi bi-geo-alt" }
+    - { title: "Local partners’ support", excerpt: "Fundación Caixa, Asociación de Reyes Magos and Obra Social Nuestra Señora de la Soledad.", href: "/en/what-we-do#projects", icon: "bi bi-people" }
+    - { title: "Self-funding with handicrafts", excerpt: "Selling handmade items to finance new activities and outings.", href: "/en/what-we-do#projects", icon: "bi bi-piggy-bank" }
   workshops:
-    - { title: "Accessible HTML", excerpt: "WCAG best practices.", href: "/workshops/accessible-html", icon: "bi bi-universal-access" }
+    - { title: "Handicrafts workshop", excerpt: "Creativity and psychomotor skills; useful and decorative items.", href: "/en/what-we-do#workshops", icon: "bi bi-scissors" }
+    - { title: "Dance workshop", excerpt: "Physical activity and musical expression with adapted choreographies.", href: "/en/what-we-do#workshops", icon: "bi bi-music-note-beamed" }
   activities:
-    - { title: "Coding club", excerpt: "Learn by building together.", href: "/activities/club", icon: "bi bi-braces" }
+    - { title: "Leisure & community", excerpt: "Outings, Christmas lunch and Dec 3rd: International Day of Persons with Disabilities.", href: "/en/what-we-do#workshops", icon: "bi bi-calendar-event" }
+    - { title: "Solidarity stalls", excerpt: "Stands selling handmade crafts to raise funds and awareness.", href: "/en/what-we-do#workshops", icon: "bi bi-shop" }
 
 stats:
   - { label: "Beneficiaries", value: 350 }

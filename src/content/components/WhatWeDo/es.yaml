@@ -5,5 +5,4 @@ ariaView: "Ver {{title}}"
 tabs:
   services: "Servicios"
   projects: "Proyectos"
-  workshops: "Talleres"
-  activities: "Actividades"
+  workshopsActivities: "Talleres y Actividades"

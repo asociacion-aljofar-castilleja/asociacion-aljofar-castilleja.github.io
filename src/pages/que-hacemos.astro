@@ -58,15 +58,21 @@ const pageTitle = data.heroTitle ?? data.title ?? "Qué hacemos";
 
     <article class="content mt-4">
       {Array.isArray(data.servicios) && data.servicios.length > 0 && (
-        <ServicesGrid lang={lang} items={data.servicios} />
+        <section id="servicios" class="mb-5">
+          <ServicesGrid lang={lang} items={data.servicios} />
+        </section>
       )}
 
       {Array.isArray(data.proyectos) && data.proyectos.length > 0 && (
-        <ProjectsList lang={lang} items={data.proyectos} />
+        <section id="proyectos" class="mb-5">
+          <ProjectsList lang={lang} items={data.proyectos} />
+        </section>
       )}
 
       {Array.isArray(data.talleres) && data.talleres.length > 0 && (
-        <Workshops lang={lang} items={data.talleres} />
+        <section id="talleres" class="mb-5">
+          <Workshops lang={lang} items={data.talleres} />
+        </section>
       )}
     </article>
   </section>
