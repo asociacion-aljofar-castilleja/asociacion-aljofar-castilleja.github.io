@@ -9,7 +9,7 @@ interface Props {
   services?: Item[];
   projects?: Item[];
   workshops?: Item[];
-  activities?: Item[];
+  activities?: Item[]; // se combinará con workshops en una sola pestaña
 }
 
 const { lang, services = [], projects = [], workshops = [], activities = [] } = Astro.props as Props;
@@ -31,8 +31,8 @@ const I = (entry?.data ?? {}) as I18nData;
 const tabsLabels = {
   services: I.tabs?.services ?? (lang === "en" ? "Services"  : "Servicios"),
   projects: I.tabs?.projects ?? (lang === "en" ? "Projects"  : "Proyectos"),
-  workshops:I.tabs?.workshops?? (lang === "en" ? "Workshops" : "Talleres"),
-  activities:I.tabs?.activities??(lang === "en" ? "Activities": "Actividades"),
+  // Para la pestaña combinada usamos un label explícito:
+  wa:         (lang === "en" ? "Workshops & Activities" : "Talleres y Actividades"),
 };
 
 const sectionTitle = I.title ?? (lang === "en" ? "What we do" : "Qué hacemos");
@@ -40,12 +40,29 @@ const sectionId = I.sectionId ?? (lang === "en" ? "what-we-do" : "que-hacemos");
 const viewMoreLabel = I.viewMore ?? (lang === "en" ? "View more" : "Ver más");
 const ariaView = (title: string) => String(I.ariaView ?? (lang === "en" ? "View {{title}}" : "Ver {{title}}")).replace("{{title}}", title);
 
+
+/* =========================
+ * Enlaces "Ver más" a secciones con ancla
+ * ========================= */
+
+const WHATWEDO_BASE = (lang === "en" ? "/en/what-we-do" : "/que-hacemos");
+const hrefServices  = `${WHATWEDO_BASE}#${lang === "en" ? "services"  : "servicios"}`;
+const hrefProjects  = `${WHATWEDO_BASE}#${lang === "en" ? "projects"  : "proyectos"}`;
+const hrefWorkshops = `${WHATWEDO_BASE}#${lang === "en" ? "workshops" : "talleres"}`; // <-- común para talleres+actividades
+
+/* =========================
+ * Combinar Workshops + Activities en una sola pestaña
+ * ========================= */
+const waItems: Item[] = [...workshops, ...activities];
+
+/* =========================
+ * Pestañas (solo las que tienen contenido)
+ * ========================= */
 const tabs = [
-  { id: "services",  label: tabsLabels.services,  items: services },
-  { id: "projects",  label: tabsLabels.projects,  items: projects },
-  { id: "workshops", label: tabsLabels.workshops, items: workshops },
-  { id: "activities",label: tabsLabels.activities,items: activities },
-].filter(t => t.label && t.items.length);
+  { id: "services",  label: tabsLabels.services,  items: services,  href: hrefServices },
+  { id: "projects",  label: tabsLabels.projects,  items: projects,  href: hrefProjects },
+  { id: "workshops", label: tabsLabels.wa,       items: waItems,   href: hrefWorkshops },
+].filter(t => Array.isArray(t.items) && t.items.length > 0);
 ---
 
 <section id={sectionId} class="whatwedo-section py-5" data-module="WhatWeDo" aria-label={sectionTitle}>
@@ -86,7 +103,12 @@ const tabs = [
                   <div class="card-body">
                     <h3 class="h5">{it.title}</h3>
                     <p class="text-muted mb-3">{it.excerpt}</p>
-                    <a class="stretched-link" href={it.href} aria-label={ariaView(it.title)}>
+                      {/* Enlace a la sección correcta de la página "Qué hacemos" */}
+                    <a
+                      class="stretched-link"
+                      href={t.href}
+                      aria-label={ariaView(t.label)}
+                    >
                       {viewMoreLabel}
                     </a>
                   </div>

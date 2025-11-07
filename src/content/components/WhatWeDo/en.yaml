@@ -5,5 +5,4 @@ ariaView: "View {{title}}"
 tabs:
   services: "Services"
   projects: "Projects"
-  workshops: "Workshops"
-  activities: "Activities"
+  workshopsActivities: "Workshops & Activities"

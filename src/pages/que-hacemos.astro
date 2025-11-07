@@ -62,14 +62,26 @@ const pageTitle = data.heroTitle ?? data.title ?? "Qué hacemos";
       )}
       
       {Array.isArray(data.servicios) && data.servicios.length > 0 && (
-        <ServicesGrid lang={lang} items={data.servicios} />
+        <section id="servicios" class="mb-5">
+          <ServicesGrid lang={lang} items={data.servicios} />
+        </section>
       )}
 
       {Array.isArray(data.proyectos) && data.proyectos.length > 0 && (
-        <ProjectsList lang={lang} items={data.proyectos} />
+        <section id="proyectos" class="mb-5">
+          <ProjectsList lang={lang} items={data.proyectos} />
+        </section>
       )}
 
+<<<<<<< HEAD
      
+=======
+      {Array.isArray(data.talleres) && data.talleres.length > 0 && (
+        <section id="talleres" class="mb-5">
+          <Workshops lang={lang} items={data.talleres} />
+        </section>
+      )}
+>>>>>>> 98a8df1 (WhatWeDo con enlaces integrados y i18n preparado)
     </article>
   </section>
 </BaseLayout>
