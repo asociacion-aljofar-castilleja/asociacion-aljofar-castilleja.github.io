@@ -16,10 +16,18 @@ sections:
       - "Aprendizaje activo, colaboración, accesibilidad, ética y servicio."
 
 timeline:
+  - year: "2007"
+    text: "Se funda la Asociación Andaluza ALJÓFAR en Castilleja de la Cuesta, con el objetivo de integrar, formar y desarrollar a personas con diversidad funcional."
+  - year: "2010"
+    text: "Se consolidan los talleres de manualidades, informática, baile y aula matinal."
+  - year: "2015"
+    text: "La asociación amplía su participación en eventos locales y proyectos de inclusión."
   - year: "2019"
     text: "Nace la iniciativa con un grupo de estudiantes y docentes."
   - year: "2021"
     text: "Se consolidan proyectos de servicio a la comunidad."
+  - year: "2023"
+    text: "ALJÓFAR continúa su labor con el apoyo del Ayuntamiento de Castilleja de la Cuesta, Fundación Caixa y la Asociación de Reyes Magos."
   - year: "2024"
     text: "Ampliamos la red de alianzas y voluntariado."
 
