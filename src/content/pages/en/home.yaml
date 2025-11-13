@@ -17,10 +17,8 @@ whatWeDo:
     - { title: "Coding club", excerpt: "Learn by building together.", href: "/activities/club", icon: "bi bi-braces" }
 
 stats:
-  - { label: "Beneficiaries", value: 350 }
-  - { label: "Active projects", value: 8 }
-  - { label: "Years active", value: 6 }
-  - { label: "Volunteers", value: 24 }
+  - { label: "Full members", value: 16 }
+  - { label: "Collaborating partners", value: 3 }
 
 partners:
   - { name: "City Council", url: "https://example.org", logo: "/img/partners/ayto.svg", alt: "City Council" }
