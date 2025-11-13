@@ -5,19 +5,18 @@ heroSubtitle: "Reach us by email, phone, or visit us on site."
 
 contacto:   # mantenemos la misma clave para simplificar componentes
   telefono:
-    display: "+34 600 000 000"
-    tel: "+34600000000"
+    display: "+34 636 420 756"
+    tel: "+34636420756"
   email:
-    display: "hello@your-association.org"
-    mailto: "hello@your-association.org"
+    display: "aljofar.castilleja@hotmail.com"
+    mailto: "aljofar.castilleja@hotmail.com"
   horario:
     - "Monday to Friday: 10:00 – 13:00"
-    - "Afternoons (by appointment): 17:00 – 19:00"
   direccion:
-    linea1: "Civic Center Example"
-    linea2: "Example St, 12"
-    cp: "41000"
-    localidad: "Seville"
+    linea1: "Asocioación Aljófar"
+    linea2: "Av. Juan Carlos I, S/N"
+    cp: "41950"
+    localidad: "Castilleja de la cuesta"
     provincia: "Seville"
     pais: "Spain"
   notas: "Accessible service with easy-reading materials and support. Tell us if you need adjustments."
@@ -26,7 +25,7 @@ ubicacion:
   embedUrl: "https://www.google.com/maps/embed?pb=[CAMBIAR_POR_TU_EMBED_URL]"
 
 sedeFoto:
-  src: "/imgages/location/sede.svg"
+  src: "/imgages/location/sede.jpg"
   alt: "Front of the association office"
 
 redes:
