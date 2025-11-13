@@ -99,8 +99,21 @@ Una vez aprobado, el PR se integrará en `main`.
 ### 🧹 Mantener tu entorno al día
 
 ```bash
+# 1️⃣ Guarda tu trabajo actual (si tienes cambios sin confirmar)
+git add .
+git commit -m "Comentario"
+
+# 2️⃣ Cambia a la rama principal
 git checkout main
+
+# 3️⃣ Descarga los últimos cambios del repositorio remoto
 git pull origin main
+
+# 4️⃣ Vuelve a tu rama de desarrollo
+git checkout nombre-de-tu-rama
+
+# 5️⃣ Fusiona los cambios de main en tu rama feature
+git merge main
 ```
 
 ## 💙 AlixarCoders

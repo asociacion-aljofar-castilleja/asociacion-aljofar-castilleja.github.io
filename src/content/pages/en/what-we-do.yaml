@@ -22,14 +22,39 @@ servicios: # keep the same key for simplicity with your components (or rename to
 
 # ------- Projects (funded, grants, results) -------
 proyectos:
-  - titulo: "Project title"
-    financiacion: "Funding/grant/donation/self-financed"
-    resultados: "Results or deliverables (indicators, activities, impact)"
-    notas: "Additional notes (dates, partners, milestones) (optional)"
-  - titulo: "Another project"
-    financiacion: "…"
-    resultados: "…"
-    notas: "…"
+  - tipo: "actividad"
+    titulo: "Leisure and Community Activities"
+    fecha: "Throughout the year"
+    lugar: "Various public spaces and community centers"
+    horario: "Specific dates according to the annual schedule"
+    precio: "Free or symbolic contribution"
+    edad: "All ages"
+    organizador: "Aljofar Association"
+    notas: >
+      Every year we organize different outings and community gatherings
+      to promote participation and well-being among our members.
+      Highlights include the Christmas lunch, the end-of-year excursion,
+      and the International Day of Persons with Disabilities celebration
+      held every December 3rd.
+    imagen:
+      src: "/images/ocio-actividades.jpg"
+      alt: "Group of people enjoying a community leisure activity"
+      aspectRatio: "4/3"
+
+  - tipo: "puesto"
+    titulo: "Handcraft Fundraising Stalls"
+    fecha: "Several times a year"
+    ubicacion: "Local fairs and community events"
+    horario: "According to each event’s schedule"
+    productos: "Handmade items created in our craft workshops"
+    contacto: "Aljofar Association — info@asociacionaljofarcastilleja.es"
+    notas: >
+      We set up fundraising stalls to sell handcrafted items made
+      during our manual arts workshops. All proceeds are used to
+      support the association’s self-financing and new social initiatives.
+    imagen:
+      src: "/images/puesto-artesania.jpg"
+      alt: "Table displaying handmade crafts at a community fundraising stall"
 
 # ------- Workshops & Activities (with optional gallery) -------
 talleres:
