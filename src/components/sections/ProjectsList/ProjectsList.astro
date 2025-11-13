@@ -1,40 +1,77 @@
 ---
+// ProyectList.astro
 import { getEntry } from "astro:content";
 
 type Lang = "es" | "en";
 
-type Project = {
+type ItemImage =
+  | string
+  | {
+      src: string;
+      alt?: string;
+      aspectRatio?: `${number}/${number}` | "16/9" | "4/3" | "1/1";
+    };
+
+type ItemTipo = "actividad" | "puesto";
+
+type Item = {
+  // comunes
   titulo?: string;
-  financiacion?: string;
-  resultados?: string;
+  fecha?: string;
+  url?: string;
   notas?: string;
-  url?: string;           // opcional: enlace a memoria/proyecto externo
-  fecha?: string;         // opcional: año o rango (p.ej. "2023–2024")
+  imagen?: ItemImage;
+  tipo?: ItemTipo;
+
+  // ACTIVIDADES
+  lugar?: string;
+  horario?: string;
+  precio?: string;
+  edad?: string;
+  organizador?: string;
+
+  // PUESTOS
+  ubicacion?: string;
+  productos?: string;
+  contacto?: string;
 };
 
 interface Props {
   lang: Lang;
-  items: Project[];
+  // 🔹 Ahora puedes pasar directamente `proyectos` del YAML
+  proyectos?: any[];
+  // 🔹 O seguir pasando `items` si ya lo tenías así
+  items?: Item[];
   titleOverride?: string;
-  showIcons?: boolean;    // muestra iconitos decorativos (por defecto true)
+  showIcons?: boolean;
 }
 
+// Props con defaults
 const {
   lang,
+  proyectos = [],
   items = [],
   titleOverride,
   showIcons = true,
 } = Astro.props as Props;
 
-// i18n del componente (colección 'ui': projects/es | projects/en)
-const idMap = { es: "projects/es", en: "projects/en" } as const;
+// i18n (colección 'ui': leisure/es | leisure/en)
+const idMap = { es: "leisure/es", en: "leisure/en" } as const;
 
 type I18n = {
   title?: string;
   ariaSection?: string;
   labels?: {
-    financiacion?: string;
-    resultados?: string;
+    actividad?: string;
+    puesto?: string;
+    lugar?: string;
+    horario?: string;
+    precio?: string;
+    edad?: string;
+    organizador?: string;
+    ubicacion?: string;
+    productos?: string;
+    contacto?: string;
     notas?: string;
     leerMas?: string;
     fecha?: string;
@@ -45,64 +82,184 @@ type I18n = {
 const entry = await getEntry({ collection: "ui", id: idMap[lang] });
 const I = (entry?.data ?? {}) as I18n;
 
-const title = titleOverride ?? I.title ?? (lang === "en" ? "Projects" : "Proyectos");
+const title = titleOverride ?? I.title ?? (lang === "en" ? "Leisure & Stalls" : "Actividades y Puestos");
 const ariaSection = I.ariaSection ?? title;
 const L = {
-  financiacion: I.labels?.financiacion ?? (lang === "en" ? "Funding" : "Financiación"),
-  resultados:   I.labels?.resultados   ?? (lang === "en" ? "Results" : "Resultados"),
-  notas:        I.labels?.notas        ?? (lang === "en" ? "Notes" : "Notas"),
-  leerMas:      I.labels?.leerMas      ?? (lang === "en" ? "Read more" : "Leer más"),
-  fecha:        I.labels?.fecha        ?? (lang === "en" ? "Date" : "Fecha"),
+  actividad:   I.labels?.actividad   ?? (lang === "en" ? "Activity" : "Actividad"),
+  puesto:      I.labels?.puesto      ?? (lang === "en" ? "Stall" : "Puesto"),
+  lugar:       I.labels?.lugar       ?? (lang === "en" ? "Place" : "Lugar"),
+  horario:     I.labels?.horario     ?? (lang === "en" ? "Schedule" : "Horario"),
+  precio:      I.labels?.precio      ?? (lang === "en" ? "Price" : "Precio"),
+  edad:        I.labels?.edad        ?? (lang === "en" ? "Age" : "Edad"),
+  organizador: I.labels?.organizador ?? (lang === "en" ? "Organizer" : "Organizador"),
+  ubicacion:   I.labels?.ubicacion   ?? (lang === "en" ? "Location" : "Ubicación"),
+  productos:   I.labels?.productos   ?? (lang === "en" ? "Products" : "Productos"),
+  contacto:    I.labels?.contacto    ?? (lang === "en" ? "Contact" : "Contacto"),
+  notas:       I.labels?.notas       ?? (lang === "en" ? "Notes" : "Notas"),
+  leerMas:     I.labels?.leerMas     ?? (lang === "en" ? "Read more" : "Más info"),
+  fecha:       I.labels?.fecha       ?? (lang === "en" ? "Date" : "Fecha"),
 };
-const emptyText = I.empty ?? (lang === "en" ? "No projects listed yet." : "Aún no hay proyectos.");
+const emptyText = I.empty ?? (lang === "en" ? "Nothing listed yet." : "Aún no hay elementos.");
+
+function normalizeImg(img?: ItemImage) {
+  if (!img) return null;
+  if (typeof img === "string") return { src: img, alt: "", aspectRatio: "16/9" as const };
+  return { src: img.src, alt: img.alt ?? "", aspectRatio: img.aspectRatio ?? ("16/9" as const) };
+}
+
+function icon(key: keyof typeof L) {
+  if (!showIcons) return null;
+  const map: Record<string, string> = {
+    actividad: "🎉",
+    puesto: "🛍️",
+    lugar: "📍",
+    horario: "⏰",
+    precio: "💶",
+    edad: "👤",
+    organizador: "🏷️",
+    ubicacion: "🗺️",
+    productos: "🧺",
+    contacto: "☎️",
+    notas: "📝",
+    fecha: "📅",
+  };
+  return map[key] ?? "•";
+}
+
+/**
+ * Adaptador LEGACY:
+ * Convierte entradas antiguas bajo `proyectos:` (con financiacion/resultados/notas)
+ * a la nueva estructura (actividad/puesto).
+ * Reglas:
+ * - Si el objeto ya trae campos de ocio/puestos, se respeta tal cual.
+ * - Si solo trae {titulo, financiacion, resultados, notas, fecha, url, imagen}:
+ *   · Se infiere tipo: "actividad" por defecto; "puesto" si resultados/financiacion contienen pistas.
+ *   · Se vuelca 'resultados' → notas (para no perder información).
+ */
+function adaptFromProyectosLegacy(p: any): Item {
+  // Si ya está en el nuevo modelo, devuélvelo casi tal cual
+  const hasNewKeys =
+    p.tipo || p.lugar || p.horario || p.precio || p.edad || p.organizador || p.ubicacion || p.productos || p.contacto;
+  if (hasNewKeys) {
+    return {
+      titulo: p.titulo,
+      fecha: p.fecha,
+      url: p.url,
+      notas: p.notas,
+      imagen: p.imagen,
+      tipo: p.tipo,
+      lugar: p.lugar,
+      horario: p.horario,
+      precio: p.precio,
+      edad: p.edad,
+      organizador: p.organizador,
+      ubicacion: p.ubicacion,
+      productos: p.productos,
+      contacto: p.contacto,
+    };
+  }
+
+  // Heurística simple para legacy → puesto/actividad
+  const text = `${p.resultados ?? ""} ${p.financiacion ?? ""}`.toLowerCase();
+  const isPuesto = /(venta|puesto|mercad|stand|art(esan|esanía)|productos?)/.test(text);
+
+  return {
+    titulo: p.titulo,
+    fecha: p.fecha,
+    url: p.url,
+    imagen: p.imagen,
+    tipo: isPuesto ? "puesto" : "actividad",
+    // Guardamos 'resultados' como notas para no perderlo
+    notas: p.notas ?? p.resultados ?? p.financiacion,
+  };
+}
+
+const sourceItems: Item[] =
+  (items?.length ? items : proyectos?.map(adaptFromProyectosLegacy)) ?? [];
 ---
 
-<section class="whatwedo-projects py-3" aria-label={ariaSection} data-module="ProjectsList">
+<section class="leisure-list py-3" aria-label={ariaSection} data-module="ProyectList">
   <div class="container">
     <h2 class="h4 mb-3">{title}</h2>
 
-    {items.length === 0 ? (
-      <p class="text-muted">{emptyText}</p>
-    ) : (
-      <ul class="project-list list-unstyled m-0">
-        {items.map((p) => (
-          <li class="project-item">
-            <div class="project-header">
-              {p.titulo && <h3 class="h6 project-title m-0">{p.titulo}</h3>}
-              {p.fecha && <span class="project-date" aria-label={`${L.fecha}: ${p.fecha}`}>{p.fecha}</span>}
-            </div>
+  {sourceItems.length === 0 ? (
+    <p class="text-muted">{emptyText}</p>
+  ) : (
+    <ul class="leisure-items list-unstyled m-0">
+      {sourceItems.map((p) => {
+        const img = normalizeImg(p.imagen);
+        const tipo = p.tipo ?? (p.productos || p.ubicacion ? "puesto" : "actividad");
+        return (
+          <li class="leisure-item">
+            <article class="leisure-card card border-0 shadow-sm">
+              {img ? (
+                <figure class="leisure-media" style={{ "--ratio": img.aspectRatio }}>
+                  <img src={img.src} alt={img.alt} loading="lazy" decoding="async" />
+                </figure>
+              ) : (
+                <figure class="leisure-media leisure-media--placeholder" aria-hidden="true">
+                  <div class="ph"><span>▣</span></div>
+                </figure>
+              )}
 
-            <div class="project-body">
-              {p.financiacion && (
-                <p class="m-0">
-                  {showIcons && <span class="project-icon" aria-hidden="true">💶</span>}
-                  <strong>{L.financiacion}:</strong> {p.financiacion}
-                </p>
-              )}
-              {p.resultados && (
-                <p class="m-0">
-                  {showIcons && <span class="project-icon" aria-hidden="true">✅</span>}
-                  <strong>{L.resultados}:</strong> {p.resultados}
-                </p>
-              )}
-              {p.notas && (
-                <p class="m-0">
-                  {showIcons && <span class="project-icon" aria-hidden="true">📝</span>}
-                  <strong>{L.notas}:</strong> {p.notas}
-                </p>
-              )}
-            </div>
+              <div class="card-body">
+                <div class="leisure-header d-flex align-items-start gap-2 flex-wrap">
+                  {p.titulo && (
+                    <h3 class="h6 leisure-title m-0 flex-grow-1">
+                      {showIcons && <span class="me-1" aria-hidden="true">{icon(tipo as any)}</span>}
+                      {p.titulo}
+                      <span class="visually-hidden">
+                        {" "}{tipo === "puesto" ? `(${L.puesto})` : `(${L.actividad})`}
+                      </span>
+                    </h3>
+                  )}
+                  {p.fecha && (
+                    <span class="leisure-date badge text-bg-light" aria-label={`${L.fecha}: ${p.fecha}`}>
+                      {p.fecha}
+                    </span>
+                  )}
+                </div>
 
-            {p.url && (
-              <div class="project-footer">
-                <a class="btn btn-sm btn-outline-primary" href={p.url} target="_blank" rel="noopener">
-                  {L.leerMas}
-                </a>
+                <div class="leisure-body mt-2">
+                  {/* ACTIVIDADES */}
+                  {tipo === "actividad" && (
+                    <>
+                      {p.lugar && <p class="m-0"><span class="me-1" aria-hidden="true">{icon("lugar")}</span><strong>{L.lugar}:</strong> {p.lugar}</p>}
+                      {p.horario && <p class="m-0"><span class="me-1" aria-hidden="true">{icon("horario")}</span><strong>{L.horario}:</strong> {p.horario}</p>}
+                      {p.precio && <p class="m-0"><span class="me-1" aria-hidden="true">{icon("precio")}</span><strong>{L.precio}:</strong> {p.precio}</p>}
+                      {p.edad && <p class="m-0"><span class="me-1" aria-hidden="true">{icon("edad")}</span><strong>{L.edad}:</strong> {p.edad}</p>}
+                      {p.organizador && <p class="m-0"><span class="me-1" aria-hidden="true">{icon("organizador")}</span><strong>{L.organizador}:</strong> {p.organizador}</p>}
+                    </>
+                  )}
+
+                  {/* PUESTOS */}
+                  {tipo === "puesto" && (
+                    <>
+                      {p.ubicacion && <p class="m-0"><span class="me-1" aria-hidden="true">{icon("ubicacion")}</span><strong>{L.ubicacion}:</strong> {p.ubicacion}</p>}
+                      {p.horario && <p class="m-0"><span class="me-1" aria-hidden="true">{icon("horario")}</span><strong>{L.horario}:</strong> {p.horario}</p>}
+                      {p.productos && <p class="m-0"><span class="me-1" aria-hidden="true">{icon("productos")}</span><strong>{L.productos}:</strong> {p.productos}</p>}
+                      {p.contacto && <p class="m-0"><span class="me-1" aria-hidden="true">{icon("contacto")}</span><strong>{L.contacto}:</strong> {p.contacto}</p>}
+                    </>
+                  )}
+
+                  {p.notas && (
+                    <p class="m-0"><span class="me-1" aria-hidden="true">{icon("notas")}</span><strong>{L.notas}:</strong> {p.notas}</p>
+                  )}
+                </div>
+
+                {p.url && (
+                  <div class="leisure-footer mt-3">
+                    <a class="btn btn-sm btn-outline-primary" href={p.url} target="_blank" rel="noopener">
+                      {L.leerMas}
+                    </a>
+                  </div>
+                )}
               </div>
-            )}
+            </article>
           </li>
-        ))}
-      </ul>
-    )}
+        );
+      })}
+    </ul>
+  )}
   </div>
 </section>
