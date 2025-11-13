@@ -10,6 +10,7 @@ interface Props {
   layout?: "list" | "grid";
   titleOverride?: string;
   columns?: string;
+  accent?: "primary" | "success" | "info" | "warning";
 }
 
 const {
@@ -18,9 +19,9 @@ const {
   layout = "list",
   titleOverride,
   columns = "row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3",
+  accent = "primary",
 } = Astro.props as Props;
 
-// i18n
 const idMap = { es: "org/es", en: "org/en" } as const;
 type I18n = { title?: string; ariaSection?: string; ariaItem?: string; empty?: string };
 
@@ -40,37 +41,43 @@ const ariaItem = (role?: string, person?: string) => {
     .replace("{{role}}", role || (lang === "en" ? "Role" : "Rol"))
     .replace("{{person}}", person || (lang === "en" ? "Unassigned" : "Por asignar"));
 };
+
+const initials = (text?: string) => (text ? text.split(/\s+/).map(w => w[0]).slice(0,2).join("").toUpperCase() : "–");
 ---
 
-<section class="org-section py-3" aria-label={ariaSection} data-module="OrgList">
-  <div class="container">
-    <h2 class="h4 mb-3">{title}</h2>
+<section class="org-section" aria-label={ariaSection} data-module="OrgList">
+  <div class="d-flex align-items-center gap-2 mb-3">
+    <h2 class="section-title mb-0">{title}</h2>
+  </div>
 
-    {items.length === 0 ? (
-      <p class="text-muted">{emptyText}</p>
-    ) : layout === "grid" ? (
-      <div class={columns}>
-        {items.map((it) => (
-          <div class="col d-flex">
-            <article class="org-card card border-0 shadow-sm w-100" aria-label={ariaItem(it.role, it.person)}>
-              <div class="card-body">
-                <strong class="org-role">{it.role}</strong>
+  {items.length === 0 ? (
+    <p class="text-muted">{emptyText}</p>
+  ) : layout === "grid" ? (
+    <div class={columns}>
+      {items.map((it) => (
+        <div class="col d-flex">
+          <article class={`org-card card border-0 shadow-sm w-100 border-top border-4 border-${accent}`} aria-label={ariaItem(it.role, it.person)}>
+            <div class="card-body d-flex align-items-center gap-3">
+              <div class={`avatar avatar-${accent}`} aria-hidden="true">{initials(it.person ?? it.role)}</div>
+              <div>
+                <strong class="org-role d-block">{it.role}</strong>
                 <span class="org-person d-block">{it.person ?? (lang === "en" ? "Unassigned" : "Por asignar")}</span>
               </div>
-            </article>
-          </div>
-        ))}
-      </div>
-    ) : (
-      <ul class="org-list list-unstyled m-0">
-        {items.map((it) => (
-          <li class="org-list__item" aria-label={ariaItem(it.role, it.person)}>
-            <span class="org-role">{it.role}</span>
-            <span class="org-sep">·</span>
-            <span class="org-person">{it.person ?? (lang === "en" ? "Unassigned" : "Por asignar")}</span>
-          </li>
-        ))}
-      </ul>
-    )}
-  </div>
+            </div>
+          </article>
+        </div>
+      ))}
+    </div>
+  ) : (
+    <ul class="org-list list-unstyled m-0">
+      {items.map((it) => (
+        <li class="org-list__item py-2" aria-label={ariaItem(it.role, it.person)}>
+          <span class="org-role">{it.role}</span>
+          <span class="org-sep mx-2">·</span>
+          <span class="org-person">{it.person ?? (lang === "en" ? "Unassigned" : "Por asignar")}</span>
+        </li>
+      ))}
+    </ul>
+  )}
 </section>
+

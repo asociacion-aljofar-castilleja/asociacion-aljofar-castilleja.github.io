@@ -1,9 +1,12 @@
 .about-timeline { color: var(--text); }
-.about-timeline__list {
-  border-left: 2px solid var(--border);
-}
-.about-timeline__dot {
-  background: currentColor;        /* Usa el color del texto actual (contraste OK en ambos temas) */
-  opacity: .9;
-}
+.about-timeline__list { border-left: 3px solid var(--border); margin: 0; padding-left: 1rem; }
+.about-timeline__item { position: relative; padding: .5rem 0 .5rem .25rem; }
+.about-timeline__dot { position: absolute; left: -0.53rem; top: .95rem; width: .65rem; height: .65rem; border-radius: 50%; }
 .about-timeline__text { color: var(--text); opacity: .95; }
+.about-timeline--dense .about-timeline__item { padding-top: .25rem; padding-bottom: .25rem; }
+.section-title { font-weight: 700; }
+.accent-dot { width: .75rem; height: .75rem; border-radius: 999px; display: inline-block; }
+.accent-primary { background: var(--bs-primary); }
+.accent-success { background: var(--bs-success); }
+.accent-info { background: var(--bs-info); }
+.accent-warning { background: var(--bs-warning); }

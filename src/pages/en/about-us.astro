@@ -1,8 +1,8 @@
 ---
 import BaseLayout from "../../components/layout/BaseLayout/BaseLayout.astro";
-import Org from "../../components/sections/Org/Org.astro";
 import Pillars from "../../components/sections/Pillars/Pillars.astro";
 import Timeline from "../../components/sections/Timeline/Timeline.astro";
+import Org from "../../components/sections/Org/Org.astro";
 import { getEntry } from "astro:content";
 
 const lang = "en";
@@ -10,25 +10,16 @@ const otherHref = "/quienes-somos";
 
 type Section = { title?: string; paragraphs?: string[] };
 type TimelineItem = { year?: string; text?: string };
-
 type PageData = {
-  title?: string;
-  description?: string;
-  heroTitle?: string;
-  heroSubtitle?: string;
-  html?: string;
-  content?: string[];
-  sections?: Section[];
-  timeline?: TimelineItem[];
-  org?: unknown; // <— puede ser string[] o { role: person }
+  title?: string; description?: string; heroTitle?: string; heroSubtitle?: string;
+  html?: string; content?: string[]; sections?: Section[]; timeline?: TimelineItem[]; org?: unknown;
 };
 
+// Load English entry
 const entry = await getEntry({ collection: "pages", id: "en/about-us" });
 const data = (entry?.data ?? {}) as PageData;
+const pageTitle = data.heroTitle ?? data.title ?? "About us";
 
-const pageTitle = data.heroTitle ?? data.title ?? "About Us";
-
-// Normalize → Pillars
 const pillarsItems: Section[] =
   Array.isArray(data.sections) && data.sections.length > 0
     ? data.sections
@@ -36,7 +27,7 @@ const pillarsItems: Section[] =
     ? [{ paragraphs: data.content }]
     : [];
 
-// Normalize → Org (acepta array o objeto { role: person })
+// Normalize organization structure
 const roles = Array.isArray(data.org)
   ? (data.org as any[])
   : data.org && typeof data.org === "object"
@@ -45,24 +36,48 @@ const roles = Array.isArray(data.org)
 ---
 
 <BaseLayout lang={lang} title={data.title} description={data.description} otherHref={otherHref}>
-  <section class="container py-4">
-    <h1 class="display-5 fw-bold">{pageTitle}</h1>
-    {data.heroSubtitle && <p class="fs-5">{data.heroSubtitle}</p>}
+  {/* HERO with gradient and accent */}
+  <header class="about-hero position-relative overflow-hidden">
+    <div class="container py-5 py-lg-6 position-relative">
+      <h1 class="display-4 fw-bold lh-1 mb-3">{pageTitle}</h1>
+      {data.heroSubtitle && <p class="fs-5 mb-0 text-body-emphasis">{data.heroSubtitle}</p>}
+    </div>
+    <div class="about-hero__pattern" aria-hidden="true"></div>
+  </header>
 
-    <article class="content mt-4">
-      {data.html && <div set:html={data.html} />}
-
-      {!data.html && pillarsItems.length > 0 && (
-        <Pillars lang={lang} items={pillarsItems} />
-      )}
-
-      {Array.isArray(data.timeline) && data.timeline.length > 0 && (
-        <Timeline lang="en" items={data.timeline} />
-      )}
-
-      {roles.length > 0 && (
-        <Org lang="en" roles={roles} />
-      )}
-    </article>
+  {/* SECTION 1: Pillars on tertiary background */}
+  <section class="bg-body-tertiary border-top border-bottom">
+    <div class="container py-5">
+      {data.html
+        ? <div class="content" set:html={data.html} />
+        : (pillarsItems.length > 0 && (
+            <Pillars
+              lang={lang}
+              items={pillarsItems}
+              layout="cards"
+              columns="row row-cols-1 row-cols-md-3 g-4"
+              accent="primary"
+              withIcons
+            />
+          ))}
+    </div>
   </section>
+
+  {/* SECTION 2: Timeline with subtle background and accent line */}
+  {Array.isArray(data.timeline) && data.timeline.length > 0 && (
+    <section class="about-section--alt">
+      <div class="container py-5">
+        <Timeline lang="en" items={data.timeline} dense titleOverride="Our history" accent="primary" />
+      </div>
+    </section>
+  )}
+
+  {/* SECTION 3: Organization grid, alternate background for contrast */}
+  {roles.length > 0 && (
+    <section class="bg-body-tertiary border-top">
+      <div class="container py-5">
+        <Org lang="en" roles={roles} layout="grid" columns="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-4" accent="primary" />
+      </div>
+    </section>
+  )}
 </BaseLayout>
