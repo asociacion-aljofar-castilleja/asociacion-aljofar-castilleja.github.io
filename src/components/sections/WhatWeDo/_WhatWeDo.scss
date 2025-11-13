@@ -1,92 +1,161 @@
-/* ===== What We Do ===== */
+/* =========================================================
+   What We Do — estilos completos
+   ========================================================= */
+
 .whatwedo-section {
+  /* Tokens locales */
+  --wwd-radius: 1rem;
+  --wwd-gap: 1.25rem;
+  --wwd-primary: var(--bs-primary, #6f42c1);
+  --wwd-border: var(--bs-border-color, rgba(0,0,0,.12));
+  --wwd-card-bg: var(--bs-card-bg, var(--card-bg, #fff));
+  --wwd-body-bg: var(--bs-body-bg, #0b0b0c);
+  --wwd-link: var(--bs-link-color, #6f42c1);
+
   color: var(--bs-body-color, var(--text, #212529));
 
-  /* --- Tabs (Bootstrap) --- */
+  /* ---------- TABS (píldora) ---------- */
   .whatwedo-tabs {
-    /* espacio entre tabs y contenido */
-    margin-bottom: .75rem;
+    margin-bottom: 1rem;
+    gap: .5rem;
 
     .nav-link {
-      /* accesibilidad: foco visible */
+      position: relative;
+      border: 1px solid transparent;
+      border-radius: 999px;
+      padding: .45rem .85rem;
+      font-weight: 500;
+      color: var(--bs-secondary-color, #6c757d);
+      background-color: transparent;
+
+      @media (prefers-reduced-motion: no-preference) and (hover: hover) {
+        transition: color .2s ease, background-color .2s ease, border-color .2s ease, box-shadow .2s ease;
+      }
+
+      &:hover {
+        color: var(--bs-body-color);
+        background-color: color-mix(in oklab, var(--wwd-primary) 10%, transparent);
+        border-color: color-mix(in oklab, var(--wwd-primary) 25%, transparent);
+      }
+
       &:focus-visible {
-        outline: 2px solid var(--bs-primary, #0d6efd);
+        outline: 2px solid var(--wwd-primary);
         outline-offset: 2px;
       }
 
-      /* transiciones solo si hay hover y el usuario no reduce movimiento */
-      @media (prefers-reduced-motion: no-preference) {
-        @media (hover: hover) {
-          transition: background-color .2s ease, color .2s ease, box-shadow .2s ease;
-        }
-      }
-
-      /* estado activo con buen contraste en ambos temas */
       &.active {
-        color: var(--bs-emphasis-color, var(--text, currentColor));
-        background-color: var(--bs-tertiary-bg, rgba(0,0,0,.03));
-        box-shadow: inset 0 -2px 0 var(--bs-primary, #0d6efd);
-      }
-    }
-
-    /* indicadores accesibles si usas nav-tabs "clásicos" */
-    &.nav-tabs {
-      border-color: var(--bs-border-color, rgba(0,0,0,.125));
-      .nav-link {
-        border-color: transparent;
-        &.active {
-          border-color: var(--bs-border-color, rgba(0,0,0,.125)) var(--bs-border-color, rgba(0,0,0,.125)) transparent;
-        }
+        color: var(--bs-body-color);
+        background-color: color-mix(in oklab, var(--wwd-primary) 16%, transparent);
+        border-color: color-mix(in oklab, var(--wwd-primary) 35%, transparent);
+        box-shadow: 0 0 0 .15rem color-mix(in oklab, var(--wwd-primary) 25%, transparent) inset;
       }
     }
   }
 
-  /* --- Iconos del bloque --- */
-  .whatwedo-icon {
-    /* usa currentColor para heredar y permitir overrides por contexto */
-    color: var(--bs-primary, #0d6efd);
-    inline-size: 1.25em;
-    block-size: 1.25em;
-    flex: 0 0 auto;
+  /* ---------- LAYOUT: grid auto-fit para ocupar ancho ---------- */
+  .tab-pane > .row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: var(--wwd-gap);
+    margin-left: 0;
+    margin-right: 0;
+    justify-content: center; /* centra si sobran columnas */
+  }
+  /* neutraliza row-cols-* de Bootstrap */
+  .tab-pane > .row > * {
+    width: 100% !important;
+    max-width: none !important;
+    flex: initial !important;
+    padding: 0; /* quitamos gutter del .col */
   }
 
-  /* --- Cards de contenido --- */
+  /* ---------- CARD ---------- */
   .card {
-    background: var(--bs-card-bg, var(--card-bg, #fff));
-    border: 1px solid var(--bs-border-color, var(--card-border, rgba(0,0,0,.12)));
-    border-radius: var(--bs-border-radius-lg, .75rem);
-    box-shadow: var(--elev-shadow, 0 1px 2px rgba(0,0,0,.06));
-    will-change: transform;
+    background:
+      linear-gradient(180deg, color-mix(in oklab, var(--wwd-primary) 3%, transparent), transparent 40%),
+      var(--wwd-card-bg);
+    border: 1px solid var(--wwd-border);
+    border-radius: var(--wwd-radius);
+    box-shadow: 0 1px 2px rgba(0,0,0,.06);
+    overflow: clip;
 
-    /* transiciones solo en entorno apto */
-    @media (prefers-reduced-motion: no-preference) {
-      @media (hover: hover) {
-        transition: transform .2s ease, box-shadow .2s ease;
-        &:hover {
-          transform: translateY(-2px);
-          box-shadow: 0 .5rem 1.25rem rgba(0,0,0,.08);
-        }
+    @media (prefers-reduced-motion: no-preference) and (hover: hover) {
+      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+      &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 .6rem 1.25rem rgba(0,0,0,.12);
+        border-color: color-mix(in oklab, var(--wwd-primary) 25%, var(--wwd-border));
       }
     }
 
-    /* si la card es interactiva */
-    &.whatwedo-card--clickable {
-      cursor: pointer;
-      text-decoration: none;
-      color: inherit;
+    &:focus-within {
+      outline: 2px solid color-mix(in oklab, var(--wwd-primary) 45%, transparent);
+      outline-offset: 2px;
+    }
 
-      &:focus-visible {
-        outline: 2px solid var(--bs-primary, #0d6efd);
-        outline-offset: 3px;
+    /* --- icono (cuadrado morado, centrado perfecto) --- */
+    .whatwedo-icon {
+      --size: 44px;
+      margin: .85rem .85rem 0 .85rem;
+      inline-size: var(--size);
+      block-size: var(--size);
+      border-radius: .85rem;
+
+      /* centrado real */
+      display: grid;
+      place-items: center;
+
+      color: var(--wwd-primary);
+      background: color-mix(in oklab, var(--wwd-primary) 12%, transparent);
+
+      /* reset de baseline para .bi/svg */
+      i, .bi, svg {
+        display: block;
+        vertical-align: middle; /* sobrescribe alineado de Bootstrap Icons */
+        line-height: 1;
+        margin: 0;
+        font-size: calc(var(--size) * 0.58);
+      }
+    }
+
+    .card-body { padding: 1rem .95rem 1rem .95rem; }
+
+    h3 {
+      margin: .25rem 0 .35rem;
+      font-weight: 700;
+      letter-spacing: .1px;
+    }
+
+    p {
+      margin-bottom: .9rem;
+      color: var(--bs-secondary-color, #6c757d);
+    }
+
+    /* enlace "Ver más" con flecha animada */
+    .stretched-link {
+      position: relative;
+      font-weight: 600;
+      color: var(--wwd-link);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+
+      &::after {
+        content: "→";
+        display: inline-block;
+        margin-left: .35rem;
+        transform: translateX(0);
+        @media (prefers-reduced-motion: no-preference) and (hover: hover) {
+          transition: transform .18s ease;
+        }
       }
 
-      &:active {
-        transform: translateY(0); /* feedback al presionar */
+      @media (hover: hover) {
+        &:hover::after { transform: translateX(2px); }
       }
     }
   }
 
-  /* --- Tipografía de métricas o encabezados dentro de cards --- */
+  /* Métricas si las usas */
   .whatwedo-kpi {
     font-variant-numeric: tabular-nums;
     font-feature-settings: "tnum" 1, "lnum" 1;
@@ -94,34 +163,102 @@
   }
 }
 
-/* Tema oscuro: mejor contraste para el tab activo y bordes */
-[data-theme="dark"] .whatwedo-section {
+/* ---------- DARK THEME: mejor contraste ---------- */
+[data-theme="dark"] .whatwedo-section,
+html[data-bs-theme="dark"] .whatwedo-section {
+  .card {
+    background: rgba(255,255,255,.035);
+    border-color: rgba(255,255,255,.14);
+    box-shadow: 0 1px 2px rgba(0,0,0,.55);
+  }
+  .card h3 { color: #fff; }
+  .card p  { color: rgba(255,255,255,.82); }
+  .card .stretched-link {
+    color: color-mix(in oklab, var(--bs-primary, #8b6cff) 70%, #fff);
+  }
+
+  .whatwedo-tabs .nav-link {
+    color: rgba(255,255,255,.85);
+  }
+  .whatwedo-tabs .nav-link:hover {
+    background-color: rgba(255,255,255,.06);
+    border-color: rgba(255,255,255,.18);
+  }
   .whatwedo-tabs .nav-link.active {
-    background-color: rgba(255,255,255,.07);
-    box-shadow: inset 0 -2px 0 var(--bs-primary, #6ea8fe);
+    color: #fff;
+    background-color: rgba(255,255,255,.10);
+    border-color: rgba(255,255,255,.28);
+    box-shadow: 0 0 0 .15rem rgba(255,255,255,.08) inset;
+  }
+
+  .whatwedo-icon {
+    color: color-mix(in oklab, var(--bs-primary, #8b6cff) 85%, #fff);
+    background: color-mix(in oklab, var(--bs-primary, #8b6cff) 24%, transparent);
   }
 }
 
-/* Alto contraste: refuerza foco y bordes */
+/* ---------- Alto contraste ---------- */
 @media (prefers-contrast: more) {
   .whatwedo-section {
     .whatwedo-tabs .nav-link.active {
-      box-shadow: inset 0 -3px 0 currentColor;
+      box-shadow: 0 0 0 2px currentColor inset;
     }
     .card {
-      border-color: currentColor;
+      border-color: currentColor !important;
       box-shadow: 0 0 0 2px currentColor inset;
     }
   }
 }
 
-/* Reduce motion: no animaciones */
+/* ---------- Reduce motion ---------- */
 @media (prefers-reduced-motion: reduce) {
   .whatwedo-section {
     .whatwedo-tabs .nav-link,
-    .card {
+    .card,
+    .card .stretched-link::after {
       transition: none !important;
       transform: none !important;
     }
   }
+}
+
+/* (Opcional) Ancho máximo mayor para respirar en desktop grande */
+.whatwedo-section > .container {
+  max-width: 1400px; /* ajusta a tu gusto o elimina esta regla */
+}
+
+/* === Quitar fondo morado del icono === */
+.whatwedo-section .whatwedo-icon {
+  /* sin “pill” */
+  background: transparent !important;
+  border-radius: 0;
+  /* que no reserve un cuadrado fijo */
+  inline-size: auto;
+  block-size: auto;
+
+  /* mantiene buen alineado */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  /* color del icono */
+  color: var(--wwd-primary);
+  /* ajusta separación respecto al borde superior de la card */
+  margin: .75rem .85rem 0 .85rem;
+}
+
+/* tamaño del propio icono (Bootstrap Icons o SVG) */
+.whatwedo-section .whatwedo-icon i,
+.whatwedo-section .whatwedo-icon .bi,
+.whatwedo-section .whatwedo-icon svg {
+  display: block;      /* evita baseline raro */
+  line-height: 1;
+  margin: 0;
+  font-size: 1.4rem;   /* ↔ ajusta a tu gusto (1.2–1.6rem) */
+}
+
+/* modo oscuro: asegurar que no vuelve el fondo */
+[data-theme="dark"] .whatwedo-section .whatwedo-icon,
+html[data-bs-theme="dark"] .whatwedo-section .whatwedo-icon {
+  background: transparent !important;
 }

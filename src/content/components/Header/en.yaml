@@ -1,6 +1,6 @@
 nav:
   - { href: "/about-us",      label: "About Us" }
-  - { href: "/what-we-do",    label: "What We Do" }
+  - { href: "/en/what-we-do",    label: "What We Do" }
   - { href: "/get-involved",  label: "Get Involved" }
   - { href: "/news",          label: "News" }
   - { href: "/transparency",  label: "Transparency" }
