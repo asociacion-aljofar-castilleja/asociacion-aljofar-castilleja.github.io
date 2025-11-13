@@ -2,11 +2,11 @@ title: "Inicio"
 description: "Formación y desarrollo web al servicio de la comunidad."
 
 hero:
-  lema: "Tecnología con impacto social"
-  subtitle: "Formación y desarrollo web al servicio de la comunidad."
-  ctaText: "Qué hacemos"
+  lema: "No queremos ser normales, queremos ser felices. "
+  subtitle: "Asociación Andaluza para la integración, formación y desarrollo en la sociedad de las personas con diversidad funcional, psíquica, física y sensorial ALJÓFAR"
+  ctaText: "Descubre más"
   ctaHref: "#que-hacemos"
-  bg: "/img/hero.jpg"
+  bg: "/images/Portada/hero-portada1.png"
 
 whatWeDo:
   services:
