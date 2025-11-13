@@ -1,7 +1,7 @@
 title: "What we do"
-description: "Short description of what you offer (services, projects, workshops…)."
-heroTitle: "Primary action-focused tagline"
-heroSubtitle: "Subtitle that reinforces focus and impact"
+description: "ALJÓFAR’s programs, projects and workshops for the inclusion, training and development of people with disabilities."
+heroTitle: "What We Do"
+heroSubtitle: "Workshops, services and activities."
 
 # ------- Services / Programs -------
 servicios: # keep the same key for simplicity with your components (or rename to 'services' and update code)
