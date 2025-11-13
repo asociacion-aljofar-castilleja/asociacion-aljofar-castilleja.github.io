@@ -6,22 +6,33 @@ interface Props { lang?: Lang; }
 
 const { lang = 'es' } = Astro.props as Props;
 
-// Defaults seguros por si falta algún campo
+// Pongo el texto dependiendo del idioma seleccionado
 const defaults = {
-  tagline: "¡Somos Unicornios! ¡SOMOS FULL STACK WEB DEVELOPERS!",
-  copyright: "© {year} AlixarCoders",
+  tagline: {
+    es: "¡Somos Unicornios! ¡SOMOS FULL STACK WEB DEVELOPERS!",
+    en: "We are Unicorns! WE ARE FULL STACK WEB DEVELOPERS!",
+  },
+  copyright: {
+    es: "© {year} AlixarCoders",
+    en: "© {year} AlixarCoders",
+  },
+  footerText: {
+    es: "Asociación Aljofar Castilleja en colaboración con el Instituto I.E.S. Alixar",
+    en: "Aljofar Castilleja Association in collaboration with the I.E.S. Alixar Institute",
+  }
 };
 
 // IDs literales para satisfacer TypeScript (evita el error de overload)
 const idMap = { es: "footer/es", en: "footer/en" } as const;
 
-// Leemos mensajes del Footer desde la colección `components`
+// Se lee mensajes del Footer desde la colección "components"
 const entry = await getEntry({ collection: 'ui', id: idMap[lang] });
 const data = (entry?.data ?? {}) as Partial<typeof defaults>;
 
 const year = new Date().getFullYear();
-const tagline = data.tagline ?? defaults.tagline;
-const copyright = (data.copyright ?? defaults.copyright).replace('{year}', String(year));
+const tagline = data.tagline?.[lang] ?? defaults.tagline[lang];
+const copyright = (data.copyright?.[lang] ?? defaults.copyright[lang]).replace('{year}', String(year));
+const footerText = data.footerText?.[lang] ?? defaults.footerText[lang];
 ---
 
 <footer class="footer py-4 border-tb">
@@ -30,10 +41,10 @@ const copyright = (data.copyright ?? defaults.copyright).replace('{year}', Strin
       {copyright} {tagline}
     </span>
   </div>
-  <!-- He añadido lo comentado en clase -->
+
   <div class="container text-center small mt-2">
     <span class="text-muted">
-      Asociación Aljofar Castilleja en colaboración con el Instituto I.E.S. Alixar
+      {footerText}
     </span>
   </div>
 </footer>
