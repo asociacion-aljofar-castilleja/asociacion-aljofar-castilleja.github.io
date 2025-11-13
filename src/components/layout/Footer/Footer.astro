@@ -6,39 +6,28 @@ interface Props { lang?: Lang; }
 
 const { lang = 'es' } = Astro.props as Props;
 
-// Pongo el texto dependiendo del idioma seleccionado
+// Defaults seguros por si falta algún campo
 const defaults = {
-  tagline: {
-    es: "Asociación Aljofar Castilleja en colaboración con el grupo de desarrolladores de aplicaciones Web de I.E.S. Alixar",
-    en: "Aljofar Castilleja Association in collaboration with the I.E.S. Alixar Web Application Developers Group",
-  },
-  copyright: {
-    es: "© {year} AlixarCoders - ",
-    en: "© {year} AlixarCoders - ",
-  }
+  tagline: "¡Somos Unicornios! ¡SOMOS FULL STACK WEB DEVELOPERS!",
+  copyright: "© {year} AlixarCoders",
 };
 
 // IDs literales para satisfacer TypeScript (evita el error de overload)
 const idMap = { es: "footer/es", en: "footer/en" } as const;
 
-// Se lee mensajes del Footer desde la colección "components"
+// Leemos mensajes del Footer desde la colección `components`
 const entry = await getEntry({ collection: 'ui', id: idMap[lang] });
 const data = (entry?.data ?? {}) as Partial<typeof defaults>;
 
 const year = new Date().getFullYear();
-const tagline = data.tagline?.[lang] ?? defaults.tagline[lang];
-const copyright = (data.copyright?.[lang] ?? defaults.copyright[lang]).replace('{year}', String(year));
+const tagline = data.tagline ?? defaults.tagline;
+const copyright = (data.copyright ?? defaults.copyright).replace('{year}', String(year));
 ---
 
-<footer class="footer py-4 border-tb">
+<footer class="footer py-4 border-top">
   <div class="container text-center small">
     <span class="text-muted">
-      {copyright} {tagline}
-    </span>
-  </div>
-
-  <div class="container text-center small mt-2">
-    <span class="text-muted">
+      {copyright} — {tagline}
     </span>
   </div>
 </footer>
