@@ -33,7 +33,7 @@ partners:
 hq:
   title: "Nuestra sede"
   text: "Un espacio accesible y lleno de vida donde aprendemos, compartimos y crecemos juntos. Desde el Centro Cívico de Nueva Sevilla, la Asociación ALJÓFAR trabaja por la integración y el desarrollo de personas con diversidad funcional a través de talleres formativos, creativos y de ocio."
-  badges: ["Rampa", "Baño adaptado", "Ancho de paso +90cm"]
+  badges: ["Rampa de acceso", "Baño adaptado", "Espacios amplios +90cm", "Señalética clara"]
   images:
     - { src: "/img/sede/1.jpg", alt: "Entrada accesible" }
     - { src: "/img/sede/2.jpg", alt: "Rampa de entrada" }
