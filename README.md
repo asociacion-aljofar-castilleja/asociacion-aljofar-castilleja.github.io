@@ -136,7 +136,7 @@ Dentro de tu proyecto Astro encontrarás estas carpetas y archivos clave:
 ├── public/
 │   ├── favicon.svg
 │   └── images/
-│       ├── location/sede.svg
+│       ├── location/sede.jpg
 │       └── social-media/*.svg
 ├── src/
 │   ├── components/

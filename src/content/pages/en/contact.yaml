@@ -25,7 +25,7 @@ ubicacion:
   embedUrl: "https://www.google.com/maps/embed?pb=[CAMBIAR_POR_TU_EMBED_URL]"
 
 sedeFoto:
-  src: "/imgages/location/sede.svg"
+  src: "/imgages/location/sede.jpg"
   alt: "Front of the association office"
 
 redes:
