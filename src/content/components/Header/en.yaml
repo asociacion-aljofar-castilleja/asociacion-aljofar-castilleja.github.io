@@ -1,9 +1,9 @@
 nav:
-  - { href: "/about-us",      label: "About Us" }
-  - { href: "/en/what-we-do", label: "What We Do" }
-  - { href: "/get-involved",  label: "Get Involved" }
-  - { href: "/news",          label: "News" }
-  - { href: "/contact",       label: "Contact" }
+  - { href: "/en/about-us",      label: "About Us" }
+  - { href: "/en/what-we-do",    label: "What We Do" }
+  - { href: "/en/get-involved",  label: "Get Involved" }
+  - { href: "/en/news",          label: "News" }
+  - { href: "/en/contact",       label: "Contact" }
 
 theme:
   button: "Theme"
