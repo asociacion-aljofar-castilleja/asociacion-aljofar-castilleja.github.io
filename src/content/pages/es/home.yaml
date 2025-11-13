@@ -35,9 +35,10 @@ hq:
   text: "Un espacio accesible y lleno de vida donde aprendemos, compartimos y crecemos juntos. Desde el Centro Cívico de Nueva Sevilla, la Asociación ALJÓFAR trabaja por la integración y el desarrollo de personas con diversidad funcional a través de talleres formativos, creativos y de ocio."
   badges: ["Rampa de acceso", "Baño adaptado", "Espacios amplios +90cm", "Señalética clara"]
   images:
-    - { src: "/img/sede/1.jpg", alt: "Entrada accesible" }
-    - { src: "/img/sede/2.jpg", alt: "Rampa de entrada" }
-    - { src: "/img/sede/3.jpg", alt: "Zona informatica" }
+    - { src: "/images/sede-exterior-interior/exterior-sede.jpg", alt: "Entrada accesible" }
+    - { src: "/images/sede-exterior-interior/interior-sede.jpg", alt: "Interiores amplios" }
+    - { src: "/images/sede-informatica/informatica2.jpg", alt: "Zona informatica" }
+    - { src: "/images/taller-manualidades/manualidades-collage/collage.png", alt: "Collage" }
 
 facebook:
   pageUrl: "https://www.facebook.com/p/Asociación-Aljofar-100079476353855"

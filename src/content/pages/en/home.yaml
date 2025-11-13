@@ -32,11 +32,10 @@ hq:
   text: "An accessible and lively space where we learn, share and grow together. From the Civic Center of Nueva Sevilla, the ALJÓFAR Association works for the integration and development of people with functional diversity through training, creative and leisure workshops."
   badges: ["Acces ramp", "Adapted bathroom", "Clear signage", "Large spaces +90cm"]
   images:
-    - { src: "/img/sede/1.jpg", alt: "Accessible classroom" }
-    - { src: "/img/sede/2.jpg", alt: "Entrance ramp" }
-    - { src: "/img/sede/3.jpg", alt: "Collaborative area" }
-    - { src: "/img/sede/4.jpg", alt: "High-contrast signage" }
-
+    - { src: "/images/sede-exterior-interior/exterior-sede.jpg", alt: "Accessible entrance" }
+    - { src: "/images/sede-exterior-interior/interior-sede.jpg", alt: "Spacious interiors" }
+    - { src: "/images/sede-informatica/informatica2.jpg", alt: "IT area" }
+    - { src: "/images/taller-manualidades/manualidades-college/collage.png", alt: "Collage" }
 facebook:
   pageUrl: "https://www.facebook.com/p/Asociación-Aljofar-100079476353855"
   limit: 3
