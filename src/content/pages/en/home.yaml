@@ -1,9 +1,9 @@
 hero:
-  lema: "Technology with social impact"
-  subtitle: "Training and web development serving the community."
-  ctaText: "What we do"
+  lema: "We train and build projects that create real community impact."
+  subtitle: "Andalusian Association for the integration, training and development in society of people with functional, mental, physical and sensory diversity ALJÓFAR"
+  ctaText: "Learn more"
   ctaHref: "#what-we-do"
-  bg: "/img/hero.jpg"
+  bg: "/images/Portada/hero-portada1.png"
 
 whatWeDo:
   services:
@@ -17,15 +17,13 @@ whatWeDo:
     - { title: "Coding club", excerpt: "Learn by building together.", href: "/activities/club", icon: "bi bi-braces" }
 
 stats:
-  - { label: "Beneficiaries", value: 350 }
-  - { label: "Active projects", value: 8 }
-  - { label: "Years active", value: 6 }
-  - { label: "Volunteers", value: 24 }
+  - { label: "Full members", value: 16 }
+  - { label: "Collaborating partners", value: 3 }
 
 partners:
-  - { name: "City Council", url: "https://example.org", logo: "/img/partners/ayto.svg", alt: "City Council" }
-  - { name: "NGO X",        url: "https://example.org", logo: "/img/partners/ongx.svg" }
-  - { name: "IES Alixar",   url: "https://example.org", logo: "/img/partners/ies.svg" }
+  - { name: "City Hall", url: "https://www.castillejadelacuesta.es/es/", logo: "/images/partners/ayto.png" }
+  - { name: "IES Alixar",   url: "https://sites.google.com/g.educaand.es/web-iesalixar-org", logo: "/images/partners/ies.png" }
+  - { name: "Alixar Coders",   url: "https://alixarcoders.github.io/", logo: "/images/partners/coders.png" }
 
 hq:
   title: "Our Headquarters"
