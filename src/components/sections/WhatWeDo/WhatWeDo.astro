@@ -29,10 +29,10 @@ const I = (entry?.data ?? {}) as I18nData;
 
 // Fallbacks
 const tabsLabels = {
-  services: I.tabs?.services ?? (lang === "en" ? "Services"  : "Servicios"),
-  projects: I.tabs?.projects ?? (lang === "en" ? "Projects"  : "Proyectos"),
   // Para la pestaña combinada usamos un label explícito:
   wa:         (lang === "en" ? "Workshops & Activities" : "Talleres y Actividades"),
+  services: I.tabs?.services ?? (lang === "en" ? "Services"  : "Servicios"),
+  projects: I.tabs?.projects ?? (lang === "en" ? "Projects"  : "Proyectos"),
 };
 
 const sectionTitle = I.title ?? (lang === "en" ? "What we do" : "Qué hacemos");
@@ -59,10 +59,11 @@ const waItems: Item[] = [...workshops, ...activities];
  * Pestañas (solo las que tienen contenido)
  * ========================= */
 const tabs = [
-  { id: "services",  label: tabsLabels.services,  items: services,  href: hrefServices },
-  { id: "projects",  label: tabsLabels.projects,  items: projects,  href: hrefProjects },
   { id: "workshops", label: tabsLabels.wa,       items: waItems,   href: hrefWorkshops },
+  { id: "services",  label: tabsLabels.services, items: services,  href: hrefServices },
+  { id: "projects",  label: tabsLabels.projects, items: projects,  href: hrefProjects },
 ].filter(t => Array.isArray(t.items) && t.items.length > 0);
+
 ---
 
 <section id={sectionId} class="whatwedo-section py-5" data-module="WhatWeDo" aria-label={sectionTitle}>
