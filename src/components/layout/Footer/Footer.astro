@@ -9,16 +9,12 @@ const { lang = 'es' } = Astro.props as Props;
 // Pongo el texto dependiendo del idioma seleccionado
 const defaults = {
   tagline: {
-    es: "¡Somos Unicornios! ¡SOMOS FULL STACK WEB DEVELOPERS!",
-    en: "We are Unicorns! WE ARE FULL STACK WEB DEVELOPERS!",
+    es: "Asociación Aljofar Castilleja en colaboración con el grupo de desarrolladores de aplicaciones Web de I.E.S. Alixar",
+    en: "Aljofar Castilleja Association in collaboration with the I.E.S. Alixar Web Application Developers Group",
   },
   copyright: {
-    es: "© {year} AlixarCoders",
-    en: "© {year} AlixarCoders",
-  },
-  footerText: {
-    es: "Asociación Aljofar Castilleja en colaboración con el Instituto I.E.S. Alixar",
-    en: "Aljofar Castilleja Association in collaboration with the I.E.S. Alixar Institute",
+    es: "© {year} AlixarCoders - ",
+    en: "© {year} AlixarCoders - ",
   }
 };
 
@@ -32,7 +28,6 @@ const data = (entry?.data ?? {}) as Partial<typeof defaults>;
 const year = new Date().getFullYear();
 const tagline = data.tagline?.[lang] ?? defaults.tagline[lang];
 const copyright = (data.copyright?.[lang] ?? defaults.copyright[lang]).replace('{year}', String(year));
-const footerText = data.footerText?.[lang] ?? defaults.footerText[lang];
 ---
 
 <footer class="footer py-4 border-tb">
@@ -44,7 +39,6 @@ const footerText = data.footerText?.[lang] ?? defaults.footerText[lang];
 
   <div class="container text-center small mt-2">
     <span class="text-muted">
-      {footerText}
     </span>
   </div>
 </footer>
