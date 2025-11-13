@@ -20,10 +20,8 @@ whatWeDo:
     - { title: "Club de código", excerpt: "Aprende construyendo en equipo.", href: "/actividades/club", icon: "bi bi-braces" }
 
 stats:
-  - { label: "Beneficiarios",      value: 350 }
-  - { label: "Proyectos activos",  value: 8 }
-  - { label: "Años en activo",     value: 6 }
-  - { label: "Voluntarios",        value: 24 }
+  - { label: "Socios numerarios",  value: 16 }
+  - { label: "Socios colaboradores",     value: 3 }
 
 partners:
   - { name: "Ayuntamiento", url: "https://www.castillejadelacuesta.es/es/", logo: "/images/partners/ayto.png" }
