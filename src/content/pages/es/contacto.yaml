@@ -31,18 +31,10 @@ sedeFoto:
 
 redes:
   - nombre: "Facebook"
-    handle: "@tuasociacion"
-    url: "https://www.facebook.com/tuasociacion"
+    handle: "Asociación Aljofar"
+    url: "https://www.facebook.com/p/Asociaci%C3%B3n-Aljofar-100079476353855"
     icon: "facebook"     # usa tu set de iconos (ej. bootstrap, lucide)
   - nombre: "Instagram"
-    handle: "@tuasociacion"
-    url: "https://www.instagram.com/tuasociacion"
+    handle: "@aljofar.castilleja"
+    url: "https://www.instagram.com/aljofar.castilleja/"
     icon: "instagram"
-  - nombre: "X"
-    handle: "@tuasociacion"
-    url: "https://x.com/tuasociacion"
-    icon: "x"
-  - nombre: "YouTube"
-    handle: "Tu Asociación"
-    url: "https://www.youtube.com/@tuasociacion"
-    icon: "youtube"
