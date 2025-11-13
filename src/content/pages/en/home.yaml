@@ -23,9 +23,9 @@ stats:
   - { label: "Volunteers", value: 24 }
 
 partners:
-  - { name: "City Council", url: "https://example.org", logo: "/img/partners/ayto.svg", alt: "City Council" }
-  - { name: "NGO X",        url: "https://example.org", logo: "/img/partners/ongx.svg" }
-  - { name: "IES Alixar",   url: "https://example.org", logo: "/img/partners/ies.svg" }
+  - { name: "City Hall", url: "https://www.castillejadelacuesta.es/es/", logo: "/images/partners/ayto.png" }
+  - { name: "IES Alixar",   url: "https://sites.google.com/g.educaand.es/web-iesalixar-org", logo: "/images/partners/ies.png" }
+  - { name: "Alixar Coders",   url: "https://alixarcoders.github.io/", logo: "/images/partners/coders.png" }
 
 hq:
   title: "Our Headquarters"
