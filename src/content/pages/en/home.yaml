@@ -8,17 +8,13 @@ hero:
 whatWeDo:
   services:
     - { title: "Morning classroom", excerpt: "Reinforcement of reading, writing, numeracy and memory. Oct–Jun · Mon–Fri 10:00–13:00 · Civic Center.", href: "/en/what-we-do#services", icon: "bi bi-mortarboard" }
-    - { title: "IT basics (user level)", excerpt: "Web searches and Word documents. Small groups with 3 computers.", href: "/en/what-we-do#services", icon: "bi bi-pc-display" }
-  projects:
-    - { title: "Municipal venue", excerpt: "Stable headquarters at the Civic Center of Nueva Sevilla for all activities.", href: "/en/what-we-do#projects", icon: "bi bi-geo-alt" }
-    - { title: "Local partners’ support", excerpt: "Fundación Caixa, Asociación de Reyes Magos and Obra Social Nuestra Señora de la Soledad.", href: "/en/what-we-do#projects", icon: "bi bi-people" }
-    - { title: "Self-funding with handicrafts", excerpt: "Selling handmade items to finance new activities and outings.", href: "/en/what-we-do#projects", icon: "bi bi-piggy-bank" }
   workshops:
-    - { title: "Handicrafts workshop", excerpt: "Creativity and psychomotor skills; useful and decorative items.", href: "/en/what-we-do#workshops", icon: "bi bi-scissors" }
-    - { title: "Dance workshop", excerpt: "Physical activity and musical expression with adapted choreographies.", href: "/en/what-we-do#workshops", icon: "bi bi-music-note-beamed" }
-  activities:
-    - { title: "Leisure & community", excerpt: "Outings, Christmas lunch and Dec 3rd: International Day of Persons with Disabilities.", href: "/en/what-we-do#workshops", icon: "bi bi-calendar-event" }
-    - { title: "Solidarity stalls", excerpt: "Stands selling handmade crafts to raise funds and awareness.", href: "/en/what-we-do#workshops", icon: "bi bi-shop" }
+    - { title: "Crafts workshop", excerpt: "Creativity and psychomotor skills; useful and decorative pieces.", href: "/que-hacemos#talleres", icon: "bi bi-scissors" }
+    - { title: "Dance workshop", excerpt: "Physical activity and musical expression with adapted choreographies.", href: "/que-hacemos#talleres", icon: "bi bi-music-note-beamed" }
+    - { title: "IT workshop", excerpt: "Train users in basic computer skills.", href: "/que-hacemos#talleres", icon: "bi bi-pc-display" }
+  projects:
+      - { title: "Leisure and free time", excerpt: "Excursions, coexistence (Christmas lunch) and December 3: International Day of Persons with Disabilities.", href: "/que-hacemos#talleres", icon: "bi bi-calendar-event" }
+      - { title: "Charity stalls", excerpt: "Stands with products made in the workshop to raise awareness and funds.", href: "/que-hacemos#talleres", icon: "bi bi-shop" }
 
 stats:
   - { label: "Beneficiaries", value: 350 }

@@ -58,7 +58,9 @@ const pageTitle = data.heroTitle ?? data.title ?? "Qué hacemos";
 
     <article class="content mt-4">
       {Array.isArray(data.talleres) && data.talleres.length > 0 && (
-        <Workshops lang={lang} items={data.talleres} />
+        <section id="talleres" class="mb-5">
+          <Workshops lang={lang} items={data.talleres} />
+        </section>
       )}
       
       {Array.isArray(data.servicios) && data.servicios.length > 0 && (
@@ -72,16 +74,6 @@ const pageTitle = data.heroTitle ?? data.title ?? "Qué hacemos";
           <ProjectsList lang={lang} items={data.proyectos} />
         </section>
       )}
-
-<<<<<<< HEAD
-      {Array.isArray(data.talleres) && data.talleres.length > 0 && (
-        <section id="talleres" class="mb-5">
-          <Workshops lang={lang} items={data.talleres} />
-        </section>
-      )}
-=======
-     
->>>>>>> main
     </article>
   </section>
 </BaseLayout>
