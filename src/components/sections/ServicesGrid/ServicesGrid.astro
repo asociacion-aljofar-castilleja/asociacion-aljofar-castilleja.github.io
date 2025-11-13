@@ -2,6 +2,16 @@
 import { getEntry } from "astro:content";
 
 type Lang = "es" | "en";
+
+type ServiceImage =
+  | string
+  | {
+      src: string;
+      alt?: string;
+      // Opcional: controla el recorte del contenedor
+      aspectRatio?: `${number}/${number}` | "1/1" | "4/3" | "16/9";
+    };
+
 type Service = {
   nombre?: string;
   objetivo?: string;
@@ -10,6 +20,7 @@ type Service = {
   horario_lugar?: string;
   como_solicitar?: string;
   accesibilidad?: string;
+  imagen?: ServiceImage; // ← nueva propiedad
 };
 
 interface Props {
@@ -44,17 +55,32 @@ type I18n = {
 const entry = await getEntry({ collection: "ui", id: idMap[lang] });
 const I = (entry?.data ?? {}) as I18n;
 
-const title = titleOverride ?? I.title ?? (lang === "en" ? "Services & Programs" : "Servicios y Programas");
+const title =
+  titleOverride ?? I.title ?? (lang === "en" ? "Services & Programs" : "Servicios y Programas");
 const ariaSection = I.ariaSection ?? title;
 const L = {
   objetivo: I.labels?.objetivo ?? (lang === "en" ? "Objective" : "Objetivo"),
-  destinatarios: I.labels?.destinatarios ?? (lang === "en" ? "Who it's for" : "A quién va dirigido"),
+  destinatarios:
+    I.labels?.destinatarios ?? (lang === "en" ? "Who it's for" : "A quién va dirigido"),
   requisitos: I.labels?.requisitos ?? (lang === "en" ? "Requirements" : "Requisitos"),
-  horario_lugar: I.labels?.horario_lugar ?? (lang === "en" ? "Schedule / Place" : "Horario / lugar"),
-  como_solicitar: I.labels?.como_solicitar ?? (lang === "en" ? "How to apply" : "Cómo solicitarlo"),
-  accesibilidad: I.labels?.accesibilidad ?? (lang === "en" ? "Accessibility" : "Accesibilidad"),
+  horario_lugar:
+    I.labels?.horario_lugar ?? (lang === "en" ? "Schedule / Place" : "Horario / lugar"),
+  como_solicitar:
+    I.labels?.como_solicitar ?? (lang === "en" ? "How to apply" : "Cómo solicitarlo"),
+  accesibilidad:
+    I.labels?.accesibilidad ?? (lang === "en" ? "Accessibility" : "Accesibilidad"),
 };
 const emptyText = I.empty ?? (lang === "en" ? "No services defined yet." : "Aún no hay servicios definidos.");
+
+function normalizeImg(img: ServiceImage | undefined) {
+  if (!img) return null;
+  if (typeof img === "string") return { src: img, alt: "", aspectRatio: "16/9" as const };
+  return {
+    src: img.src,
+    alt: img.alt ?? "",
+    aspectRatio: img.aspectRatio ?? ("16/9" as const),
+  };
+}
 ---
 
 <section class="whatwedo-services py-3" aria-label={ariaSection} data-module="ServicesGrid">
@@ -65,34 +91,57 @@ const emptyText = I.empty ?? (lang === "en" ? "No services defined yet." : "Aún
       <p class="text-muted">{emptyText}</p>
     ) : (
       <div class={columns}>
-        {items.map((s) => (
-          <div class="col d-flex">
-            <article class="service-card card border-0 shadow-sm w-100">
-              <div class="card-body">
-                {s.nombre && <h3 class="h5 card-title mb-2">{s.nombre}</h3>}
+        {items.map((s) => {
+          const img = normalizeImg(s.imagen);
+          return (
+            <div class="col d-flex">
+              <article class="service-card card border-0 shadow-sm w-100">
+                {img ? (
+                  <figure
+                    class="service-media"
+                    style={{ "--ratio": img.aspectRatio }}
+                  >
+                    <img
+                      src={img.src}
+                      alt={img.alt}
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  </figure>
+                ) : (
+                  <figure class="service-media service-media--placeholder" aria-hidden="true">
+                    <div class="ph">
+                      <span>∎</span>
+                    </div>
+                  </figure>
+                )}
 
-                {s.objetivo && (
-                  <p class="mb-1"><strong>{L.objetivo}:</strong> {s.objetivo}</p>
-                )}
-                {s.destinatarios && (
-                  <p class="mb-1"><strong>{L.destinatarios}:</strong> {s.destinatarios}</p>
-                )}
-                {s.requisitos && (
-                  <p class="mb-1"><strong>{L.requisitos}:</strong> {s.requisitos}</p>
-                )}
-                {s.horario_lugar && (
-                  <p class="mb-1"><strong>{L.horario_lugar}:</strong> {s.horario_lugar}</p>
-                )}
-                {s.como_solicitar && (
-                  <p class="mb-1"><strong>{L.como_solicitar}:</strong> {s.como_solicitar}</p>
-                )}
-                {s.accesibilidad && (
-                  <p class="service-access mb-0"><strong>{L.accesibilidad}:</strong> {s.accesibilidad}</p>
-                )}
-              </div>
-            </article>
-          </div>
-        ))}
+                <div class="card-body">
+                  {s.nombre && <h3 class="h5 card-title mb-2">{s.nombre}</h3>}
+
+                  {s.objetivo && (
+                    <p class="mb-1"><strong>{L.objetivo}:</strong> {s.objetivo}</p>
+                  )}
+                  {s.destinatarios && (
+                    <p class="mb-1"><strong>{L.destinatarios}:</strong> {s.destinatarios}</p>
+                  )}
+                  {s.requisitos && (
+                    <p class="mb-1"><strong>{L.requisitos}:</strong> {s.requisitos}</p>
+                  )}
+                  {s.horario_lugar && (
+                    <p class="mb-1"><strong>{L.horario_lugar}:</strong> {s.horario_lugar}</p>
+                  )}
+                  {s.como_solicitar && (
+                    <p class="mb-1"><strong>{L.como_solicitar}:</strong> {s.como_solicitar}</p>
+                  )}
+                  {s.accesibilidad && (
+                    <p class="service-access mb-0"><strong>{L.accesibilidad}:</strong> {s.accesibilidad}</p>
+                  )}
+                </div>
+              </article>
+            </div>
+          );
+        })}
       </div>
     )}
   </div>
