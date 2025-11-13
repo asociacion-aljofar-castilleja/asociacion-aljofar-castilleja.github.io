@@ -26,7 +26,7 @@ ubicacion:
   embedUrl: "https://www.google.com/maps/embed?pb=[CAMBIAR_POR_TU_EMBED_URL]"
 
 sedeFoto:
-  src: "/images/location/sede.svg"
+  src: "/images/location/sede.jpg"
   alt: "Fachada de la sede de la asociación"
 
 redes:
