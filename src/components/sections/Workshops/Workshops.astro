@@ -1,50 +1,52 @@
+
 ---
-import { getEntry } from "astro:content";
 import WorkshopCard from "./WorkshopCard.astro";
 
-type Lang = "es" | "en";
-type Img = { src: string; alt?: string };
-type Workshop = { titulo?: string; descripcion?: string; horario_lugar?: string; imagenes?: Img[] };
+// idioma
+const lang: "es" | "en" = "es";
 
-interface Props {
-  lang: Lang;
-  items: Workshop[];
-  titleOverride?: string;
-  columns?: string; // clases de grid Bootstrap
-}
-
-const {
-  lang,
-  items = [],
-  titleOverride,
-  columns = "row row-cols-1 row-cols-md-2 g-4",
-} = Astro.props as Props;
-
-// i18n (colección 'ui': workshops/es | workshops/en)
-const idMap = { es: "workshops/es", en: "workshops/en" } as const;
-type I18n = {
-  title?: string;
-  ariaSection?: string;
-  empty?: string;
-};
-
-const entry = await getEntry({ collection: "ui", id: idMap[lang] });
-const I = (entry?.data ?? {}) as I18n;
-
-const title = titleOverride ?? I.title ?? (lang === "en" ? "Workshops & Activities" : "Talleres y Actividades");
-const ariaSection = I.ariaSection ?? title;
-const emptyText = I.empty ?? (lang === "en" ? "No workshops yet." : "Aún no hay talleres.");
+// array de workshops directamente
+const workshops = [
+  {
+    titulo: "Taller de Manualidades",
+    descripcion: "Fomenta la creatividad y habilidades psicomotrices mediante la elaboración de objetos útiles y decorativos.",
+    horario_lugar: "Durante todo el año en el Centro Cívico de Nueva Sevilla. Modalidad presencial.",
+    imagenes: [
+      { src: "public/images/taller-manualidades/manualidades-cuencos/cuencos2.jpg", alt: "Socios creando cuencos" },
+      { src: "public/images/taller-manualidades/manualidades-abanico/abanico2.jpg", alt: "Socios creando abanicos" },
+      { src: "public/images/taller-manualidades/manualidades-camisetas/camisetas2.jpg", alt: "Socios pintando camisetas" },
+      { src: "public/images/taller-manualidades/manualidades-otros/manualidades-1.jpg", alt: "Socios creando llaveros" },
+      { src: "public/images/taller-manualidades/manualidades-otros/manualidades-3.jpg", alt: "Socios pintando cuadros" },
+      { src: "public/images/taller-manualidades/manualidades-otros/manualidades-2.jpg", alt: "Socios decorando tazas" }
+    ]
+  },
+  {
+    titulo: "Taller de Informática",
+    descripcion: "Iniciación a la informática: uso básico del ordenador, procesadores de texto y navegación segura por internet.",
+    horario_lugar: "Durante el curso en el Centro Cívico de Nueva Sevilla. Modalidad presencial, 3 equipos disponibles.",
+    imagenes: [
+      { src: "public/images/sede-informatica/informatica2.jpg", alt: "Socios aprendiendo informática" }
+    ]
+  },
+  {
+    titulo: "Taller de Baile",
+    descripcion: "Actividad física y recreativa que promueve coordinación, ritmo y socialización mediante distintos estilos de baile.",
+    horario_lugar: "Durante el curso en el Centro Cívico de Nueva Sevilla. Modalidad presencial.",
+    imagenes: [
+      { src: "public/images/taller-baile/baile.jpg", alt: "Socios bailando en el taller de baile" }
+    ]
+  }
+];
 ---
-
-<section class="whatwedo-workshops py-3" aria-label={ariaSection} data-module="Workshops">
+<section class="whatwedo-workshops py-3" aria-label="Talleres y Actividades" data-module="Workshops">
   <div class="container">
-    <h2 class="h4 mb-3">{title}</h2>
+    <h2 class="h4 mb-3">Talleres y Actividades</h2>
 
-    {items.length === 0 ? (
-      <p class="text-muted">{emptyText}</p>
+    {workshops.length === 0 ? (
+      <p class="text-muted">Aún no hay talleres.</p>
     ) : (
-      <div class={columns}>
-        {items.map((w, idx) => (
+      <div class="row row-cols-1 row-cols-md-2 g-4">
+        {workshops.map((w, idx) => (
           <div class="col d-flex">
             <WorkshopCard lang={lang} w={w} idBase={`workshop-${idx}`} />
           </div>
