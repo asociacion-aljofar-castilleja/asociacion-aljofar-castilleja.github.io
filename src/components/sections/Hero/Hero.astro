@@ -46,11 +46,11 @@ const BG        = bg       ?? I.bg       ?? "/img/hero.jpg";
 >
   <!-- Fondo + overlay -->
   <div class="hero__bg" aria-hidden="true"></div>
-  <div class="hero__overlay" aria-hidden="true"></div>
-
+  <div  aria-hidden="true"></div>
+    <!--  class="hero__overlay" -->
   <div class="container position-relative">
     <div class="row align-items-center hero__row">
-      <div class="col-12 col-lg-7 bg-100 p-4 p-md-5 rounded shadow-lg">
+      <div class="col-12 col-lg-7 p-4 p-md-5 rounded bg-dark bg-opacity-50 shadow">
         <h1 class="display-4 fw-bold lh-1 mb-3">{LEMA}</h1>
         {SUBTITLE && <p class="lead mb-4">{SUBTITLE}</p>}
         <a class="btn btn-primary btn-lg shadow" href={CTA_HREF} aria-label={CTA_TEXT}>{CTA_TEXT}</a>
