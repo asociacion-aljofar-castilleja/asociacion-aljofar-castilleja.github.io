@@ -16,6 +16,6 @@
 /* Icono mínimo: usa tu librería real si la tienes (lucide, bootstrap, etc.) */
 .social-icon { width: 1.25rem; height: 1.25rem; display: inline-block; background: currentColor; mask-size: contain; mask-repeat: no-repeat; mask-position: center; }
 .social-icon--facebook  { mask-image: url("/images/social-media/facebook_logo_icon.svg");  }
+.social-icon--facebook_logo_icon  { mask-image: url("/images/social-media/facebook_logo_icon.svg");  }
 .social-icon--instagram { mask-image: url("/images/social-media/instagram_logo_icon.svg"); }
-.social-icon--x         { mask-image: url("/images/social-media/x_logo_icon.svg"); }
-.social-icon--youtube   { mask-image: url("/images/social-media/youtube_logo_icon.svg"); }
+.social-icon--instagram_logo_icon { mask-image: url("/images/social-media/instagram_logo_icon.svg"); }  
