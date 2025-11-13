@@ -22,14 +22,39 @@ servicios:
 
 # ------- Proyectos (financiados, subvenciones, resultados) -------
 proyectos:
-  - titulo: "Título del proyecto"
-    financiacion: "Financiación/subvención/donación/autogestión"
-    resultados: "Resultados o entregables (indicadores, actividades, impacto)"
-    notas: "Notas adicionales (fechas, partners, hitos) (opcional)"
-  - titulo: "Otro proyecto"
-    financiacion: "…"
-    resultados: "…"
-    notas: "…"
+  - tipo: "actividad"
+    titulo: "Actividades de ocio y convivencia"
+    fecha: "A lo largo del año"
+    lugar: "Distintos espacios públicos y centros sociales"
+    horario: "Fechas puntuales según programación anual"
+    precio: "Gratuito o con aportación simbólica"
+    edad: "Todas las edades"
+    organizador: "Asociación Aljofar"
+    notas: >
+      Cada año organizamos distintas salidas y jornadas de convivencia
+      para fomentar la participación y el bienestar de las personas asociadas.
+      Entre ellas destacan la comida de Navidad, las excursiones de fin de curso
+      y la celebración del Día de la Diversidad Funcional, cada 3 de diciembre.
+    imagen:
+      src: "/images/ocio-actividades.jpg"
+      alt: "Grupo de personas disfrutando de una jornada de convivencia"
+      aspectRatio: "4/3"
+
+  - tipo: "puesto"
+    titulo: "Puestos solidarios de artesanía"
+    fecha: "Varias veces al año"
+    ubicacion: "Ferias locales y eventos comunitarios"
+    horario: "Según horario del evento"
+    productos: "Artículos elaborados en el taller de manualidades"
+    contacto: "Asociación Aljofar — info@asociacionaljofarcastilleja.es"
+    notas: >
+      Organizamos puestos de venta con los productos realizados en el taller
+      de manualidades. La recaudación se destina a la autofinanciación de la
+      asociación y a apoyar nuevas actividades y proyectos sociales.
+    imagen:
+      src: "/images/puesto-artesania.jpg"
+      alt: "Mesa con productos artesanales en un puesto solidario"
+
 
 # ------- Talleres y Actividades (con galería opcional) -------
 talleres:

@@ -57,6 +57,10 @@ const pageTitle = data.heroTitle ?? data.title ?? "Qué hacemos";
     {data.heroSubtitle && <p class="fs-5">{data.heroSubtitle}</p>}
 
     <article class="content mt-4">
+      {Array.isArray(data.talleres) && data.talleres.length > 0 && (
+        <Workshops lang={lang} items={data.talleres} />
+      )}
+      
       {Array.isArray(data.servicios) && data.servicios.length > 0 && (
         <section id="servicios" class="mb-5">
           <ServicesGrid lang={lang} items={data.servicios} />
@@ -69,11 +73,15 @@ const pageTitle = data.heroTitle ?? data.title ?? "Qué hacemos";
         </section>
       )}
 
+<<<<<<< HEAD
       {Array.isArray(data.talleres) && data.talleres.length > 0 && (
         <section id="talleres" class="mb-5">
           <Workshops lang={lang} items={data.talleres} />
         </section>
       )}
+=======
+     
+>>>>>>> main
     </article>
   </section>
 </BaseLayout>
