@@ -24,10 +24,16 @@ const tagline = data.tagline ?? defaults.tagline;
 const copyright = (data.copyright ?? defaults.copyright).replace('{year}', String(year));
 ---
 
-<footer class="footer py-4 border-top">
+<footer class="footer py-4 border-tb">
   <div class="container text-center small">
     <span class="text-muted">
-      {copyright} — {tagline}
+      {copyright} {tagline}
+    </span>
+  </div>
+  <!-- He añadido lo comentado en clase -->
+  <div class="container text-center small mt-2">
+    <span class="text-muted">
+      Asociación Aljofar Castilleja en colaboración con el Instituto I.E.S. Alixar
     </span>
   </div>
 </footer>
