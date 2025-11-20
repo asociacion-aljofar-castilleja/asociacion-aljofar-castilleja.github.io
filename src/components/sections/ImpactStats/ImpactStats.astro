@@ -19,7 +19,7 @@ type I18n = { title?: string; ariaSection?: string };
 const entry = await getEntry({ collection: "ui", id: idMap[lang] });
 const I = (entry?.data ?? {}) as I18n;
 
-const sectionTitle = title ?? I.title ?? (lang === "en" ? "Impact" : "Impacto");
+const sectionTitle = title ?? I.title ?? (lang === "en" ? "Our partners and collaborators" : "Nuestros socios y colaboradores");
 const ariaSection   = I.ariaSection ?? sectionTitle;
 
 // locale para formatear números
