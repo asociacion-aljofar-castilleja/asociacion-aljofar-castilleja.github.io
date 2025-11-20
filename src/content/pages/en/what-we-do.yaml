@@ -1,17 +1,17 @@
-title: "What we do"
-description: "Short description of what you offer (services, projects, workshops…)."
-heroTitle: "Primary action-focused tagline"
+title: "What We Do"
+description: "Brief description of what you offer (services, projects, workshops…)."
+heroTitle: "Main slogan or action claim"
 heroSubtitle: "Subtitle that reinforces focus and impact"
 
 # ------- Services / Programs -------
-servicios: # keep the same key for simplicity with your components (or rename to 'services' and update code)
-  - nombre: "Service or program name"
-    objetivo: "What does it aim for? Expected benefit or change."
+servicios:
+  - nombre: "Name of the service or program"
+    objetivo: "Goal: Benefit or expected change."
     destinatarios: "Target audience (e.g., children, families, members, general community)"
-    requisitos: "Access conditions, documents, fees, etc. (optional)"
-    horario_lugar: "When & where: days/hours, venue, online/in-person"
-    como_solicitar: "How to apply: form, email, front desk, phone"
-    accesibilidad: "Accessibility measures of the service/venue (easy reading, hearing loop, access, assistance…)"
+    requisitos: "Access requirements, documentation, cost, etc. (optional)"
+    horario_lugar: "When and where: days/hours, venue, online/presential"
+    como_solicitar: "Application process: form, email, counter, phone"
+    accesibilidad: "Accessibility measures of the service/venue (easy-to-read, hearing loop, access, support…)"
   - nombre: "Another service or program"
     objetivo: "…"
     destinatarios: "…"
@@ -20,55 +20,54 @@ servicios: # keep the same key for simplicity with your components (or rename to
     como_solicitar: "…"
     accesibilidad: "…"
 
-# ------- Projects (funded, grants, results) -------
+# ------- Projects -------
 proyectos:
   - tipo: "actividad"
-    titulo: "Leisure and Community Activities"
+    titulo: "Leisure and social activities"
     fecha: "Throughout the year"
     lugar: "Various public spaces and community centers"
-    horario: "Specific dates according to the annual schedule"
-    precio: "Free or symbolic contribution"
+    horario: "Held on special days such as the Christmas lunch or the annual International Day of People with Disabilities on December 3rd"
+    precio: "Free, but you can contribute whatever you can, even a symbolic amount"
     edad: "All ages"
     organizador: "Aljofar Association"
     notas: >
-      Every year we organize different outings and community gatherings
-      to promote participation and well-being among our members.
-      Highlights include the Christmas lunch, the end-of-year excursion,
-      and the International Day of Persons with Disabilities celebration
-      held every December 3rd.
+      Each year, outings and excursions are organized, as well as social gatherings such as the Christmas lunch or the International Day of People with Disabilities celebrated annually on December 3rd.
     imagen:
       src: "/images/ocio-actividades.jpg"
-      alt: "Group of people enjoying a community leisure activity"
+      alt: "Anyone can join our activities and contribute at our charity stalls!"
       aspectRatio: "4/3"
 
   - tipo: "puesto"
-    titulo: "Handcraft Fundraising Stalls"
+    titulo: "Charity craft stalls"
     fecha: "Several times a year"
     ubicacion: "Local fairs and community events"
-    horario: "According to each event’s schedule"
-    productos: "Handmade items created in our craft workshops"
+    horario: "These stalls are held throughout the year"
+    productos: "We organize stalls to sell the items made in the craft workshop, raising funds for self-financing."
     contacto: "Aljofar Association — info@asociacionaljofarcastilleja.es"
     notas: >
-      We set up fundraising stalls to sell handcrafted items made
-      during our manual arts workshops. All proceeds are used to
-      support the association’s self-financing and new social initiatives.
+      We organize sales stalls with products made in the craft workshop. The proceeds go to the self-financing of the association and to support new social activities and projects.
     imagen:
       src: "/images/puesto-artesania.jpg"
-      alt: "Table displaying handmade crafts at a community fundraising stall"
+      alt: "Table with our handcrafted products at a charity stall"
+      aspectRatio: "4/3"
 
-# ------- Workshops & Activities (with optional gallery) -------
-talleres:
-  - titulo: "Workshop/activity name"
-    descripcion: "Short description (goals and type of activity)"
-    horario_lugar: "Dates/schedule/location or modality"
-    imagenes:
-      - src: "/img/whatwedo/sample1.jpg"
-        alt: "Accessible description of the image"
-      - src: "/img/whatwedo/sample2.jpg"
-        alt: "Another description"
-  - titulo: "Another activity"
-    descripcion: "…"
-    horario_lugar: "…"
-    imagenes:
-      - src: "/img/whatwedo/another1.jpg"
-        alt: "…"
+  # Nueva imagen debajo de Charity Craft Stalls
+  - tipo: "imagen"
+    titulo: "Our Charity Stalls in Action"
+    description: "A representative image of our charity stalls and activities."
+    clase: "project-card--full"
+    imagen:
+      src: "/images/ProjectList/taller-de-manualidades-abanicos.jpg"
+      alt: "Photo of our charity stalls with volunteers and products"
+      aspectRatio: "1/1"
+
+  - tipo: "imagen"
+    titulo: "What We Do"
+    description: "Brief description of what you offer (services, projects, workshops…)."
+    heroTitle: "Main slogan or action claim"
+    heroSubtitle: "Subtitle that reinforces focus and impact"
+    clase: "project-card--full"
+    imagen:
+      src: "/images/ProjectList/camisetas2.jpg"
+      alt: "Representative image of our activities and charity stalls"
+      aspectRatio: "1/1"
