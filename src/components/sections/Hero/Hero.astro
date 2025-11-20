@@ -6,6 +6,7 @@ interface Props {
   lang: Lang;
   lema?: string;
   subtitle?: string;
+  cita?: string;
   ctaText?: string;
   ctaHref?: string;
   bg?: string;              // ruta imagen
@@ -16,6 +17,7 @@ const {
   lang,
   lema,
   subtitle,
+  cita,
   ctaText,
   ctaHref,
   bg,
@@ -25,7 +27,7 @@ const {
 // i18n del componente (colección 'ui', ids Hero/es|en)
 const idMap = { es: "hero/es", en: "hero/en" } as const;
 type HeroI18n = {
-  lema?: string; subtitle?: string; ctaText?: string; ctaHref?: string; bg?: string;
+  lema?: string; subtitle?: string; cita?: string; ctaText?: string; ctaHref?: string; bg?: string;
 };
 const entry = await getEntry({ collection: "ui", id: idMap[lang] });
 const I = (entry?.data ?? {}) as HeroI18n;
@@ -33,6 +35,7 @@ const I = (entry?.data ?? {}) as HeroI18n;
 // Merge: props > i18n > defaults
 const LEMA      = lema     ?? I.lema     ?? (lang === "en" ? "Technology with social impact" : "Tecnología con impacto social");
 const SUBTITLE  = subtitle ?? I.subtitle ?? "";
+const CITA      = cita     ?? I.cita     ?? ""; // Nota: no hay cita por defecto
 const CTA_TEXT  = ctaText  ?? I.ctaText  ?? (lang === "en" ? "Learn more" : "Descubre más");
 const CTA_HREF  = ctaHref  ?? I.ctaHref  ?? (lang === "en" ? "#what-we-do" : "#que-hacemos");
 const BG        = bg       ?? I.bg       ?? "/img/hero.jpg";
@@ -53,6 +56,7 @@ const BG        = bg       ?? I.bg       ?? "/img/hero.jpg";
       <div class="col-12 col-lg-7 p-4 p-md-5 rounded bg-dark bg-opacity-50 shadow">
         <h1 class="display-4 fw-bold lh-1 mb-3">{LEMA}</h1>
         {SUBTITLE && <p class="lead mb-4">{SUBTITLE}</p>}
+        {CITA && <p class="lead mb-2">{CITA}</p>}
         <a class="btn btn-primary btn-lg shadow" href={CTA_HREF} aria-label={CTA_TEXT}>{CTA_TEXT}</a>
       </div>
     </div>
