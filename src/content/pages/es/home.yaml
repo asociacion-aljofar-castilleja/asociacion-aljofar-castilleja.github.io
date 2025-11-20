@@ -2,43 +2,41 @@ title: "Inicio"
 description: "Formación y desarrollo web al servicio de la comunidad."
 
 hero:
-  lema: "Tecnología con impacto social"
-  subtitle: "Formación y desarrollo web al servicio de la comunidad."
-  ctaText: "Qué hacemos"
+  lema: "No queremos ser normales, queremos ser felices. "
+  subtitle: "Asociación Andaluza para la integración, formación y desarrollo en la sociedad de las personas con diversidad funcional, psíquica, física y sensorial ALJÓFAR"
+  ctaText: "Descubre más"
   ctaHref: "#que-hacemos"
-  bg: "/img/hero.jpg"
+  bg: "/images/Portada/hero-portada1.png"
 
 whatWeDo:
   services:
-    - { title: "Acompañamiento digital", excerpt: "Orientación para trámites online.", href: "/servicios/soporte", icon: "bi bi-life-preserver" }
-    - { title: "Formación web",          excerpt: "Cursos y mentoría en desarrollo web.", href: "/servicios/formacion", icon: "bi bi-motherboard" }
-  projects:
-    - { title: "Webs solidarias", excerpt: "Sitios web para entidades sociales.", href: "/proyectos/web-solidaria", icon: "bi bi-globe2" }
+    - { title: "Aula matinal", excerpt: "Refuerzo de lectura, escritura, cálculo y memoria. Oct–Jun · L–V 10:00–13:00 · C.C. Nueva Sevilla.", href: "/que-hacemos#servicios", icon: "bi bi-mortarboard" }
   workshops:
-    - { title: "HTML accesible", excerpt: "Buenas prácticas WCAG.", href: "/talleres/html-accesible", icon: "bi bi-universal-access" }
-  activities:
-    - { title: "Club de código", excerpt: "Aprende construyendo en equipo.", href: "/actividades/club", icon: "bi bi-braces" }
+    - { title: "Taller de manualidades", excerpt: "Creatividad y habilidades psicomotrices; piezas útiles y decorativas.", href: "/que-hacemos#talleres", icon: "bi bi-scissors" }
+    - { title: "Taller de baile", excerpt: "Actividad física y expresión musical con coreografías adaptadas.", href: "/que-hacemos#talleres", icon: "bi bi-music-note-beamed" }
+    - { title: "Taller de informatica", excerpt: "Formar a usuarios en habilidades informáticas básicas. ", href: "/que-hacemos#talleres", icon: "bi bi-pc-display" }
+  projects:
+    - { title: "Ocio y tiempo libre", excerpt: "Excursiones, convivencia (comida de Navidad) y 3 de diciembre: Día de la Discapacidad.", href: "/que-hacemos#talleres", icon: "bi bi-calendar-event" }
+    - { title: "Puestos solidarios", excerpt: "Productos elaborados en el taller para sensibilizar y recaudar fondos.", href: "/que-hacemos#talleres", icon: "bi bi-shop" }
 
 stats:
-  - { label: "Beneficiarios",      value: 350 }
-  - { label: "Proyectos activos",  value: 8 }
-  - { label: "Años en activo",     value: 6 }
-  - { label: "Voluntarios",        value: 24 }
+  - { label: "Socios numerarios",  value: 16 }
+  - { label: "Socios colaboradores",     value: 3 }
 
 partners:
-  - { name: "Ayuntamiento", url: "https://example.org", logo: "/img/partners/ayto.svg", alt: "Ayuntamiento" }
-  - { name: "ONG X",        url: "https://example.org", logo: "/img/partners/ongx.svg" }
-  - { name: "IES Alixar",   url: "https://example.org", logo: "/img/partners/ies.svg" }
+  - { name: "Ayuntamiento", url: "https://www.castillejadelacuesta.es/es/", logo: "/images/partners/ayto.png" }
+  - { name: "IES Alixar",   url: "https://sites.google.com/g.educaand.es/web-iesalixar-org", logo: "/images/partners/ies.png" }
+  - { name: "Alixar Coders",   url: "https://alixarcoders.github.io/", logo: "/images/partners/coders.png" }
 
 hq:
   title: "Nuestra sede"
-  text: "Un espacio abierto, accesible y pensado para aprender creando."
-  badges: ["Rampa", "Baño adaptado", "Señalética", "Ancho de paso +90cm"]
+  text: "Un espacio accesible y lleno de vida donde aprendemos, compartimos y crecemos juntos. Desde el Centro Cívico de Nueva Sevilla, la Asociación ALJÓFAR trabaja por la integración y el desarrollo de personas con diversidad funcional a través de talleres formativos, creativos y de ocio."
+  badges: ["Rampa de acceso", "Baño adaptado", "Espacios amplios +90cm", "Señalética clara"]
   images:
-    - { src: "/img/sede/1.jpg", alt: "Aula accesible" }
-    - { src: "/img/sede/2.jpg", alt: "Rampa de entrada" }
-    - { src: "/img/sede/3.jpg", alt: "Zona colaborativa" }
-    - { src: "/img/sede/4.jpg", alt: "Señalética de alto contraste" }
+    - { src: "/images/sede-exterior-interior/exterior-sede.jpg", alt: "Entrada accesible" }
+    - { src: "/images/sede-exterior-interior/interior-sede.jpg", alt: "Interiores amplios" }
+    - { src: "/images/sede-informatica/informatica2.jpg", alt: "Zona informatica" }
+    - { src: "/images/taller-manualidades/manualidades-collage/collage.png", alt: "Collage" }
 
 facebook:
   pageUrl: "https://www.facebook.com/p/Asociación-Aljofar-100079476353855"

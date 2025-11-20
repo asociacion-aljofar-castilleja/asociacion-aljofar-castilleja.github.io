@@ -17,7 +17,7 @@ const {
   lang,
   partners = [],
   layout = "marquee",
-  logoHeight = 48,
+  logoHeight = 300,
   seeAllHref,
   titleOverride,
 } = Astro.props as Props;
@@ -42,11 +42,6 @@ const colGrid = "row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-6 g-4";
   <div class="container">
     <div class="d-flex align-items-center justify-content-between mb-4">
       <h2 class="mb-0">{title}</h2>
-      {seeAllHref && (
-        <a class="btn btn-outline-secondary btn-sm" href={seeAllHref}>
-          {I.seeAll ?? (lang === "en" ? "See all" : "Ver todas")}
-        </a>
-      )}
     </div>
 
     {layout === "grid" ? (
@@ -73,7 +68,7 @@ const colGrid = "row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-6 g-4";
       </div>
     ) : (
       <div class="partners-marquee" role="list">
-        {[...partners, ...partners].map((p, i) => (
+        {partners.map((p, i) => (
           <a
             role="listitem"
             href={p.url}
