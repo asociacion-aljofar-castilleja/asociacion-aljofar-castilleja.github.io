@@ -1,8 +1,8 @@
 nav:
-  - { href: "/about-us",      label: "About Us" }
-  - { href: "/what-we-do",    label: "What We Do" }
-  - { href: "/news",          label: "News" }
-  - { href: "/contact",       label: "Contact" }
+  - { href: "/en/about-us",      label: "About Us" }
+  - { href: "/en/what-we-do",    label: "What We Do" }
+  - { href: "/en/news",          label: "News" }
+  - { href: "/en/contact",       label: "Contact" }
 
 theme:
   button: "Theme"
