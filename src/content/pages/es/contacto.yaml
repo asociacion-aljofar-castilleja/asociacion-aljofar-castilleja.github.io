@@ -13,13 +13,12 @@ contacto:
   horario:
     - "Lunes a Viernes: 10:00 – 13:00"
   direccion:
-    linea1: "Asocioación Aljófar"
+    linea1: "Asociación Aljófar"
     linea2: "Av. Juan Carlos I, S/N"
     cp: "41950"
     localidad: "Castilleja de la cuesta"
     provincia: "Sevilla"
     pais: "España"
-  notas: "Atención accesible con lectura fácil y apoyos. Escríbenos si necesitas ajustes."
 
 ubicacion:
   # URL de Google Maps embebible (más simple)
