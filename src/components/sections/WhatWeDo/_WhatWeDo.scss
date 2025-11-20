@@ -262,3 +262,32 @@ html[data-bs-theme="dark"] .whatwedo-section {
 html[data-bs-theme="dark"] .whatwedo-section .whatwedo-icon {
   background: transparent !important;
 }
+
+/* === FORZAR PALETA CLARA EN LA SECCIÓN (blanco + texto negro) === */
+:root:not([data-theme="dark"]):not([data-bs-theme="dark"]) .whatwedo-section {
+  /* Cards blancas y texto oscuro */
+  .card {
+    background: #fff !important;
+    color: #212529 !important;
+    border-color: rgba(0,0,0,.12) !important;
+    box-shadow: 0 1px 2px rgba(0,0,0,.06);
+  }
+  .card h3 { color: #212529 !important; }
+  .card p  { color: #495057 !important; } /* gris legible */
+  .card .stretched-link { color: var(--wwd-primary, #6f42c1) !important; }
+
+  /* Tabs legibles en claro */
+  .whatwedo-tabs .nav-link {
+    color: #6c757d;
+    &:hover { background: rgba(111,66,193,.10); border-color: rgba(111,66,193,.25); }
+    &.active {
+      color: #212529;
+      background: rgba(111,66,193,.16);
+      border-color: rgba(111,66,193,.35);
+      box-shadow: 0 0 0 .15rem rgba(111,66,193,.25) inset;
+    }
+  }
+
+  /* Icono sin fondo, color primario */
+  .whatwedo-icon { color: var(--wwd-primary, #6f42c1); }
+}
