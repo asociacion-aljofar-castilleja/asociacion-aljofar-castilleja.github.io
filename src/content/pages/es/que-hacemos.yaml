@@ -51,42 +51,40 @@ proyectos:
 
 
 # ------- Talleres y Actividades (con galería opcional) -------
-workshops:
-  - title: "Handcraft Workshop"
-    description: >
-      Encourages creativity and fine motor skills through the creation
-      of useful and decorative handmade items.
-    schedule_location: "Year-round at the Nueva Sevilla Civic Center. In-person modality."
-    images:
+talleres:
+  - titulo: "Taller de Manualidades"
+    descripcion: >
+      Fomenta la creatividad y habilidades psicomotrices mediante la
+      elaboración de objetos útiles y decorativos.
+    horario_lugar: "Durante todo el año en el Centro Cívico de Nueva Sevilla. Modalidad presencial."
+    imagenes:
       - src: "/images/taller-manualidades/manualidades-cuencos/cuencos2.jpg"
-        alt: "Members creating handmade bowls"
+        alt: "Socios creando cuencos"
       - src: "/images/taller-manualidades/manualidades-abanico/abanico2.jpg"
-        alt: "Members crafting hand fans"
+        alt: "Socios creando abanicos"
       - src: "/images/taller-manualidades/manualidades-camisetas/camisetas2.jpg"
-        alt: "Members painting T-shirts"
+        alt: "Socios pintando camisetas"
       - src: "/images/taller-manualidades/manualidades-otros/manualidades-1.jpg"
-        alt: "Members making keychains"
+        alt: "Socios creando llaveros"
       - src: "/images/taller-manualidades/manualidades-otros/manualidades-3.jpg"
-        alt: "Members painting small canvases"
+        alt: "Socios pintando cuadros"
       - src: "/images/taller-manualidades/manualidades-otros/manualidades-2.jpg"
-        alt: "Members decorating mugs"
+        alt: "Socios decorando tazas"
 
-  - title: "Computer Skills Workshop"
-    description: >
-      Introduction to computing: basic use of a computer, word
-      processors, and safe internet browsing.
-    schedule_location: >
-      During the school year at the Nueva Sevilla Civic Center.
-      In-person modality, with 3 computers available.
-    images:
+  - titulo: "Taller de Informática"
+    descripcion: >
+      Iniciación a la informática: uso básico del ordenador, procesadores
+      de texto y navegación segura por internet.
+    horario_lugar: "Durante el curso en el Centro Cívico de Nueva Sevilla. Modalidad presencial, 3 equipos disponibles."
+    imagenes:
       - src: "/images/sede-informatica/informatica2.jpg"
-        alt: "Members learning computer skills"
+        alt: "Socios aprendiendo informática"
 
-  - title: "Dance Workshop"
-    description: >
-      Physical and recreational activity that promotes coordination,
-      rhythm, and social interaction through different dance styles.
-    schedule_location: "During the school year at the Nueva Sevilla Civic Center. In-person modality."
-    images:
+  - titulo: "Taller de Baile"
+    descripcion: >
+      Actividad física y recreativa que promueve coordinación, ritmo
+      y socialización mediante distintos estilos de baile.
+    horario_lugar: "Durante el curso en el Centro Cívico de Nueva Sevilla. Modalidad presencial."
+    imagenes:
       - src: "/images/taller-baile/baile.jpg"
-        alt: "Members dancing during the workshop"
+        alt: "Socios bailando en el taller de baile"
