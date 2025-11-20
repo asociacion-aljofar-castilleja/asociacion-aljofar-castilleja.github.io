@@ -1,49 +1,35 @@
-
 ---
 import WorkshopCard from "./WorkshopCard.astro";
+import fs from "fs";
+import path from "path";
+import yaml from "js-yaml";
 
-// idioma
-const lang: "es" | "en" = "es";
+// idioma (cambiar a "en" para inglés)
+const lang: "es" | "en" = Astro.props.lang ?? "es";
 
-// array de workshops directamente
-const workshops = [
-  {
-    titulo: "Taller de Manualidades",
-    descripcion: "Fomenta la creatividad y habilidades psicomotrices mediante la elaboración de objetos útiles y decorativos.",
-    horario_lugar: "Durante todo el año en el Centro Cívico de Nueva Sevilla. Modalidad presencial.",
-    imagenes: [
-      { src: "public/images/taller-manualidades/manualidades-cuencos/cuencos2.jpg", alt: "Socios creando cuencos" },
-      { src: "public/images/taller-manualidades/manualidades-abanico/abanico2.jpg", alt: "Socios creando abanicos" },
-      { src: "public/images/taller-manualidades/manualidades-camisetas/camisetas2.jpg", alt: "Socios pintando camisetas" },
-      { src: "public/images/taller-manualidades/manualidades-otros/manualidades-1.jpg", alt: "Socios creando llaveros" },
-      { src: "public/images/taller-manualidades/manualidades-otros/manualidades-3.jpg", alt: "Socios pintando cuadros" },
-      { src: "public/images/taller-manualidades/manualidades-otros/manualidades-2.jpg", alt: "Socios decorando tazas" }
-    ]
-  },
-  {
-    titulo: "Taller de Informática",
-    descripcion: "Iniciación a la informática: uso básico del ordenador, procesadores de texto y navegación segura por internet.",
-    horario_lugar: "Durante el curso en el Centro Cívico de Nueva Sevilla. Modalidad presencial, 3 equipos disponibles.",
-    imagenes: [
-      { src: "public/images/sede-informatica/informatica2.jpg", alt: "Socios aprendiendo informática" }
-    ]
-  },
-  {
-    titulo: "Taller de Baile",
-    descripcion: "Actividad física y recreativa que promueve coordinación, ritmo y socialización mediante distintos estilos de baile.",
-    horario_lugar: "Durante el curso en el Centro Cívico de Nueva Sevilla. Modalidad presencial.",
-    imagenes: [
-      { src: "public/images/taller-baile/baile.jpg", alt: "Socios bailando en el taller de baile" }
-    ]
-  }
-];
+// cargar YAML dinámicamente según idioma
+const filePath = path.resolve(`src/content/pages/${lang === "es" ? "es/que-hacemos.yaml" : "en/what-we-do.yaml"}`);
+const fileContents = fs.readFileSync(filePath, "utf-8");
+const data = yaml.load(fileContents) as any;
+
+// extraer talleres desde el YAML
+const workshops = data.talleres?.map((w: any) => ({
+  titulo: w.titulo,                // puede ser string o { es, en }
+  descripcion: w.descripcion,
+  horario_lugar: w.horario_lugar,
+  imagenes: w.imagenes?.map((img: any) => ({
+    src: img.src,
+    alt: img.alt
+  })) ?? []
+})) ?? [];
 ---
-<section class="whatwedo-workshops py-3" aria-label="Talleres y Actividades" data-module="Workshops">
+
+<section class="whatwedo-workshops py-3" aria-label={lang === "es" ? "Talleres y Actividades" : "Workshops and Activities"} data-module="Workshops">
   <div class="container">
-    <h2 class="h4 mb-3">Talleres y Actividades</h2>
+    <h2 class="h4 mb-3">{lang === "es" ? "Talleres y Actividades" : "Workshops and Activities"}</h2>
 
     {workshops.length === 0 ? (
-      <p class="text-muted">Aún no hay talleres.</p>
+      <p class="text-muted">{lang === "es" ? "Aún no hay talleres." : "No workshops yet."}</p>
     ) : (
       <div class="row row-cols-1 row-cols-md-2 g-4">
         {workshops.map((w, idx) => (
