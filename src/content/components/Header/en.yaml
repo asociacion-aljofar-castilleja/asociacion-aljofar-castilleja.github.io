@@ -1,4 +1,5 @@
 nav:
+  - { href: "/en",               label: "Home" }
   - { href: "/en/about-us",      label: "About Us" }
   - { href: "/en/what-we-do",    label: "What We Do" }
   - { href: "/en/news",          label: "News" }
