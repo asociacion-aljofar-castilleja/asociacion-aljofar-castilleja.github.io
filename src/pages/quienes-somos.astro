@@ -19,7 +19,6 @@ const entry = await getEntry({ collection: "pages", id: "es/quienes-somos" });
 const data = (entry?.data ?? {}) as PageData;
 const pageTitle = data.heroTitle ?? data.title ?? "Quiénes somos";
 
-// Pillars
 const pillarsItems: Section[] =
   Array.isArray(data.sections) && data.sections.length > 0
     ? data.sections
@@ -27,7 +26,6 @@ const pillarsItems: Section[] =
     ? [{ paragraphs: data.content }]
     : [];
 
-// Org (normalizamos por si viniera objeto { rol: persona })
 const roles = Array.isArray(data.org)
   ? (data.org as any[])
   : data.org && typeof data.org === "object"
@@ -36,18 +34,48 @@ const roles = Array.isArray(data.org)
 ---
 
 <BaseLayout lang={lang} title={data.title} description={data.description} otherHref={otherHref}>
-  <section class="container py-4">
-    <h1 class="display-5 fw-bold">{pageTitle}</h1>
-    {data.heroSubtitle && <p class="fs-5">{data.heroSubtitle}</p>}
+  {/* HERO con gradiente y acento */}
+  <header class="about-hero position-relative overflow-hidden">
+    <div class="container py-5 py-lg-6 position-relative">
+      <h1 class="display-4 fw-bold lh-1 mb-3">{pageTitle}</h1>
+      {data.heroSubtitle && <p class="fs-5 mb-0 text-body-emphasis">{data.heroSubtitle}</p>}
+    </div>
+    <div class="about-hero__pattern" aria-hidden="true"></div>
+  </header>
 
-    <article class="content mt-4">
-      {data.html && <div set:html={data.html} />}
-
-      {!data.html && pillarsItems.length > 0 && <Pillars lang={lang} items={pillarsItems} />}
-
-      {Array.isArray(data.timeline) && data.timeline.length > 0 && <Timeline lang="es" items={data.timeline} />}
-
-      {roles.length > 0 && <Org lang="es" roles={roles} layout="list" />}
-    </article>
+  {/* SECCIÓN 1: Pillars en fondo terciario */}
+  <section class="bg-body-tertiary border-top border-bottom">
+    <div class="container py-5">
+      {data.html
+        ? <div class="content" set:html={data.html} />
+        : (pillarsItems.length > 0 && (
+            <Pillars
+              lang={lang}
+              items={pillarsItems}
+              layout="cards"
+              columns="row row-cols-1 row-cols-md-3 g-4"
+              accent="primary"
+              withIcons
+            />
+          ))}
+    </div>
   </section>
+
+  {/* SECCIÓN 2: Timeline con fondo claro + línea acento */}
+  {Array.isArray(data.timeline) && data.timeline.length > 0 && (
+    <section class="about-section--alt">
+      <div class="container py-5">
+        <Timeline lang="es" items={data.timeline} dense titleOverride="Nuestra historia" accent="primary" />
+      </div>
+    </section>
+  )}
+
+  {/* SECCIÓN 3: Org en tarjetas, otro fondo para contraste */}
+  {roles.length > 0 && (
+    <section class="bg-body-tertiary border-top">
+      <div class="container py-5">
+        <Org lang="es" roles={roles} layout="grid" columns="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-4" accent="primary" />
+      </div>
+    </section>
+  )}
 </BaseLayout>

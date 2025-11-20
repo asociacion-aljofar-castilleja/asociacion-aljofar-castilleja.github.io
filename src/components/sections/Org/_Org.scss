@@ -1,8 +1,6 @@
 .org-section { color: var(--text); }
-
-.org-list__item {
-  border-bottom: 1px solid var(--border);
-}
+.section-title { font-weight: 700; }
+.org-list__item { border-bottom: 1px solid var(--border); }
 .org-role { color: var(--text); }
 .org-person { color: var(--text); opacity: .9; }
 .org-sep { color: var(--muted); }
@@ -13,3 +11,15 @@
   border-radius: var(--radius-xl);
   box-shadow: var(--elev-shadow);
 }
+
+.avatar { inline-size: 40px; block-size: 40px; border-radius: 999px; display:flex; align-items:center; justify-content:center; font-weight:700; }
+.avatar-primary { background: color-mix(in oklab, var(--bs-primary) 15%, transparent); color: var(--bs-primary); }
+.avatar-success { background: color-mix(in oklab, var(--bs-success) 15%, transparent); color: var(--bs-success); }
+.avatar-info { background: color-mix(in oklab, var(--bs-info) 15%, transparent); color: var(--bs-info); }
+.avatar-warning { background: color-mix(in oklab, var(--bs-warning) 15%, transparent); color: var(--bs-warning); }
+
+.accent-dot { width: .75rem; height: .75rem; border-radius: 999px; display: inline-block; }
+.accent-primary { background: var(--bs-primary); }
+.accent-success { background: var(--bs-success); }
+.accent-info { background: var(--bs-info); }
+.accent-warning { background: var(--bs-warning); }
