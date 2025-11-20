@@ -6,14 +6,16 @@ heroSubtitle: "Learning by creating, to transform our environment."
 sections:
   - title: "Mission"
     paragraphs:
-      - "To promote digital inclusion and the development of technology skills within our community."
-      - "We support learning through projects with real social impact."
+      - "To promote the integration, training and personal and social development of people with functional, mental, physical and sensory diversity, fostering their autonomy and active participation in society."
   - title: "Vision"
     paragraphs:
-      - "A society where technology is an accessible lever for opportunity for everyone."
+      - "To be a leading association in inclusion and happiness, where each person can fully develop, share experiences and feel valued for who they are, not for their limitations."
   - title: "Values"
     paragraphs:
-      - "Active learning, collaboration, accessibility, ethics, and service."
+      - "Inclusion: Everyone has a place in society."
+      - "Respect: We value diversity as a strength."
+      - "Autonomy: We foster independence and lifelong learning."
+      - "Solidarity: We grow together by supporting one another."
 
 timeline:
   - year: "2019"
