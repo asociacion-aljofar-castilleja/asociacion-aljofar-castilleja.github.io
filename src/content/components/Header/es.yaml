@@ -1,9 +1,7 @@
 nav:
   - { href: "/quienes-somos", label: "Quiénes somos" }
   - { href: "/que-hacemos",   label: "Qué hacemos" }
-  - { href: "/participa",     label: "Participa" }
   - { href: "/noticias",      label: "Noticias" }
-  - { href: "/transparencia", label: "Transparencia" }
   - { href: "/contacto",      label: "Contacto" }
 
 theme:

@@ -1,24 +1,18 @@
 title: "Qué hacemos"
-description: "Descripción breve de lo que ofrecéis (servicios, proyectos, talleres…)."
-heroTitle: "Lema o claim principal de acción"
-heroSubtitle: "Subtítulo que refuerza el enfoque y el impacto"
+description: "Programas, proyectos y talleres de ALJÓFAR para la integración, formación y desarrollo de personas con diversidad funcional."
+heroTitle: "Qué hacemos"
+heroSubtitle: "Talleres, servicios y actividades."
 
 # ------- Servicios / Programas -------
 servicios:
-  - nombre: "Nombre del servicio o programa"
-    objetivo: "¿Qué persigue? Beneficio o cambio esperado."
-    destinatarios: "¿A quién va dirigido? (p. ej., infancia, familias, socios/as, comunidad general)"
-    requisitos: "Condiciones de acceso, documentación, coste, etc. (opcional)"
-    horario_lugar: "Cuándo y dónde: días/horas, sede, online/presencial"
-    como_solicitar: "Proceso de solicitud: formulario, email, ventanilla, teléfono"
-    accesibilidad: "Medidas de accesibilidad del servicio/lugar (lectura fácil, bucle magnético, accesos, apoyos…)"
-  - nombre: "Otro servicio o programa"
-    objetivo: "…"
-    destinatarios: "…"
-    requisitos: "…"
-    horario_lugar: "…"
-    como_solicitar: "…"
-    accesibilidad: "…"
+  - nombre: "Aula matinal"
+    imagen: "/images/servicios/aula-matinal.jpg"
+    objetivo: "Formación en diversas materias didácticas fomentando la escritura, lectura, cálculo, memoria y el desarrollo integral de los socios participantes."
+    destinatarios: "Socios y socias participantes de la asociación."
+    requisitos: "No se requiere inscripción previa."
+    horario_lugar: "De octubre a junio, de lunes a viernes, de 10:00 a 13:00 horas en el aula del Centro Cívico."
+    como_solicitar: "Acudir al aula en horario de actividad o contactar con la asociación."
+    accesibilidad: "Actividad accesible."
 
 # ------- Proyectos (financiados, subvenciones, resultados) -------
 proyectos:

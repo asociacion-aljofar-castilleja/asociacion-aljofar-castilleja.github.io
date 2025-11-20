@@ -1,31 +1,29 @@
 hero:
-  lema: "Technology with social impact"
-  subtitle: "Training and web development serving the community."
-  ctaText: "What we do"
+  lema: "We train and build projects that create real community impact."
+  subtitle: "Andalusian Association for the integration, training and development in society of people with functional, mental, physical and sensory diversity ALJÓFAR"
+  ctaText: "Learn more"
   ctaHref: "#what-we-do"
-  bg: "/img/hero.jpg"
+  bg: "/images/Portada/hero-portada1.png"
 
 whatWeDo:
   services:
-    - { title: "Digital support", excerpt: "Guidance for online procedures.", href: "/services/support", icon: "bi bi-life-preserver" }
-    - { title: "Web training", excerpt: "Courses and mentoring for web dev.", href: "/services/training", icon: "bi bi-motherboard" }
-  projects:
-    - { title: "Solidarity websites", excerpt: "Websites for nonprofits.", href: "/projects/solidarity-web", icon: "bi bi-globe2" }
+    - { title: "Morning classroom", excerpt: "Reinforcement of reading, writing, numeracy and memory. Oct–Jun · Mon–Fri 10:00–13:00 · Civic Center.", href: "/en/what-we-do#services", icon: "bi bi-mortarboard" }
   workshops:
-    - { title: "Accessible HTML", excerpt: "WCAG best practices.", href: "/workshops/accessible-html", icon: "bi bi-universal-access" }
-  activities:
-    - { title: "Coding club", excerpt: "Learn by building together.", href: "/activities/club", icon: "bi bi-braces" }
+    - { title: "Crafts workshop", excerpt: "Creativity and psychomotor skills; useful and decorative pieces.", href: "/que-hacemos#talleres", icon: "bi bi-scissors" }
+    - { title: "Dance workshop", excerpt: "Physical activity and musical expression with adapted choreographies.", href: "/que-hacemos#talleres", icon: "bi bi-music-note-beamed" }
+    - { title: "IT workshop", excerpt: "Train users in basic computer skills.", href: "/que-hacemos#talleres", icon: "bi bi-pc-display" }
+  projects:
+      - { title: "Leisure and free time", excerpt: "Excursions, coexistence (Christmas lunch) and December 3: International Day of Persons with Disabilities.", href: "/que-hacemos#talleres", icon: "bi bi-calendar-event" }
+      - { title: "Charity stalls", excerpt: "Stands with products made in the workshop to raise awareness and funds.", href: "/que-hacemos#talleres", icon: "bi bi-shop" }
 
 stats:
-  - { label: "Beneficiaries", value: 350 }
-  - { label: "Active projects", value: 8 }
-  - { label: "Years active", value: 6 }
-  - { label: "Volunteers", value: 24 }
+  - { label: "Full members", value: 16 }
+  - { label: "Collaborating partners", value: 3 }
 
 partners:
-  - { name: "City Council", url: "https://example.org", logo: "/img/partners/ayto.svg", alt: "City Council" }
-  - { name: "NGO X",        url: "https://example.org", logo: "/img/partners/ongx.svg" }
-  - { name: "IES Alixar",   url: "https://example.org", logo: "/img/partners/ies.svg" }
+  - { name: "City Hall", url: "https://www.castillejadelacuesta.es/es/", logo: "/images/partners/ayto.png" }
+  - { name: "IES Alixar",   url: "https://sites.google.com/g.educaand.es/web-iesalixar-org", logo: "/images/partners/ies.png" }
+  - { name: "Alixar Coders",   url: "https://alixarcoders.github.io/", logo: "/images/partners/coders.png" }
 
 hq:
   title: "Our Headquarters"
