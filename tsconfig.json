@@ -1,10 +1,10 @@
 {
-  "extends": "astro/tsconfigs/strict",
+  "extends": "astro/tsconfigs/base",
   "compilerOptions": {
-    // ✅ Evita que el bundler intente empaquetar tipos por error
+    // Evita que el bundler intente empaquetar tipos por error
     "verbatimModuleSyntax": true,
 
-    // ✅ Aliases cómodos (ajusta a tus rutas reales)
+    // Aliases cómodos (ajusta a tus rutas reales)
     "baseUrl": ".",
     "paths": {
       "@components/*": ["./src/components/*"],
@@ -15,7 +15,7 @@
       "@content/*": ["./src/content/*"]
     },
 
-    // ✅ Mejor soporte TS para .astro en el editor (ya lo mete la extensión de VSCode,
+    // Mejor soporte TS para .astro en el editor (ya lo mete la extensión de VSCode,
     // pero no molesta y ayuda si no la tienes)
     "plugins": [{ "name": "@astrojs/ts-plugin" }]
 
