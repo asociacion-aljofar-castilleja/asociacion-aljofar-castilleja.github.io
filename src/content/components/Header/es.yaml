@@ -1,4 +1,5 @@
 nav:
+  - { href: "/",              label: "Inicio" }
   - { href: "/quienes-somos", label: "Quiénes somos" }
   - { href: "/que-hacemos",   label: "Qué hacemos" }
   - { href: "/noticias",      label: "Noticias" }
