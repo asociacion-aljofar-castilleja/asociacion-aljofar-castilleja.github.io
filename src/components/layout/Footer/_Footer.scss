@@ -1,9 +1,33 @@
 .footer {
-  /* Ajustes finos del pie */
-  .text-muted { opacity: .85; }
-  padding-block: 1.25rem;
+
+  /* Pongo fondo gris suave para que tenga buen contraste con la letra */
+  background-color: #f1f3f5;
+  color: #343a40;
+  padding-block: 1.5rem;
 
   @media (prefers-reduced-motion: no-preference) {
     transition: background-color .3s ease, color .3s ease, border-color .3s ease;
+  }
+
+  .text-muted {
+    opacity: 0.8; /* Le he bajado la opcidadPpara darle algo de transparencia al texto*/
+    font-family: 'Arial', sans-serif; /* Fuente simple pero que pega bien */
+  }
+
+  /* Estilo para el texto de colaboración */
+  .container.small {
+    margin-top: 1rem;
+    font-size: 0.875rem;
+    color: #6c757d;
+    font-style: italic;
+  }
+
+  /* Aseguro que se vea bien en dispositivos pequeños */
+  @media (max-width: 768px) {
+    padding-block: 1rem;
+    .container {
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
   }
 }

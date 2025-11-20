@@ -10,14 +10,14 @@ hero:
 
 whatWeDo:
   services:
-    - { title: "Acompañamiento digital", excerpt: "Orientación para trámites online.", href: "/servicios/soporte", icon: "bi bi-life-preserver" }
-    - { title: "Formación web",          excerpt: "Cursos y mentoría en desarrollo web.", href: "/servicios/formacion", icon: "bi bi-motherboard" }
-  projects:
-    - { title: "Webs solidarias", excerpt: "Sitios web para entidades sociales.", href: "/proyectos/web-solidaria", icon: "bi bi-globe2" }
+    - { title: "Aula matinal", excerpt: "Refuerzo de lectura, escritura, cálculo y memoria. Oct–Jun · L–V 10:00–13:00 · C.C. Nueva Sevilla.", href: "/que-hacemos#servicios", icon: "bi bi-mortarboard" }
   workshops:
-    - { title: "HTML accesible", excerpt: "Buenas prácticas WCAG.", href: "/talleres/html-accesible", icon: "bi bi-universal-access" }
-  activities:
-    - { title: "Club de código", excerpt: "Aprende construyendo en equipo.", href: "/actividades/club", icon: "bi bi-braces" }
+    - { title: "Taller de manualidades", excerpt: "Creatividad y habilidades psicomotrices; piezas útiles y decorativas.", href: "/que-hacemos#talleres", icon: "bi bi-scissors" }
+    - { title: "Taller de baile", excerpt: "Actividad física y expresión musical con coreografías adaptadas.", href: "/que-hacemos#talleres", icon: "bi bi-music-note-beamed" }
+    - { title: "Taller de informatica", excerpt: "Formar a usuarios en habilidades informáticas básicas. ", href: "/que-hacemos#talleres", icon: "bi bi-pc-display" }
+  projects:
+    - { title: "Ocio y tiempo libre", excerpt: "Excursiones, convivencia (comida de Navidad) y 3 de diciembre: Día de la Discapacidad.", href: "/que-hacemos#talleres", icon: "bi bi-calendar-event" }
+    - { title: "Puestos solidarios", excerpt: "Productos elaborados en el taller para sensibilizar y recaudar fondos.", href: "/que-hacemos#talleres", icon: "bi bi-shop" }
 
 stats:
   - { label: "Socios numerarios",  value: 16 }
