@@ -56,19 +56,41 @@ proyectos:
       src: "/images/puesto-artesania.jpg"
       alt: "Table displaying handmade crafts at a community fundraising stall"
 
-# ------- Workshops & Activities (with optional gallery) -------
+# ------- Workshops & Activities -------
 talleres:
-  - titulo: "Workshop/activity name"
-    descripcion: "Short description (goals and type of activity)"
-    horario_lugar: "Dates/schedule/location or modality"
+  - titulo: "Craft Workshop"
+    descripcion: >
+      Encourages creativity and psychomotor skills through the creation
+      of useful and decorative items.
+    horario_lugar: "Throughout the year at the Nueva Sevilla Civic Center. In-person."
     imagenes:
-      - src: "/img/whatwedo/sample1.jpg"
-        alt: "Accessible description of the image"
-      - src: "/img/whatwedo/sample2.jpg"
-        alt: "Another description"
-  - titulo: "Another activity"
-    descripcion: "…"
-    horario_lugar: "…"
+      - src: "/images/taller-manualidades/manualidades-cuencos/cuencos2.jpg"
+        alt: "Members making bowls"
+      - src: "/images/taller-manualidades/manualidades-abanico/abanico2.jpg"
+        alt: "Members making fans"
+      - src: "/images/taller-manualidades/manualidades-camisetas/camisetas2.jpg"
+        alt: "Members painting t-shirts"
+      - src: "/images/taller-manualidades/manualidades-otros/manualidades-1.jpg"
+        alt: "Members making keychains"
+      - src: "/images/taller-manualidades/manualidades-otros/manualidades-3.jpg"
+        alt: "Members painting pictures"
+      - src: "/images/taller-manualidades/manualidades-otros/manualidades-2.jpg"
+        alt: "Members decorating mugs"
+
+  - titulo: "Computer Workshop"
+    descripcion: >
+      Introduction to computers: basic use of the computer, word processors,
+      and safe internet browsing.
+    horario_lugar: "During the course at the Nueva Sevilla Civic Center. In-person, 3 computers available."
     imagenes:
-      - src: "/img/whatwedo/another1.jpg"
-        alt: "…"
+      - src: "/images/sede-informatica/informatica2.jpg"
+        alt: "Members learning computer skills"
+
+  - titulo: "Dance Workshop"
+    descripcion: >
+      Physical and recreational activity promoting coordination, rhythm,
+      and socialization through various dance styles.
+    horario_lugar: "During the course at the Nueva Sevilla Civic Center. In-person."
+    imagenes:
+      - src: "/images/taller-baile/baile.jpg"
+        alt: "Members dancing in the workshop"

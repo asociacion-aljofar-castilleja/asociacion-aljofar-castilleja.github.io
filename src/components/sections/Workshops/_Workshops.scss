@@ -34,3 +34,23 @@
 @media (prefers-reduced-motion: reduce) {
   .carousel .carousel-item { transition: none !important; }
 }
+
+/* Flecha izquierda */
+.carousel-control-prev-icon {
+  background-image: url('data:image/svg+xml;utf8,<svg fill="%2300000" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M11.354 1.646a.5.5 0 0 1 0 .708L6.707 7l4.647 4.646a.5.5 0 0 1-.708.708l-5-5a.5.5 0 0 1 0-.708l5-5a.5.5 0 0 1 .708 0z"/></svg>');
+}
+
+/* Flecha derecha */
+.carousel-control-next-icon {
+  background-image: url('data:image/svg+xml;utf8,<svg fill="%23000000" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M4.646 1.646a.5.5 0 0 1 .708 0l5 5a.5.5 0 0 1 0 .708l-5 5a.5.5 0 0 1-.708-.708L9.293 7 4.646 2.354a.5.5 0 0 1 0-.708z"/></svg>');
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+  opacity: 1;
+}
+
+.carousel-control-prev:hover,
+.carousel-control-next:hover {
+  opacity: 1; /* evita que aumente o cambie al hover */
+}

@@ -52,17 +52,39 @@ proyectos:
 
 # ------- Talleres y Actividades (con galería opcional) -------
 talleres:
-  - titulo: "Nombre del taller/actividad"
-    descripcion: "Breve descripción (objetivos y tipo de actividad)"
-    horario_lugar: "Fechas/horarios/lugar o modalidad"
+  - titulo: "Taller de Manualidades"
+    descripcion: >
+      Fomenta la creatividad y habilidades psicomotrices mediante la
+      elaboración de objetos útiles y decorativos.
+    horario_lugar: "Durante todo el año en el Centro Cívico de Nueva Sevilla. Modalidad presencial."
     imagenes:
-      - src: "/img/quehacemos/ejemplo1.jpg"
-        alt: "Descripción de la imagen para accesibilidad"
-      - src: "/img/quehacemos/ejemplo2.jpg"
-        alt: "Otra descripción"
-  - titulo: "Otra actividad"
-    descripcion: "…"
-    horario_lugar: "…"
+      - src: "/images/taller-manualidades/manualidades-cuencos/cuencos2.jpg"
+        alt: "Socios creando cuencos"
+      - src: "/images/taller-manualidades/manualidades-abanico/abanico2.jpg"
+        alt: "Socios creando abanicos"
+      - src: "/images/taller-manualidades/manualidades-camisetas/camisetas2.jpg"
+        alt: "Socios pintando camisetas"
+      - src: "/images/taller-manualidades/manualidades-otros/manualidades-1.jpg"
+        alt: "Socios creando llaveros"
+      - src: "/images/taller-manualidades/manualidades-otros/manualidades-3.jpg"
+        alt: "Socios pintando cuadros"
+      - src: "/images/taller-manualidades/manualidades-otros/manualidades-2.jpg"
+        alt: "Socios decorando tazas"
+
+  - titulo: "Taller de Informática"
+    descripcion: >
+      Iniciación a la informática: uso básico del ordenador, procesadores
+      de texto y navegación segura por internet.
+    horario_lugar: "Durante el curso en el Centro Cívico de Nueva Sevilla. Modalidad presencial, 3 equipos disponibles."
     imagenes:
-      - src: "/img/quehacemos/otra1.jpg"
-        alt: "…"
+      - src: "/images/sede-informatica/informatica2.jpg"
+        alt: "Socios aprendiendo informática"
+
+  - titulo: "Taller de Baile"
+    descripcion: >
+      Actividad física y recreativa que promueve coordinación, ritmo
+      y socialización mediante distintos estilos de baile.
+    horario_lugar: "Durante el curso en el Centro Cívico de Nueva Sevilla. Modalidad presencial."
+    imagenes:
+      - src: "/images/taller-baile/baile.jpg"
+        alt: "Socios bailando en el taller de baile"
