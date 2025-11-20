@@ -1,9 +1,31 @@
+/* Estilo predeterminado para el tema claro */
 .footer {
-  /* Ajustes finos del pie */
-  .text-muted { opacity: .85; }
-  padding-block: 1.25rem;
+  background-color: #f1f3f5;
+  color: #343a40;
+}
 
-  @media (prefers-reduced-motion: no-preference) {
-    transition: background-color .3s ease, color .3s ease, border-color .3s ease;
-  }
+.text-muted {
+  opacity: 0.8;
+  font-family: 'Arial', sans-serif;
+}
+
+.container.small {
+  margin-top: 1rem;
+  font-size: 0.875rem;
+  color: #6c757d;
+  font-style: italic;
+}
+
+/* Estilo para el tema oscuro usando el atributo `data-bs-theme` */
+[data-bs-theme="dark"] .footer {
+  background-color: #151b20;  /* Fondo oscuro */
+  color: #f1f3f5;  /* Texto claro */
+}
+
+[data-bs-theme="dark"] .text-muted {
+  color: #adb5bd; /* Texto atenuado en modo oscuro */
+}
+
+[data-bs-theme="dark"] .container.small {
+  color: #ced4da; /* Texto más claro en el footer */
 }

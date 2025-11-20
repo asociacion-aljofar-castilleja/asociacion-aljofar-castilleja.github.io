@@ -7,9 +7,11 @@ type PillarItem = { title?: string; paragraphs?: string[] };
 interface Props {
   lang: Lang;
   items: PillarItem[];
-  layout?: "cards" | "list";                 // default: cards
-  titleOverride?: string;                    // título manual
-  columns?: string;                          // grid bootstrap: "row row-cols-1 row-cols-md-3 g-4"
+  layout?: "cards" | "list";
+  titleOverride?: string;
+  columns?: string;
+  accent?: "primary" | "success" | "info" | "warning";
+  withIcons?: boolean;
 }
 
 const {
@@ -18,9 +20,10 @@ const {
   layout = "cards",
   titleOverride,
   columns = "row row-cols-1 row-cols-md-3 g-4",
+  accent = "primary",
+  withIcons = false,
 } = Astro.props as Props;
 
-// i18n desde colección 'ui'
 const idMap = { es: "pillars/es", en: "pillars/en" } as const;
 type I18n = { title?: string; ariaSection?: string; ariaCard?: string };
 
@@ -32,36 +35,51 @@ const ariaSection = I.ariaSection ?? title;
 const ariaCard = (name: string) =>
   String(I.ariaCard ?? (lang === "en" ? "{{name}}: read pillar" : "{{name}}: leer pilar"))
     .replace("{{name}}", name || (lang === "en" ? "Pillar" : "Pilar"));
+
+const iconFor = (name?: string) => {
+  if (!withIcons) return null;
+  const n = (name || "").toLowerCase();
+  if (n.includes("misión")) return "";
+  if (n.includes("visión")) return "";
+  if (n.includes("valor")) return "";
+  return "";
+};
 ---
 
-<section class="pillars-section py-4" aria-label={ariaSection} data-module="Pillars">
-  <div class="container">
-    <h2 class="mb-3">{title}</h2>
+<section class="pillars-section" aria-label={ariaSection} data-module="Pillars">
+  <div class="d-flex align-items-center gap-2 mb-3">
+    <h2 class="section-title mb-0">{title}</h2>
+  </div>
 
-    {layout === "list" ? (
-      <div class="vstack gap-3">
-        {items.map((it) => (
-          <article class="pillars__card card shadow-sm border-0" aria-label={ariaCard(it.title ?? "")}>
-            <div class="card-body">
+  {layout === "list" ? (
+    <div class="vstack gap-3">
+      {items.map((it) => (
+        <article class="pillars__card card shadow-sm border-0" aria-label={ariaCard(it.title ?? "")}>
+          <div class="card-body">
+            <div class="d-flex align-items-baseline gap-2">
+              {withIcons && <span class="lead">{iconFor(it.title)}</span>}
               {it.title && <h3 class="h5 card-title mb-2">{it.title}</h3>}
-              {Array.isArray(it.paragraphs) && it.paragraphs.map((p) => <p class="mb-2">{p}</p>)}
+            </div>
+            {Array.isArray(it.paragraphs) && it.paragraphs.map((p) => <p class="mb-2 pillars__p">{p}</p>)}
+          </div>
+        </article>
+      ))}
+    </div>
+  ) : (
+    <div class={columns}>
+      {items.map((it) => (
+        <div class="col d-flex">
+          <article class={`pillars__card card shadow-sm border-0 w-100 border-start border-4 border-${accent}`} aria-label={ariaCard(it.title ?? "")}>
+            <div class="card-body">
+              <div class="d-flex align-items-baseline gap-2">
+                {withIcons && <span class="lead">{iconFor(it.title)}</span>}
+                {it.title && <h3 class="h5 card-title mb-2">{it.title}</h3>}
+              </div>
+              {Array.isArray(it.paragraphs) && it.paragraphs.map((p) => <p class="mb-2 pillars__p">{p}</p>)}
             </div>
           </article>
-        ))}
-      </div>
-    ) : (
-      <div class={columns}>
-        {items.map((it) => (
-          <div class="col d-flex">
-            <article class="pillars__card card shadow-sm border-0 w-100" aria-label={ariaCard(it.title ?? "")}>
-              <div class="card-body">
-                {it.title && <h3 class="h5 card-title mb-2">{it.title}</h3>}
-                {Array.isArray(it.paragraphs) && it.paragraphs.map((p) => <p class="mb-2">{p}</p>)}
-              </div>
-            </article>
-          </div>
-        ))}
-      </div>
-    )}
-  </div>
+        </div>
+      ))}
+    </div>
+  )}
 </section>
