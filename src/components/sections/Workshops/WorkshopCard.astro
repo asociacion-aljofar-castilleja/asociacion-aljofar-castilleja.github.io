@@ -1,7 +1,12 @@
 ---
 type Lang = "es" | "en";
-type Img = { src: string; alt?: string };
-type Workshop = { titulo?: string; descripcion?: string; horario_lugar?: string; imagenes?: Img[] };
+type Img = { src: string; alt?: { es: string; en: string } | string };
+type Workshop = { 
+  titulo?: { es: string; en: string } | string; 
+  descripcion?: { es: string; en: string } | string; 
+  horario_lugar?: { es: string; en: string } | string; 
+  imagenes?: Img[] 
+};
 
 interface Props { lang: Lang; w: Workshop; idBase: string; }
 const { lang, w, idBase } = Astro.props;
@@ -9,6 +14,12 @@ const { lang, w, idBase } = Astro.props;
 const imgs = Array.isArray(w.imagenes) ? w.imagenes : [];
 const carouselId = `${idBase}-carousel`;
 const hasMultiple = imgs.length > 1;
+
+// función para extraer texto según idioma o usar string plano
+const getText = (field: any) => {
+  if (!field) return "";
+  return typeof field === "string" ? field : field[lang] ?? "";
+};
 ---
 
 <article class="workshop-card card border-0 shadow-sm w-100">
@@ -20,7 +31,7 @@ const hasMultiple = imgs.length > 1;
             <img
               class="d-block w-100 workshop-img"
               src={img.src}
-              alt={img.alt ?? (w.titulo ?? (lang==="en"?"Workshop image":"Imagen del taller"))}
+              alt={typeof img.alt === "string" ? img.alt : img.alt?.[lang] ?? getText(w.titulo) ?? (lang==="en"?"Workshop image":"Imagen del taller")}
               width="1200" height="675"
               loading={i > 0 ? "lazy" : "eager"}
               decoding="async"
@@ -48,8 +59,8 @@ const hasMultiple = imgs.length > 1;
   )}
 
   <div class="card-body">
-    {w.titulo && <h3 class="h5 card-title">{w.titulo}</h3>}
-    {w.descripcion && <p class="mb-2">{w.descripcion}</p>}
-    {w.horario_lugar && <p class="text-muted m-0">{w.horario_lugar}</p>}
+    {w.titulo && <h3 class="h5 card-title">{getText(w.titulo)}</h3>}
+    {w.descripcion && <p class="mb-2">{getText(w.descripcion)}</p>}
+    {w.horario_lugar && <p class="text-muted m-0">{getText(w.horario_lugar)}</p>}
   </div>
 </article>
