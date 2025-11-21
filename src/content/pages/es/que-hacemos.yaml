@@ -14,41 +14,46 @@ servicios:
     como_solicitar: "Acudir al aula en horario de actividad o contactar con la asociación."
     accesibilidad: "Actividad accesible."
 
-# ------- Proyectos (financiados, subvenciones, resultados) -------
+# ------- Proyectos -------
 proyectos:
   - tipo: "actividad"
     titulo: "Actividades de ocio y convivencia"
     fecha: "A lo largo del año"
     lugar: "Distintos espacios públicos y centros sociales"
-    horario: "Fechas puntuales según programación anual"
-    precio: "Gratuito o con aportación simbólica"
+    horario: "Se celebran en días señalados como la comida de Navidad o el Día Internacional de las Personas con Discapacidad, cada 3 de diciembre"
+    precio: "Gratuito, pero puedes aportar lo que puedas, incluso simbólico"
     edad: "Todas las edades"
     organizador: "Asociación Aljofar"
     notas: >
-      Cada año organizamos distintas salidas y jornadas de convivencia
-      para fomentar la participación y el bienestar de las personas asociadas.
-      Entre ellas destacan la comida de Navidad, las excursiones de fin de curso
-      y la celebración del Día de la Diversidad Funcional, cada 3 de diciembre.
+      Cada año se organizan algunas salidas y excursiones, así como jornadas de convivencia como la comida de Navidad o la celebración del Día Internacional de las Personas con Discapacidad que se celebra cada 3 de diciembre.
     imagen:
       src: "/images/ocio-actividades.jpg"
-      alt: "Grupo de personas disfrutando de una jornada de convivencia"
+      alt: "Cualquier persona puede acudir a nuestras actividades y aportar en nuestros puestos solidarios"
       aspectRatio: "4/3"
 
   - tipo: "puesto"
     titulo: "Puestos solidarios de artesanía"
     fecha: "Varias veces al año"
     ubicacion: "Ferias locales y eventos comunitarios"
-    horario: "Según horario del evento"
-    productos: "Artículos elaborados en el taller de manualidades"
+    horario: "Estos puestos se realizan durante todo el año"
+    productos: "Organizamos puestos para la venta de los artículos realizados en el taller de manualidades, recaudando fondos para la autofinanciación."
     contacto: "Asociación Aljofar — info@asociacionaljofarcastilleja.es"
     notas: >
-      Organizamos puestos de venta con los productos realizados en el taller
-      de manualidades. La recaudación se destina a la autofinanciación de la
-      asociación y a apoyar nuevas actividades y proyectos sociales.
+      Organizamos puestos de venta con los productos realizados en el taller de manualidades. La recaudación se destina a la autofinanciación de la asociación y a apoyar nuevas actividades y proyectos sociales.
     imagen:
       src: "/images/puesto-artesania.jpg"
-      alt: "Mesa con productos artesanales en un puesto solidario"
+      alt: "Mesa con nuestros productos artesanales en un puesto solidario"
+      aspectRatio: "4/3"
 
+  # Nueva imagen debajo de Puestos solidarios de artesanía
+  - tipo: "imagen"
+    titulo: "Nuestros puestos solidarios en acción"
+    description: "Imagen representativa de nuestros puestos solidarios y actividades."
+    clase: "project-card--full"
+    imagen:
+      src: "/images/ProjectList/taller-de-manualidades-abanicos.jpg"
+      alt: "Foto de nuestros puestos solidarios con voluntarios y productos"
+      aspectRatio: "1/1"
 
 # ------- Talleres y Actividades (con galería opcional) -------
 talleres:

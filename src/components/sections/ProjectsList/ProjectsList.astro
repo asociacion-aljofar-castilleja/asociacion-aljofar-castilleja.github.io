@@ -1,5 +1,4 @@
 ---
-// ProyectList.astro
 import { getEntry } from "astro:content";
 
 type Lang = "es" | "en";
@@ -12,10 +11,9 @@ type ItemImage =
       aspectRatio?: `${number}/${number}` | "16/9" | "4/3" | "1/1";
     };
 
-type ItemTipo = "actividad" | "puesto";
+type ItemTipo = "actividad" | "puesto" | "imagen";
 
 type Item = {
-  // comunes
   titulo?: string;
   fecha?: string;
   url?: string;
@@ -23,30 +21,30 @@ type Item = {
   imagen?: ItemImage;
   tipo?: ItemTipo;
 
-  // ACTIVIDADES
+  // ACTIVITIES
   lugar?: string;
   horario?: string;
   precio?: string;
   edad?: string;
   organizador?: string;
 
-  // PUESTOS
+  // STALLS
   ubicacion?: string;
   productos?: string;
   contacto?: string;
+
+  // CUSTOM CLASS
+  clase?: string;
 };
 
 interface Props {
   lang: Lang;
-  // 🔹 Ahora puedes pasar directamente `proyectos` del YAML
   proyectos?: any[];
-  // 🔹 O seguir pasando `items` si ya lo tenías así
   items?: Item[];
   titleOverride?: string;
   showIcons?: boolean;
 }
 
-// Props con defaults
 const {
   lang,
   proyectos = [],
@@ -55,27 +53,12 @@ const {
   showIcons = true,
 } = Astro.props as Props;
 
-// i18n (colección 'ui': leisure/es | leisure/en)
 const idMap = { es: "leisure/es", en: "leisure/en" } as const;
 
 type I18n = {
   title?: string;
   ariaSection?: string;
-  labels?: {
-    actividad?: string;
-    puesto?: string;
-    lugar?: string;
-    horario?: string;
-    precio?: string;
-    edad?: string;
-    organizador?: string;
-    ubicacion?: string;
-    productos?: string;
-    contacto?: string;
-    notas?: string;
-    leerMas?: string;
-    fecha?: string;
-  };
+  labels?: Record<string,string>;
   empty?: string;
 };
 
@@ -84,6 +67,7 @@ const I = (entry?.data ?? {}) as I18n;
 
 const title = titleOverride ?? I.title ?? (lang === "en" ? "Leisure & Stalls" : "Actividades y Puestos");
 const ariaSection = I.ariaSection ?? title;
+
 const L = {
   actividad:   I.labels?.actividad   ?? (lang === "en" ? "Activity" : "Actividad"),
   puesto:      I.labels?.puesto      ?? (lang === "en" ? "Stall" : "Puesto"),
@@ -99,6 +83,7 @@ const L = {
   leerMas:     I.labels?.leerMas     ?? (lang === "en" ? "Read more" : "Más info"),
   fecha:       I.labels?.fecha       ?? (lang === "en" ? "Date" : "Fecha"),
 };
+
 const emptyText = I.empty ?? (lang === "en" ? "Nothing listed yet." : "Aún no hay elementos.");
 
 function normalizeImg(img?: ItemImage) {
@@ -126,50 +111,18 @@ function icon(key: keyof typeof L) {
   return map[key] ?? "•";
 }
 
-/**
- * Adaptador LEGACY:
- * Convierte entradas antiguas bajo `proyectos:` (con financiacion/resultados/notas)
- * a la nueva estructura (actividad/puesto).
- * Reglas:
- * - Si el objeto ya trae campos de ocio/puestos, se respeta tal cual.
- * - Si solo trae {titulo, financiacion, resultados, notas, fecha, url, imagen}:
- *   · Se infiere tipo: "actividad" por defecto; "puesto" si resultados/financiacion contienen pistas.
- *   · Se vuelca 'resultados' → notas (para no perder información).
- */
 function adaptFromProyectosLegacy(p: any): Item {
-  // Si ya está en el nuevo modelo, devuélvelo casi tal cual
   const hasNewKeys =
     p.tipo || p.lugar || p.horario || p.precio || p.edad || p.organizador || p.ubicacion || p.productos || p.contacto;
-  if (hasNewKeys) {
-    return {
-      titulo: p.titulo,
-      fecha: p.fecha,
-      url: p.url,
-      notas: p.notas,
-      imagen: p.imagen,
-      tipo: p.tipo,
-      lugar: p.lugar,
-      horario: p.horario,
-      precio: p.precio,
-      edad: p.edad,
-      organizador: p.organizador,
-      ubicacion: p.ubicacion,
-      productos: p.productos,
-      contacto: p.contacto,
-    };
-  }
-
-  // Heurística simple para legacy → puesto/actividad
+  if (hasNewKeys) return { ...p };
   const text = `${p.resultados ?? ""} ${p.financiacion ?? ""}`.toLowerCase();
   const isPuesto = /(venta|puesto|mercad|stand|art(esan|esanía)|productos?)/.test(text);
-
   return {
     titulo: p.titulo,
     fecha: p.fecha,
     url: p.url,
     imagen: p.imagen,
     tipo: isPuesto ? "puesto" : "actividad",
-    // Guardamos 'resultados' como notas para no perderlo
     notas: p.notas ?? p.resultados ?? p.financiacion,
   };
 }
@@ -182,84 +135,71 @@ const sourceItems: Item[] =
   <div class="container">
     <h2 class="h4 mb-3">{title}</h2>
 
-  {sourceItems.length === 0 ? (
-    <p class="text-muted">{emptyText}</p>
-  ) : (
-    <ul class="leisure-items list-unstyled m-0">
-      {sourceItems.map((p) => {
-        const img = normalizeImg(p.imagen);
-        const tipo = p.tipo ?? (p.productos || p.ubicacion ? "puesto" : "actividad");
-        return (
-          <li class="leisure-item">
-            <article class="leisure-card card border-0 shadow-sm">
-              {img ? (
-                <figure class="leisure-media" style={{ "--ratio": img.aspectRatio }}>
-                  <img src={img.src} alt={img.alt} loading="lazy" decoding="async" />
-                </figure>
-              ) : (
-                <figure class="leisure-media leisure-media--placeholder" aria-hidden="true">
-                  <div class="ph"><span>▣</span></div>
-                </figure>
-              )}
+    {sourceItems.length === 0 ? (
+      <p class="text-muted">{emptyText}</p>
+    ) : (
+      <ul class="project-list list-unstyled m-0">
+        {sourceItems.map((p) => {
+          const img = normalizeImg(p.imagen);
+          const tipo = p.tipo ?? (p.productos || p.ubicacion ? "puesto" : "actividad");
+          return (
+            <li class="project-item">
+              <article class={`project-card ${p.clase ?? ""}`}>
+                {img ? (
+                  <figure class="project-media" style={{ "--ratio": img.aspectRatio }}>
+                    <img src={img.src} alt={img.alt} loading="lazy" decoding="async" />
+                  </figure>
+                ) : (
+                  <figure class="project-media project-media--placeholder" aria-hidden="true">
+                    <div class="ph"><span>▣</span></div>
+                  </figure>
+                )}
 
-              <div class="card-body">
-                <div class="leisure-header d-flex align-items-start gap-2 flex-wrap">
-                  {p.titulo && (
-                    <h3 class="h6 leisure-title m-0 flex-grow-1">
-                      {showIcons && <span class="me-1" aria-hidden="true">{icon(tipo as any)}</span>}
-                      {p.titulo}
-                      <span class="visually-hidden">
-                        {" "}{tipo === "puesto" ? `(${L.puesto})` : `(${L.actividad})`}
-                      </span>
-                    </h3>
-                  )}
-                  {p.fecha && (
-                    <span class="leisure-date badge text-bg-light" aria-label={`${L.fecha}: ${p.fecha}`}>
-                      {p.fecha}
-                    </span>
-                  )}
-                </div>
+                {tipo !== "imagen" && (
+                  <div class="card-body">
+                    {p.titulo && (
+                      <h3 class="project-title h6 m-0">
+                        {showIcons && <span class="project-icon" aria-hidden="true">{icon(tipo as any)}</span>}
+                        {p.titulo}
+                      </h3>
+                    )}
+                    {p.fecha && <span class="project-date badge text-bg-light">{p.fecha}</span>}
 
-                <div class="leisure-body mt-2">
-                  {/* ACTIVIDADES */}
-                  {tipo === "actividad" && (
-                    <>
-                      {p.lugar && <p class="m-0"><span class="me-1" aria-hidden="true">{icon("lugar")}</span><strong>{L.lugar}:</strong> {p.lugar}</p>}
-                      {p.horario && <p class="m-0"><span class="me-1" aria-hidden="true">{icon("horario")}</span><strong>{L.horario}:</strong> {p.horario}</p>}
-                      {p.precio && <p class="m-0"><span class="me-1" aria-hidden="true">{icon("precio")}</span><strong>{L.precio}:</strong> {p.precio}</p>}
-                      {p.edad && <p class="m-0"><span class="me-1" aria-hidden="true">{icon("edad")}</span><strong>{L.edad}:</strong> {p.edad}</p>}
-                      {p.organizador && <p class="m-0"><span class="me-1" aria-hidden="true">{icon("organizador")}</span><strong>{L.organizador}:</strong> {p.organizador}</p>}
-                    </>
-                  )}
+                    {tipo === "actividad" && (
+                      <>
+                        {p.lugar && <p><strong>{L.lugar}:</strong> {p.lugar}</p>}
+                        {p.horario && <p><strong>{L.horario}:</strong> {p.horario}</p>}
+                        {p.precio && <p><strong>{L.precio}:</strong> {p.precio}</p>}
+                        {p.edad && <p><strong>{L.edad}:</strong> {p.edad}</p>}
+                        {p.organizador && <p><strong>{L.organizador}:</strong> {p.organizador}</p>}
+                      </>
+                    )}
 
-                  {/* PUESTOS */}
-                  {tipo === "puesto" && (
-                    <>
-                      {p.ubicacion && <p class="m-0"><span class="me-1" aria-hidden="true">{icon("ubicacion")}</span><strong>{L.ubicacion}:</strong> {p.ubicacion}</p>}
-                      {p.horario && <p class="m-0"><span class="me-1" aria-hidden="true">{icon("horario")}</span><strong>{L.horario}:</strong> {p.horario}</p>}
-                      {p.productos && <p class="m-0"><span class="me-1" aria-hidden="true">{icon("productos")}</span><strong>{L.productos}:</strong> {p.productos}</p>}
-                      {p.contacto && <p class="m-0"><span class="me-1" aria-hidden="true">{icon("contacto")}</span><strong>{L.contacto}:</strong> {p.contacto}</p>}
-                    </>
-                  )}
+                    {tipo === "puesto" && (
+                      <>
+                        {p.ubicacion && <p><strong>{L.ubicacion}:</strong> {p.ubicacion}</p>}
+                        {p.horario && <p><strong>{L.horario}:</strong> {p.horario}</p>}
+                        {p.productos && <p><strong>{L.productos}:</strong> {p.productos}</p>}
+                        {p.contacto && <p><strong>{L.contacto}:</strong> {p.contacto}</p>}
+                      </>
+                    )}
 
-                  {p.notas && (
-                    <p class="m-0"><span class="me-1" aria-hidden="true">{icon("notas")}</span><strong>{L.notas}:</strong> {p.notas}</p>
-                  )}
-                </div>
+                    {p.notas && <p><strong>{L.notas}:</strong> {p.notas}</p>}
 
-                {p.url && (
-                  <div class="leisure-footer mt-3">
-                    <a class="btn btn-sm btn-outline-primary" href={p.url} target="_blank" rel="noopener">
-                      {L.leerMas}
-                    </a>
+                    {p.url && (
+                      <div class="mt-2">
+                        <a class="btn btn-sm btn-outline-primary" href={p.url} target="_blank" rel="noopener">
+                          {L.leerMas}
+                        </a>
+                      </div>
+                    )}
                   </div>
                 )}
-              </div>
-            </article>
-          </li>
-        );
-      })}
-    </ul>
-  )}
+              </article>
+            </li>
+          );
+        })}
+      </ul>
+    )}
   </div>
 </section>
