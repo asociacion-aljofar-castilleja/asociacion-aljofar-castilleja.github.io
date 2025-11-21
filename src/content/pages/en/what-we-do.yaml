@@ -1,7 +1,7 @@
-title: "What We Do"
-description: "Brief description of what you offer (services, projects, workshops…)."
-heroTitle: "Main slogan or action claim"
-heroSubtitle: "Subtitle that reinforces focus and impact"
+title: "What we do"
+description: "ALJÓFAR’s programs, projects and workshops for the inclusion, training and development of people with disabilities."
+heroTitle: "What We Do"
+heroSubtitle: "Workshops, services and activities."
 
 # ------- Services / Programs -------
 servicios:
@@ -51,23 +51,41 @@ proyectos:
       alt: "Table with our handcrafted products at a charity stall"
       aspectRatio: "4/3"
 
-  # Nueva imagen debajo de Charity Craft Stalls
-  - tipo: "imagen"
-    titulo: "Our Charity Stalls in Action"
-    description: "A representative image of our charity stalls and activities."
-    clase: "project-card--full"
-    imagen:
-      src: "/images/ProjectList/taller-de-manualidades-abanicos.jpg"
-      alt: "Photo of our charity stalls with volunteers and products"
-      aspectRatio: "1/1"
+# ------- Workshops & Activities -------
+talleres:
+  - titulo: "Craft Workshop"
+    descripcion: >
+      Encourages creativity and psychomotor skills through the creation
+      of useful and decorative items.
+    horario_lugar: "Throughout the year at the Nueva Sevilla Civic Center. In-person."
+    imagenes:
+      - src: "/images/taller-manualidades/manualidades-cuencos/cuencos2.jpg"
+        alt: "Members making bowls"
+      - src: "/images/taller-manualidades/manualidades-abanico/abanico2.jpg"
+        alt: "Members making fans"
+      - src: "/images/taller-manualidades/manualidades-camisetas/camisetas2.jpg"
+        alt: "Members painting t-shirts"
+      - src: "/images/taller-manualidades/manualidades-otros/manualidades-1.jpg"
+        alt: "Members making keychains"
+      - src: "/images/taller-manualidades/manualidades-otros/manualidades-3.jpg"
+        alt: "Members painting pictures"
+      - src: "/images/taller-manualidades/manualidades-otros/manualidades-2.jpg"
+        alt: "Members decorating mugs"
 
-  - tipo: "imagen"
-    titulo: "What We Do"
-    description: "Brief description of what you offer (services, projects, workshops…)."
-    heroTitle: "Main slogan or action claim"
-    heroSubtitle: "Subtitle that reinforces focus and impact"
-    clase: "project-card--full"
-    imagen:
-      src: "/images/ProjectList/camisetas2.jpg"
-      alt: "Representative image of our activities and charity stalls"
-      aspectRatio: "1/1"
+  - titulo: "Computer Workshop"
+    descripcion: >
+      Introduction to computers: basic use of the computer, word processors,
+      and safe internet browsing.
+    horario_lugar: "During the course at the Nueva Sevilla Civic Center. In-person, 3 computers available."
+    imagenes:
+      - src: "/images/sede-informatica/informatica2.jpg"
+        alt: "Members learning computer skills"
+
+  - titulo: "Dance Workshop"
+    descripcion: >
+      Physical and recreational activity promoting coordination, rhythm,
+      and socialization through various dance styles.
+    horario_lugar: "During the course at the Nueva Sevilla Civic Center. In-person."
+    imagenes:
+      - src: "/images/taller-baile/baile.jpg"
+        alt: "Members dancing in the workshop"

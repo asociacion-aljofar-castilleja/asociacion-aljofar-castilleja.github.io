@@ -1,24 +1,18 @@
 title: "Qué hacemos"
-description: "Descripción breve de lo que ofrecéis (servicios, proyectos, talleres…)."
-heroTitle: "Lema o claim principal de acción"
-heroSubtitle: "Subtítulo que refuerza el enfoque y el impacto"
+description: "Programas, proyectos y talleres de ALJÓFAR para la integración, formación y desarrollo de personas con diversidad funcional."
+heroTitle: "Qué hacemos"
+heroSubtitle: "Talleres, servicios y actividades."
 
 # ------- Servicios / Programas -------
 servicios:
-  - nombre: "Nombre del servicio o programa"
-    objetivo: "Objetivo: beneficio o cambio esperado."
-    destinatarios: "A quién va dirigido (p. ej., infancia, familias, socios/as, comunidad general)"
-    requisitos: "Condiciones de acceso, documentación, coste, etc. (opcional)"
-    horario_lugar: "Cuándo y dónde: días/horas, sede, online/presencial"
-    como_solicitar: "Proceso de solicitud: formulario, email, ventanilla, teléfono"
-    accesibilidad: "Medidas de accesibilidad del servicio/lugar (lectura fácil, bucle magnético, accesos, apoyos…)"
-  - nombre: "Otro servicio o programa"
-    objetivo: "…"
-    destinatarios: "…"
-    requisitos: "…"
-    horario_lugar: "…"
-    como_solicitar: "…"
-    accesibilidad: "…"
+  - nombre: "Aula matinal"
+    imagen: "/images/servicios/aula-matinal.jpg"
+    objetivo: "Formación en diversas materias didácticas fomentando la escritura, lectura, cálculo, memoria y el desarrollo integral de los socios participantes."
+    destinatarios: "Socios y socias participantes de la asociación."
+    requisitos: "No se requiere inscripción previa."
+    horario_lugar: "De octubre a junio, de lunes a viernes, de 10:00 a 13:00 horas en el aula del Centro Cívico."
+    como_solicitar: "Acudir al aula en horario de actividad o contactar con la asociación."
+    accesibilidad: "Actividad accesible."
 
 # ------- Proyectos -------
 proyectos:
@@ -61,13 +55,41 @@ proyectos:
       alt: "Foto de nuestros puestos solidarios con voluntarios y productos"
       aspectRatio: "1/1"
 
-  - tipo: "imagen"
-    titulo: "Qué hacemos"
-    description: "Descripción breve de lo que ofrecéis (servicios, proyectos, talleres…)."
-    heroTitle: "Lema o claim principal de acción"
-    heroSubtitle: "Subtítulo que refuerza el enfoque y el impacto"
-    clase: "project-card--full"
-    imagen:
-      src: "/images/ProjectList/camisetas2.jpg"
-      alt: "Imagen representativa de nuestras actividades y puestos solidarios"
-      aspectRatio: "1/1"
+# ------- Talleres y Actividades (con galería opcional) -------
+talleres:
+  - titulo: "Taller de Manualidades"
+    descripcion: >
+      Fomenta la creatividad y habilidades psicomotrices mediante la
+      elaboración de objetos útiles y decorativos.
+    horario_lugar: "Durante todo el año en el Centro Cívico de Nueva Sevilla. Modalidad presencial."
+    imagenes:
+      - src: "/images/taller-manualidades/manualidades-cuencos/cuencos2.jpg"
+        alt: "Socios creando cuencos"
+      - src: "/images/taller-manualidades/manualidades-abanico/abanico2.jpg"
+        alt: "Socios creando abanicos"
+      - src: "/images/taller-manualidades/manualidades-camisetas/camisetas2.jpg"
+        alt: "Socios pintando camisetas"
+      - src: "/images/taller-manualidades/manualidades-otros/manualidades-1.jpg"
+        alt: "Socios creando llaveros"
+      - src: "/images/taller-manualidades/manualidades-otros/manualidades-3.jpg"
+        alt: "Socios pintando cuadros"
+      - src: "/images/taller-manualidades/manualidades-otros/manualidades-2.jpg"
+        alt: "Socios decorando tazas"
+
+  - titulo: "Taller de Informática"
+    descripcion: >
+      Iniciación a la informática: uso básico del ordenador, procesadores
+      de texto y navegación segura por internet.
+    horario_lugar: "Durante el curso en el Centro Cívico de Nueva Sevilla. Modalidad presencial, 3 equipos disponibles."
+    imagenes:
+      - src: "/images/sede-informatica/informatica2.jpg"
+        alt: "Socios aprendiendo informática"
+
+  - titulo: "Taller de Baile"
+    descripcion: >
+      Actividad física y recreativa que promueve coordinación, ritmo
+      y socialización mediante distintos estilos de baile.
+    horario_lugar: "Durante el curso en el Centro Cívico de Nueva Sevilla. Modalidad presencial."
+    imagenes:
+      - src: "/images/taller-baile/baile.jpg"
+        alt: "Socios bailando en el taller de baile"

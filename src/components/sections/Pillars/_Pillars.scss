@@ -1,4 +1,11 @@
 .pillars-section { color: var(--text); }
+.section-title { font-weight: 700; }
+.accent-dot { width: .75rem; height: .75rem; border-radius: 999px; display: inline-block; }
+.accent-primary { background: var(--bs-primary); }
+.accent-success { background: var(--bs-success); }
+.accent-info { background: var(--bs-info); }
+.accent-warning { background: var(--bs-warning); }
+
 .pillars__card {
   background: var(--card-bg);
   border: 1px solid var(--card-border);

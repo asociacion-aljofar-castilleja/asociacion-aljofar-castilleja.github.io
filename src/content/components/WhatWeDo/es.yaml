@@ -4,6 +4,5 @@ viewMore: "Ver más"
 ariaView: "Ver {{title}}"
 tabs:
   services: "Servicios"
-  projects: "Proyectos"
-  workshops: "Talleres"
-  activities: "Actividades"
+  projects: "Actividades y Puestos"
+  workshopsActivities: "Talleres y Actividades"
