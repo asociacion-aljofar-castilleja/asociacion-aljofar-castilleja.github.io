@@ -5,6 +5,11 @@ nav:
   - { href: "/noticias",      label: "Noticias" }
   - { href: "/contacto",      label: "Contacto" }
 
+brand:
+  title: "Asociación Aljófar - Castilleja de la Cuesta"
+  ariaLabel: "Inicio"
+  alt: "Logo de la Asociación Aljófar"
+
 theme:
   button: "Tema"
   light: "Claro"

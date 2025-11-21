@@ -1,8 +1,12 @@
 /* src/components/layout/Header/_header.scss */
 
 /* Afinado visual del header */
-.header .navbar-brand svg { flex-shrink: 0; }
-.header .navbar-brand span { white-space: nowrap; }
+.header .navbar-brand svg {
+  flex-shrink: 0;
+}
+.header .navbar-brand span {
+  white-space: nowrap;
+}
 
 /* Estado activo claro en nav */
 .header .nav-link.active {
@@ -18,10 +22,14 @@
 }
 
 /* Botones pequeños más legibles */
-.header .btn.btn-sm { --bs-btn-font-size: .85rem; }
+.header .btn.btn-sm {
+  --bs-btn-font-size: .85rem;
+}
 
 /* Dropdown con sombra suave */
-.header .dropdown-menu { box-shadow: 0 .5rem 1rem rgba(0,0,0,.08); }
+.header .dropdown-menu {
+  box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .08);
+}
 
 /* Solo dropdown del Header para el selector de tema */
 .header .dropdown-menu .dropdown-item.active {
@@ -30,26 +38,25 @@
   background-color: var(--bs-primary-bg-subtle);
 }
 
-/* Tamaño del logo del Header*/
-.logoHeader{
-  width: 50px;
-  height: 50px;
+/* Tamaño del logo del Header -> MÁS GRANDE EN ESCRITORIO */
+.logoHeader {
+  width: 70px;
+  height: 70px;
 }
 
-
-/* Tamaño responsive para Titulo Header*/
-
+/* Título más pequeño y en color principal */
 .titulo-header {
-  font-size: 1.6rem; /* tamaño normal */
+  font-size: 1rem;          /* antes 1.2rem */
+  color: var(--bs-primary); /* color principal de Bootstrap */
 }
 
-@media (max-width: 430px) {     /* tamaño reducido en móviles */
+@media (max-width: 430px) {
   .titulo-header {
-    font-size: 0.8rem;
-  }
-  .logoHeader{
-    width: 35px;
-    height: 35px;
+    font-size: 0.75rem; /* un pelín más pequeño en móvil */
   }
 
+  .logoHeader {
+    width: 45px;
+    height: 45px;
+  }
 }

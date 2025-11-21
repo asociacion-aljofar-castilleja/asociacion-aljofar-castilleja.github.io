@@ -1,9 +1,14 @@
 nav:
-  - { href: "/en",               label: "Home" }
-  - { href: "/en/about-us",      label: "About Us" }
-  - { href: "/en/what-we-do",    label: "What We Do" }
-  - { href: "/en/news",          label: "News" }
-  - { href: "/en/contact",       label: "Contact" }
+  - { href: "/en",            label: "Home" }
+  - { href: "/en/about-us",   label: "About Us" }
+  - { href: "/en/what-we-do", label: "What We Do" }
+  - { href: "/en/news",       label: "News" }
+  - { href: "/en/contact",    label: "Contact" }
+
+brand:
+  title: "Aljófar Association - Castilleja de la Cuesta"
+  ariaLabel: "Home"
+  alt: "Aljófar Association logo"
 
 theme:
   button: "Theme"
@@ -21,5 +26,3 @@ lang:
   current: "Language"
   esLabel: "Spanish"
   enLabel: "English"
-
-

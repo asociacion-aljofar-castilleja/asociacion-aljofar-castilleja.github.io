@@ -8,26 +8,78 @@ const { lang = 'es' } = Astro.props as Props;
 
 // Defaults seguros por si falta algún campo
 const defaults = {
-  tagline: "¡Somos Unicornios! ¡SOMOS FULL STACK WEB DEVELOPERS!",
-  copyright: "© {year} AlixarCoders",
+  tagline: {
+    text: "Asociación Aljófar de Castilleja de la Cuesta en colaboración con la comunidad de Desarrolladores de Aplicaciones Web de I.E.S. Alixar",
+    brandLabel: "AlixarCoders",
+    brandHref: "https://github.com/AlixarCoders",
+  },
+  copyright: "© {year} Asociación Aljófar",
+  social: {
+    instagram: "",
+    facebook: "",
+  },
 };
 
-// IDs literales para satisfacer TypeScript (evita el error de overload)
+// IDs literales para satisfacer TypeScript
 const idMap = { es: "footer/es", en: "footer/en" } as const;
 
-// Leemos mensajes del Footer desde la colección `components`
+// Leemos mensajes del Footer desde la colección `ui`
 const entry = await getEntry({ collection: 'ui', id: idMap[lang] });
 const data = (entry?.data ?? {}) as Partial<typeof defaults>;
 
 const year = new Date().getFullYear();
-const tagline = data.tagline ?? defaults.tagline;
+
+const taglineData = {
+  ...defaults.tagline,
+  ...(data.tagline ?? {}),
+};
+
+const social = {
+  ...defaults.social,
+  ...(data.social ?? {}),
+};
+
 const copyright = (data.copyright ?? defaults.copyright).replace('{year}', String(year));
 ---
 
 <footer class="footer py-4 border-top">
-  <div class="container text-center small">
+  <div class="container text-center small d-flex flex-column flex-lg-row justify-content-center align-items-center gap-2">
     <span class="text-muted">
-      {copyright} — {tagline}
+      {copyright} — {taglineData.text}{' '}
+      <a
+        href={taglineData.brandHref}
+        class="footer-link"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        {taglineData.brandLabel}
+      </a>
     </span>
+
+    <div class="footer-social">
+      {social.instagram && (
+        <a
+          href={social.instagram}
+          class="footer-social-link"
+          aria-label="Instagram"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <i class="bi bi-instagram"></i>
+        </a>
+      )}
+
+      {social.facebook && (
+        <a
+          href={social.facebook}
+          class="footer-social-link"
+          aria-label="Facebook"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <i class="bi bi-facebook"></i>
+        </a>
+      )}
+    </div>
   </div>
 </footer>

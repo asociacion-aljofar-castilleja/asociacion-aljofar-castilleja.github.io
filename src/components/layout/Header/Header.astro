@@ -1,8 +1,8 @@
 ---
 import { getEntry } from "astro:content";
 
-
 type Lang = "es" | "en";
+
 interface Props {
   lang?: Lang;
   otherHref?: string;
@@ -10,7 +10,7 @@ interface Props {
 
 const { lang = "es", otherHref } = Astro.props as Props;
 
-// UI global (nav + labels) desde la colección que ahora te funciona: "ui"
+// UI global (nav + labels) desde la colección "ui"
 const ui = await getEntry({ collection: "ui", id: `header/${lang}` });
 
 type NavItem = { href: string; label: string };
@@ -28,6 +28,9 @@ const T = {
   langCurrent: ui?.data?.lang?.current ?? "Idioma",
   langEs: ui?.data?.lang?.esLabel ?? "Español",
   langEn: ui?.data?.lang?.enLabel ?? "Inglés",
+  brandTitle: ui?.data?.brand?.title ?? "Asociación Aljófar - Castilleja de la Cuesta",
+  brandAria: ui?.data?.brand?.ariaLabel ?? "Inicio",
+  brandAlt: ui?.data?.brand?.alt ?? "Logo Aljófar",
 };
 
 // Normalización con BASE_URL (útil en GH Pages)
@@ -36,7 +39,9 @@ const withBase = (h: string) => BASE + (h || "/").replace(/^\//, "");
 
 // Path actual sin base
 const pathnameRaw = Astro.url?.pathname ?? "/";
-const pathname = pathnameRaw.startsWith(BASE) ? pathnameRaw.slice(BASE.length - 1) : pathnameRaw;
+const pathname = pathnameRaw.startsWith(BASE)
+  ? pathnameRaw.slice(BASE.length - 1)
+  : pathnameRaw;
 
 // Activo
 const isActive = (href: string) => {
@@ -54,18 +59,22 @@ const enHref = lang === "en" ? pathname : (otherHref ?? "/en");
 
 <header class="header navbar navbar-expand-lg border-bottom bg-body" role="banner" data-module="Header">
   <div class="container">
-    <a class="navbar-brand d-flex align-items-center gap-2" href={withBase(homeHref)} aria-label="Inicio">
-      <svg width="28" height="28" viewBox="0 0 64 64" aria-hidden="true">
-        <defs>
-          <linearGradient id="g" x1="0" x2="1">
-            <stop offset="0" stop-color="var(--bs-primary)" />
-            <stop offset="1" stop-color="var(--bs-secondary)" />
-          </linearGradient>
-        </defs>
-        <img class="logoHeader" src="/images/logo.png" alt="Logo Aljofar">
-        <path d="M20 38c10-2 12-10 12-16 6 4 12 6 12 14 0 8-8 12-14 12-6 0-10-4-10-10z" fill="white" opacity=".9" />
-      </svg>
-      <span class="fw-bold titulo-header">Asociación Aljófar - Castilleja de la Cuesta</span>
+    <a
+      class="navbar-brand d-flex align-items-center gap-2"
+      href={withBase(homeHref)}
+      aria-label={T.brandAria}
+    >
+      <img
+        class="logoHeader"
+        src={withBase("/images/logo/logo-aljofar.png")}
+        alt={T.brandAlt}
+        width="50"
+        height="50"
+        loading="lazy"
+      />
+      <span class="fw-bold titulo-header">
+        {T.brandTitle}
+      </span>
     </a>
 
     <button
@@ -75,7 +84,7 @@ const enHref = lang === "en" ? pathname : (otherHref ?? "/en");
       data-bs-target="#mainNav"
       aria-controls="mainNav"
       aria-expanded="false"
-      aria-label="Abrir menú"
+      aria-label={T.brandAria}
     >
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -99,7 +108,7 @@ const enHref = lang === "en" ? pathname : (otherHref ?? "/en");
       </ul>
 
       <div class="d-flex align-items-center gap-2 ms-lg-3">
-        <!-- Tema -->
+        {/* Tema */}
         <div class="dropdown">
           <button
             class="btn btn-outline-secondary btn-sm dropdown-toggle d-flex align-items-center gap-2"
@@ -114,27 +123,84 @@ const enHref = lang === "en" ? pathname : (otherHref ?? "/en");
           </button>
 
           <ul class="dropdown-menu dropdown-menu-end shadow-sm" aria-labelledby="themeDropdown">
-            <li><button class="dropdown-item d-flex align-items-center gap-2" data-theme-value="light" type="button"><i class="bi bi-sun"></i> {T.themeLight}</button></li>
-            <li><button class="dropdown-item d-flex align-items-center gap-2" data-theme-value="dark"  type="button"><i class="bi bi-moon"></i> {T.themeDark}</button></li>
-            <li><button class="dropdown-item d-flex align-items-center gap-2" data-theme-value="auto"  type="button"><i class="bi bi-circle-half"></i> {T.themeAuto}</button></li>
+            <li>
+              <button class="dropdown-item d-flex align-items-center gap-2" data-theme-value="light" type="button">
+                <i class="bi bi-sun"></i> {T.themeLight}
+              </button>
+            </li>
+            <li>
+              <button class="dropdown-item d-flex align-items-center gap-2" data-theme-value="dark" type="button">
+                <i class="bi bi-moon"></i> {T.themeDark}
+              </button>
+            </li>
+            <li>
+              <button class="dropdown-item d-flex align-items-center gap-2" data-theme-value="auto" type="button">
+                <i class="bi bi-circle-half"></i> {T.themeAuto}
+              </button>
+            </li>
           </ul>
         </div>
 
-        <!-- Tamaño de fuente -->
+        {/* Tamaño de fuente */}
         <div class="btn-group" role="group" aria-label="Tamaño de fuente">
-          <button class="btn btn-outline-secondary btn-sm" type="button" data-font="dec"   title={T.a11yDec}   aria-label={T.a11yDec}>A−</button>
-          <button class="btn btn-outline-secondary btn-sm" type="button" data-font="reset" title={T.a11yReset} aria-label={T.a11yReset}>A</button>
-          <button class="btn btn-outline-secondary btn-sm" type="button" data-font="inc"   title={T.a11yInc}   aria-label={T.a11yInc}>A+</button>
+          <button
+            class="btn btn-outline-secondary btn-sm"
+            type="button"
+            data-font="dec"
+            title={T.a11yDec}
+            aria-label={T.a11yDec}
+          >
+            A−
+          </button>
+          <button
+            class="btn btn-outline-secondary btn-sm"
+            type="button"
+            data-font="reset"
+            title={T.a11yReset}
+            aria-label={T.a11yReset}
+          >
+            A
+          </button>
+          <button
+            class="btn btn-outline-secondary btn-sm"
+            type="button"
+            data-font="inc"
+            title={T.a11yInc}
+            aria-label={T.a11yInc}
+          >
+            A+
+          </button>
         </div>
 
-        <!-- Idioma -->
+        {/* Idioma */}
         <div class="dropdown">
-          <button class="btn btn-outline-secondary btn-sm dropdown-toggle" type="button" id="langDropdown" data-bs-toggle="dropdown" aria-expanded="false" title={T.langCurrent}>
+          <button
+            class="btn btn-outline-secondary btn-sm dropdown-toggle"
+            type="button"
+            id="langDropdown"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+            title={T.langCurrent}
+          >
             {lang.toUpperCase()}
           </button>
           <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="langDropdown">
-            <li><a class={`dropdown-item d-flex justify-content-between ${lang === "es" ? "active" : ""}`} href={withBase(esHref)}>ES <span class="ms-3 small text-muted">{T.langEs}</span></a></li>
-            <li><a class={`dropdown-item d-flex justify-content-between ${lang === "en" ? "active" : ""}`} href={withBase(enHref)}>EN <span class="ms-3 small text-muted">{T.langEn}</span></a></li>
+            <li>
+              <a
+                class={`dropdown-item d-flex justify-content-between ${lang === "es" ? "active" : ""}`}
+                href={withBase(esHref)}
+              >
+                ES <span class="ms-3 small text-muted">{T.langEs}</span>
+              </a>
+            </li>
+            <li>
+              <a
+                class={`dropdown-item d-flex justify-content-between ${lang === "en" ? "active" : ""}`}
+                href={withBase(enHref)}
+              >
+                EN <span class="ms-3 small text-muted">{T.langEn}</span>
+              </a>
+            </li>
           </ul>
         </div>
       </div>

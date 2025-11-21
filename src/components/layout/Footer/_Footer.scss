@@ -16,16 +16,54 @@
   font-style: italic;
 }
 
+/* Enlace AlixarCoders */
+.footer .footer-link {
+  font-weight: 600;
+  color: var(--bs-primary);
+  text-decoration: none;
+}
+
+.footer .footer-link:hover,
+.footer .footer-link:focus-visible {
+  text-decoration: underline;
+}
+
+/* Redes sociales */
+.footer-social {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.footer-social-link {
+  color: inherit;
+  font-size: 1.1rem;
+}
+
+.footer-social-link:hover,
+.footer-social-link:focus-visible {
+  color: var(--bs-primary);
+}
+
 /* Estilo para el tema oscuro usando el atributo `data-bs-theme` */
 [data-bs-theme="dark"] .footer {
   background-color: #151b20;  /* Fondo oscuro */
-  color: #f1f3f5;  /* Texto claro */
+  color: #f1f3f5;             /* Texto claro */
 }
 
 [data-bs-theme="dark"] .text-muted {
-  color: #adb5bd; /* Texto atenuado en modo oscuro */
+  color: #adb5bd;             /* Texto atenuado en modo oscuro */
 }
 
 [data-bs-theme="dark"] .container.small {
-  color: #ced4da; /* Texto más claro en el footer */
+  color: #ced4da;             /* Texto más claro en el footer */
+}
+
+[data-bs-theme="dark"] .footer .footer-link {
+  color: #63e6be;             /* un toque de color en dark mode */
+}
+
+[data-bs-theme="dark"] .footer-social-link:hover,
+[data-bs-theme="dark"] .footer-social-link:focus-visible {
+  color: #63e6be;
 }
