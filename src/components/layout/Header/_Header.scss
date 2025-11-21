@@ -60,3 +60,24 @@
     height: 45px;
   }
 }
+
+/* === Redes sociales en el header === */
+.header-social {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.header-social-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  color: var(--bs-secondary);          /* color secundario */
+  text-decoration: none;
+}
+
+.header-social-link:hover,
+.header-social-link:focus-visible {
+  color: var(--bs-primary);            /* al pasar el ratón, primario */
+}

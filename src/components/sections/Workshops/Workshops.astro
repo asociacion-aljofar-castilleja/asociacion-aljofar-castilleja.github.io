@@ -1,38 +1,69 @@
 ---
+import { getEntry } from "astro:content";
 import WorkshopCard from "./WorkshopCard.astro";
-import fs from "fs";
-import path from "path";
-import yaml from "js-yaml";
 
-// idioma (cambiar a "en" para inglés)
-const lang: "es" | "en" = Astro.props.lang ?? "es";
+type Lang = "es" | "en";
 
-// cargar YAML dinámicamente según idioma
-const filePath = path.resolve(`src/content/pages/${lang === "es" ? "es/que-hacemos.yaml" : "en/what-we-do.yaml"}`);
-const fileContents = fs.readFileSync(filePath, "utf-8");
-const data = yaml.load(fileContents) as any;
+// Mismo shape que utiliza WorkshopCard (acepta string o objeto {es,en})
+type Img = { src: string; alt?: { es: string; en: string } | string };
+type Workshop = { 
+  titulo?: { es: string; en: string } | string; 
+  descripcion?: { es: string; en: string } | string; 
+  horario_lugar?: { es: string; en: string } | string; 
+  imagenes?: Img[];
+};
 
-// extraer talleres desde el YAML
-const workshops = data.talleres?.map((w: any) => ({
-  titulo: w.titulo,                // puede ser string o { es, en }
-  descripcion: w.descripcion,
-  horario_lugar: w.horario_lugar,
-  imagenes: w.imagenes?.map((img: any) => ({
-    src: img.src,
-    alt: img.alt
-  })) ?? []
-})) ?? [];
+interface Props {
+  lang: Lang;
+  items?: Workshop[];
+  titleOverride?: string;
+  columns?: string; // clases de grid Bootstrap, igual que en ServicesGrid
+}
+
+const {
+  lang,
+  items = [],
+  titleOverride,
+  columns = "row row-cols-1 row-cols-md-2 g-4",
+} = Astro.props as Props;
+
+// i18n del componente (colección 'ui': workshops/es | workshops/en)
+const idMap = { es: "workshops/es", en: "workshops/en" } as const;
+
+type I18n = {
+  title?: string;
+  ariaSection?: string;
+  empty?: string;
+};
+
+const entry = await getEntry({ collection: "ui", id: idMap[lang] });
+const I = (entry?.data ?? {}) as I18n;
+
+const title =
+  titleOverride ??
+  I.title ??
+  (lang === "en" ? "Workshops & Activities" : "Talleres y Actividades");
+
+const ariaSection = I.ariaSection ?? title;
+
+const emptyText =
+  I.empty ??
+  (lang === "en" ? "No workshops defined yet." : "Aún no hay talleres definidos.");
 ---
 
-<section class="whatwedo-workshops py-3" aria-label={lang === "es" ? "Talleres y Actividades" : "Workshops and Activities"} data-module="Workshops">
+<section
+  class="whatwedo-workshops py-3"
+  aria-label={ariaSection}
+  data-module="Workshops"
+>
   <div class="container">
-    <h2 class="h4 mb-3">{lang === "es" ? "Talleres y Actividades" : "Workshops and Activities"}</h2>
+    <h2 class="h4 mb-3">{title}</h2>
 
-    {workshops.length === 0 ? (
-      <p class="text-muted">{lang === "es" ? "Aún no hay talleres." : "No workshops yet."}</p>
+    {items.length === 0 ? (
+      <p class="text-muted">{emptyText}</p>
     ) : (
-      <div class="row row-cols-1 row-cols-md-2 g-4">
-        {workshops.map((w, idx) => (
+      <div class={columns}>
+        {items.map((w, idx) => (
           <div class="col d-flex">
             <WorkshopCard lang={lang} w={w} idBase={`workshop-${idx}`} />
           </div>

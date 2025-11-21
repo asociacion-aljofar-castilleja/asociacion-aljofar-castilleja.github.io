@@ -45,16 +45,6 @@ proyectos:
       alt: "Mesa con nuestros productos artesanales en un puesto solidario"
       aspectRatio: "4/3"
 
-  # Nueva imagen debajo de Puestos solidarios de artesanía
-  - tipo: "imagen"
-    titulo: "Nuestros puestos solidarios en acción"
-    description: "Imagen representativa de nuestros puestos solidarios y actividades."
-    clase: "project-card--full"
-    imagen:
-      src: "/images/ProjectList/taller-de-manualidades-abanicos.jpg"
-      alt: "Foto de nuestros puestos solidarios con voluntarios y productos"
-      aspectRatio: "1/1"
-
 # ------- Talleres y Actividades (con galería opcional) -------
 talleres:
   - titulo: "Taller de Manualidades"

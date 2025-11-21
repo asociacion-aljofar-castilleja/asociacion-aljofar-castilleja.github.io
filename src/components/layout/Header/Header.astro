@@ -33,6 +33,11 @@ const T = {
   brandAlt: ui?.data?.brand?.alt ?? "Logo Aljófar",
 };
 
+const social = {
+  instagram: ui?.data?.social?.instagram ?? "",
+  facebook: ui?.data?.social?.facebook ?? "",
+};
+
 // Normalización con BASE_URL (útil en GH Pages)
 const BASE = import.meta.env.BASE_URL ?? "/";
 const withBase = (h: string) => BASE + (h || "/").replace(/^\//, "");
@@ -68,8 +73,8 @@ const enHref = lang === "en" ? pathname : (otherHref ?? "/en");
         class="logoHeader"
         src={withBase("/images/logo/logo-aljofar.png")}
         alt={T.brandAlt}
-        width="50"
-        height="50"
+        width="70"
+        height="70"
         loading="lazy"
       />
       <span class="fw-bold titulo-header">
@@ -202,6 +207,33 @@ const enHref = lang === "en" ? pathname : (otherHref ?? "/en");
               </a>
             </li>
           </ul>
+        </div>
+
+        {/* Redes sociales (al lado del selector de idioma) */}
+        <div class="header-social ms-1">
+          {social.instagram && (
+            <a
+              href={social.instagram}
+              class="header-social-link"
+              aria-label="Instagram"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <i class="bi bi-instagram"></i>
+            </a>
+          )}
+
+          {social.facebook && (
+            <a
+              href={social.facebook}
+              class="header-social-link"
+              aria-label="Facebook"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <i class="bi bi-facebook"></i>
+            </a>
+          )}
         </div>
       </div>
     </nav>
