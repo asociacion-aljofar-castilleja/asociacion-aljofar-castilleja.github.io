@@ -1,21 +1,33 @@
 title: "About us"
 description: "Learn about our history, mission, vision, and values."
-heroTitle: "This entity is part of the Andalusian Federation of Associations."
-heroSubtitle: "If you laugh at a child who is different, he will laugh with you, because his innocence surpasses your ignorance."
+heroTitle: "The History and Heart of Our Association"
+heroSubtitle: "This organization is part of the Andalusian Federation of Associations"
 
 sections:
   - title: "Mission"
+    icon: "bi-bullseye"
     paragraphs:
-      - "To promote the integration, education, and personal and social development of people with functional diversity — physical, sensory, or intellectual — fostering their autonomy and active participation in society."
+      - "To promote the integration, education, and personal and social development of people with functional diversity —physical, sensory, or intellectual— fostering their autonomy and active participation in society."
   - title: "Vision"
+    icon: "bi-eye"
     paragraphs:
       - "To be a reference association for inclusion and happiness, where everyone can grow, share experiences, and be valued for who they are, not for their limitations."
   - title: "Values"
+    icon: "bi-stars"
     paragraphs:
       - "Inclusion: Everyone has a place in society."
       - "Respect: We value diversity as a strength."
       - "Autonomy: We encourage independence and lifelong learning."
       - "Solidarity: We grow together by supporting one another."
+
+logoSection:
+  title: "Our name and its symbolic image"
+  paragraphs:
+    - "“Aljófar” is a word that means a small pearl or a group of tiny pearls. For the association, this image has become a metaphor for our members: each one with their own shine, story and value, which deserves to be cared for and protected."
+    - "The representative image we use shows two human figures embracing a pearl placed at the centre. That pearl symbolises the uniqueness of each person, while the figures evoke the community that accompanies, supports and helps that potential grow."
+    - "The surrounding, circular shape suggests a safe, open and inclusive space where no one is left out. The blue and green colours evoke calm, trust, growth and hope; the pearl and white tones bring light and remind us of our shared goal: to seek happiness, not normality."
+    - "We wanted to reserve this space to share this symbolic image and explain what Aljófar means: a community that welcomes, protects and allows each person to shine just as they are."
+
 
 timeline:
   - year: "2007"
@@ -34,9 +46,15 @@ timeline:
     text: "We expanded our network of partnerships and volunteers."
 
 org:
-  - "President: María Bernabé García"
-  - "Vice President: María Dolores Báez Rodríguez"
-  - "Secretary and Treasurer: Antonio Granja Buiza"
-  - "Board member: Rosa Murillo Jiménez"
-  - "Board member: Janet Cárdenas Usandevares"
+  - role: "President"
+    person: "María Bernabé García"
+  - role: "Vice President"
+    person: "María Dolores Báez Rodríguez"
+  - role: "Secretary and Treasurer"
+    person: "Antonio Granja Buiza"
+  - role: "Board member"
+    person: "Rosa Murillo Jiménez"
+  - role: "Board member"
+    person: "Janet Cárdenas Usandevares"
+
 

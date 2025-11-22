@@ -1,0 +1,97 @@
+---
+import { getEntry } from "astro:content";
+
+type Lang = "es" | "en";
+
+type Section = {
+  title?: string;
+  paragraphs?: string[];
+};
+
+interface Props {
+  lang: Lang;
+  section?: Section;
+  /** opcional: por si quieres alternar entre versión con texto o solo símbolo */
+  imageVariant?: "withText" | "symbol";
+}
+
+const {
+  lang,
+  section,
+  imageVariant = "withText",
+} = Astro.props as Props;
+
+const { title: sectionTitle, paragraphs = [] } = section ?? {};
+
+const idMap = { es: "logostory/es", en: "logostory/en" } as const;
+
+type I18n = {
+  titleFallback?: string;
+  ariaSection?: string;
+  imgAlt?: string;
+  figcaption?: string;
+};
+
+const entry = await getEntry({ collection: "ui", id: idMap[lang] });
+const I = (entry?.data ?? {}) as I18n;
+
+// Títulos y textos por defecto desde YAML de ui
+const title =
+  sectionTitle ??
+  I.titleFallback ??
+  (lang === "en" ? "Our name and our logo" : "Nuestro nombre y nuestro logo");
+
+const ariaSection = I.ariaSection ?? title;
+
+const imgAlt =
+  I.imgAlt ??
+  (lang === "en"
+    ? "Proposed logo of Asociación Aljófar: two people embracing a pearl"
+    : "Propuesta de logotipo de la Asociación Aljófar: dos personas abrazando una perla");
+
+const figcaption =
+  I.figcaption ??
+  (lang === "en"
+    ? "The pearl represents the uniqueness and inner value of each member, embraced by the community."
+    : "La perla representa la singularidad y el valor interior de cada persona socia, abrazada por la comunidad.");
+
+// Por si en el futuro quieres cambiar de archivo fácilmente (solo texto / símbolo)
+const imgSrc =
+  imageVariant === "symbol"
+    ? "/images/nuevo-logo/logo_simbolo.png"
+    : "/images/nuevo-logo/logo_texto.png";
+---
+
+<section
+  class="logostory-section"
+  aria-label={ariaSection}
+  data-module="LogoStory"
+>
+  <div class="logostory row g-4 align-items-center">
+    <div class="col-12 col-lg-6">
+      <h2 class="section-title mb-3">
+        {title}
+      </h2>
+
+      {paragraphs.map((p) => (
+        <p class="logostory__p">{p}</p>
+      ))}
+    </div>
+
+    <div class="col-12 col-lg-6">
+      <figure class="logostory__figure text-center">
+        <div class="logostory__image-wrapper shadow-sm">
+          <img
+            src={imgSrc}
+            alt={imgAlt}
+            class="img-fluid logostory__image"
+            loading="lazy"
+          />
+        </div>
+        <figcaption class="logostory__caption small text-muted mt-2">
+          {figcaption}
+        </figcaption>
+      </figure>
+    </div>
+  </div>
+</section>

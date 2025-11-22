@@ -1,0 +1,84 @@
+.logostory-section {
+  position: relative;
+  padding-block: 2.5rem;
+
+  @media (min-width: 992px) {
+    padding-block: 3rem;
+  }
+
+  .section-title {
+    font-size: clamp(1.75rem, 2vw + 1rem, 2.25rem);
+    font-weight: 700;
+    letter-spacing: 0.02em;
+  }
+
+  .logostory {
+    &__p {
+      margin-bottom: 0.75rem;
+      color: var(--bs-body-color);
+      line-height: 1.6;
+    }
+
+    &__figure {
+      margin: 0;
+    }
+
+    &__image-wrapper {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.25rem 1.75rem;
+      border-radius: 1.5rem;
+
+      background:
+        radial-gradient(
+          circle at top left,
+          rgba(var(--bs-primary-rgb), 0.14),
+          transparent 55%
+        ),
+        radial-gradient(
+          circle at bottom right,
+          rgba(var(--bs-info-rgb), 0.10),
+          transparent 55%
+        );
+      border: 1px solid rgba(15, 23, 42, 0.06);
+
+      transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        border-color 0.2s ease;
+
+      @media (prefers-reduced-motion: reduce) {
+        transition: none;
+      }
+    }
+
+    &__image {
+      max-width: min(100%, 360px);
+      height: auto;
+      display: block;
+    }
+
+    &__image-wrapper:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 1rem 2.5rem rgba(15, 23, 42, 0.18);
+      border-color: rgba(var(--bs-primary-rgb), 0.25);
+    }
+
+    &__caption {
+      max-width: 36rem;
+      margin-inline: auto;
+    }
+  }
+}
+
+/** Opcional: dar un poco de contraste al bloque del logo dentro de la página */
+.about-section--logo {
+  background: linear-gradient(
+    135deg,
+    rgba(var(--bs-primary-rgb), 0.04),
+    rgba(var(--bs-body-bg-rgb, 255, 255, 255), 1)
+  );
+  border-top: 1px solid rgba(15, 23, 42, 0.05);
+  border-bottom: 1px solid rgba(15, 23, 42, 0.05);
+}

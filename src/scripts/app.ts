@@ -15,6 +15,8 @@ import { init as initFbFeed } from '../components/sections/FbFeed/FbFeed';
 import { init as initPillars } from '../components/sections/Pillars/Pillars';
 import { init as initTimeline } from '../components/sections/Timeline/Timeline';
 import { init as initOrgList } from '../components/sections/Org/Org';
+import { init as initLogoStory } from '../components/sections/LogoStory/LogoStory';
+
 import { init as initServices } from '../components/sections/ServicesGrid/ServicesGrid';
 import { init as initProjects } from '../components/sections/ProjectsList/ProjectsList';
 import { init as initWorkshops } from '../components/sections/Workshops/Workshops';
@@ -22,6 +24,7 @@ import { init as initWorkshops } from '../components/sections/Workshops/Workshop
 import { init as initContactInfo } from '../components/sections/ContactInfo/ContactInfo';
 import { init as initMapEmbed } from '../components/sections/MapEmbed/MapEmbed';
 import { init as initSocialLinks } from '../components/sections/SocialLinks/SocialLinks';
+
 
 function initAll() {
   document.querySelectorAll<HTMLElement>('[data-module="BaseLayout"]').forEach(initBaseLayout);
@@ -41,6 +44,8 @@ function initAll() {
   document.querySelectorAll<HTMLElement>('[data-module="Pillars"]').forEach(initPillars);
   document.querySelectorAll<HTMLElement>('[data-module="Timeline"]').forEach(initTimeline);
   document.querySelectorAll<HTMLElement>('[data-module="OrgList"]').forEach(initOrgList);
+  document.querySelectorAll<HTMLElement>('[data-module="LogoStory"]').forEach(initLogoStory);
+
   document.querySelectorAll<HTMLElement>('[data-module="ServicesGrid"]').forEach(initServices);
   document.querySelectorAll<HTMLElement>('[data-module="ProjectsList"]').forEach(initProjects);
   document.querySelectorAll<HTMLElement>('[data-module="Workshops"]').forEach(initWorkshops);

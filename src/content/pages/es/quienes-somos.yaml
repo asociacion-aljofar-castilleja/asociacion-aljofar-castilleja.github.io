@@ -1,21 +1,34 @@
 title: "Quiénes somos"
 description: "Conoce la historia, misión, visión y valores."
-heroTitle: "Esta Entidad forma parte de la Federación Andaluza de Asociaciones"
-heroSubtitle: "Si te ríes de un niño diferente, él se reirá contigo, porque su inocencia supera a la ignoracia."
+heroTitle: "La historia y el corazón de nuestra asociación"
+heroSubtitle: "Esta entidad forma parte de la Federación Andaluza de Asociaciones"
 
 sections:
   - title: "Misión"
+    icon: "bi-bullseye"
     paragraphs:
-      - "Promover la integración, formación y desarrollo personal y social de las personas con diversidad funcional, psíquica, física y sensorial, fomentando su autonomía y participación activa en la sociedad. "
+      - "Promover la integración, formación y el desarrollo personal y social de las personas con diversidad funcional —psíquica, física y sensorial—, fomentando su autonomía y su participación activa en la sociedad."
   - title: "Visión"
+    icon: "bi-eye"
     paragraphs:
-       - "Ser una asociación referente en inclusión y felicidad, donde cada persona pueda desarrollarse plenamente, compartir experiencias y sentirse valorada por lo que es, no por sus limitaciones."
+      - "Ser una asociación referente en inclusión y felicidad, donde cada persona pueda desarrollarse plenamente, compartir experiencias y sentirse valorada por lo que es, no por sus limitaciones."
   - title: "Valores"
+    icon: "bi-stars"
     paragraphs:
-       - "Inclusión: Todos tenemos un lugar en la sociedad."
-       - "Respeto: Valoramos la diversidad como una fortaleza."
-       - "Autonomía: Fomentamos la independencia y el aprendizaje continuo."
-       - "Solidaridad: Crecemos juntos apoyándonos mutuamente."
+      - "Inclusión: Todos tenemos un lugar en la sociedad."
+      - "Respeto: Valoramos la diversidad como una fortaleza."
+      - "Autonomía: Fomentamos la independencia y el aprendizaje continuo."
+      - "Solidaridad: Crecemos juntos apoyándonos mutuamente."
+
+
+logoSection:
+  title: "Nuestro nombre y su imagen simbólica"
+  paragraphs:
+    - "«Aljófar» es una palabra que significa pequeña perla o conjunto de perlas diminutas. Para la asociación, esa imagen se ha convertido en una metáfora de nuestras personas socias: cada una con su brillo propio, su historia y su valor, que merece ser cuidado y protegido."
+    - "La imagen representativa que usamos muestra dos figuras humanas abrazando una perla situada en el centro. Esa perla simboliza la singularidad de cada persona, mientras que las figuras evocan a la comunidad que acompaña, sostiene y ayuda a hacer crecer ese potencial."
+    - "La forma envolvente y circular sugiere un espacio seguro, abierto e inclusivo, donde nadie queda fuera. Los colores azul y verde evocan calma, confianza, crecimiento y esperanza; los tonos perla y blanco aportan luz y recuerdan nuestro objetivo compartido: buscar la felicidad, no la normalidad."
+    - "Hemos querido reservar este espacio para compartir esta imagen simbólica y explicar lo que significa Aljófar: una comunidad que acoge, protege y permite que cada persona brille tal y como es."
+
       
 
 timeline:
@@ -35,8 +48,14 @@ timeline:
     text: "Ampliamos la red de alianzas y voluntariado."
 
 org:
-  - "Presidencia: Maria Bernabé Garcia"
-  - "Vicepresidenta: Maria Dolores Báez Rodríguez"
-  - "Secretario y Tesorero: Antonio Granja Buiza"
-  - "Vocal: Rosa Murillo Jiménez"
-  - "Vocal: Janet Cárdenas Usandevares"
+  - role: "Presidencia"
+    person: "María Bernabé García"
+  - role: "Vicepresidencia"
+    person: "María Dolores Báez Rodríguez"
+  - role: "Secretaría y Tesorería"
+    person: "Antonio Granja Buiza"
+  - role: "Vocal"
+    person: "Rosa Murillo Jiménez"
+  - role: "Vocal"
+    person: "Janet Cárdenas Usandevares"
+
