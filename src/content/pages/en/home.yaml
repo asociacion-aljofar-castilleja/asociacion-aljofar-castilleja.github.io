@@ -24,7 +24,7 @@ partners:
   - { name: "City Hall", url: "https://www.castillejadelacuesta.es/es/", logo: "/images/partners/ayto.png" }
   - { name: "Caixa Foundation", url: "https://fundacionlacaixa.org/es/", logo: "/images/partners/caixa.png" }
   - { name: "Association of the Three Wise Men of Castilleja de la Cuesta",   url: "https://www.facebook.com/people/Reyes-Magos-Castilleja/100088654016275/#", logo: "/images/partners/asociacion.png" }
-  - { name: "Social Work of Our Lady of Solitude of Castilleja de la Cuesta",   url: "https://www.hermandaddesantiago.es/hermandad/index.php/grupos/obra-social?layout=list", logo: "/images/partners/obra.png" }
+  - { name: "Social Work of Our Lady of Solitude of Castilleja de la Cuesta",   url: "https://www.hermandaddesantiago.es/hermandad/index.php/grupos/obra-social?layout=list", logo: "/images/partners/hermandad-santiago-apostol-castilleja-de-la-cuesta.jpg" }
   - { name: "Alixar Coders",   url: "https://alixarcoders.github.io/", logo: "/images/partners/coders.png" }
   - { name: "IES Alixar",   url: "https://sites.google.com/g.educaand.es/web-iesalixar-org", logo: "/images/partners/ies.png" }
 
