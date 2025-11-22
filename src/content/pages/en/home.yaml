@@ -37,7 +37,7 @@ hq:
     - { src: "/images/sede-exterior-interior/exterior-sede.jpg", alt: "Accessible entrance" }
     - { src: "/images/sede-exterior-interior/interior-sede.jpg", alt: "Spacious interiors" }
     - { src: "/images/sede-informatica/informatica2.jpg", alt: "IT area" }
-    - { src: "/images/taller-manualidades/manualidades-college/collage.png", alt: "Collage" }
+    - { src: "/images/taller-manualidades/manualidades-collage/collage.png", alt: "Collage" }
 facebook:
   pageUrl: "https://www.facebook.com/p/Asociación-Aljofar-100079476353855"
   limit: 3
