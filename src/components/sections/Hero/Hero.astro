@@ -2,6 +2,7 @@
 import { getEntry } from "astro:content";
 
 type Lang = "es" | "en";
+
 interface Props {
   lang: Lang;
   lema?: string;
@@ -10,6 +11,8 @@ interface Props {
   ctaHref?: string;
   bg?: string;              // ruta imagen
   minHeightVH?: number;     // alto mínimo (vh), por defecto 65
+  quote?: string;           // nueva: cita
+  quoteAuthor?: string;     // nueva: autor de la cita
 }
 
 const {
@@ -20,22 +23,57 @@ const {
   ctaHref,
   bg,
   minHeightVH = 65,
+  quote,
+  quoteAuthor,
 } = Astro.props as Props;
 
-// i18n del componente (colección 'ui', ids Hero/es|en)
+// i18n del componente (colección 'ui', ids hero/es|en)
 const idMap = { es: "hero/es", en: "hero/en" } as const;
+
 type HeroI18n = {
-  lema?: string; subtitle?: string; ctaText?: string; ctaHref?: string; bg?: string;
+  lema?: string;
+  subtitle?: string;
+  ctaText?: string;
+  ctaHref?: string;
+  bg?: string;
+  quote?: string;
+  quoteAuthor?: string;
 };
+
 const entry = await getEntry({ collection: "ui", id: idMap[lang] });
 const I = (entry?.data ?? {}) as HeroI18n;
 
-// Merge: props > i18n > defaults
-const LEMA      = lema     ?? I.lema     ?? (lang === "en" ? "Technology with social impact" : "Tecnología con impacto social");
-const SUBTITLE  = subtitle ?? I.subtitle ?? "";
-const CTA_TEXT  = ctaText  ?? I.ctaText  ?? (lang === "en" ? "Learn more" : "Descubre más");
-const CTA_HREF  = ctaHref  ?? I.ctaHref  ?? (lang === "en" ? "#what-we-do" : "#que-hacemos");
-const BG        = bg       ?? I.bg       ?? "/img/hero.jpg";
+// Merge: props > i18n > defaults genéricos
+const LEMA =
+  lema ??
+  I.lema ??
+  (lang === "en"
+    ? "Technology with social impact"
+    : "Tecnología con impacto social");
+
+const SUBTITLE = subtitle ?? I.subtitle ?? "";
+
+const CTA_TEXT =
+  ctaText ??
+  I.ctaText ??
+  (lang === "en" ? "Learn more" : "Descubre más");
+
+const CTA_HREF =
+  ctaHref ??
+  I.ctaHref ??
+  (lang === "en" ? "#what-we-do" : "#que-hacemos");
+
+const BG = bg ?? I.bg ?? "/images/Portada/hero-portada.png";
+
+const QUOTE = quote ?? I.quote ?? "";
+const QUOTE_AUTHOR =
+  quoteAuthor ??
+  I.quoteAuthor ??
+  (QUOTE
+    ? lang === "en"
+      ? "Popular saying (author unknown)"
+      : "Frase popular (autor desconocido)"
+    : "");
 ---
 
 <section
@@ -44,16 +82,38 @@ const BG        = bg       ?? I.bg       ?? "/img/hero.jpg";
   style={`--hero-minvh:${minHeightVH}vh; --hero-bg:url(${BG});`}
   aria-label={LEMA}
 >
-  <!-- Fondo + overlay -->
+  {/* Fondo + overlay */}
   <div class="hero__bg" aria-hidden="true"></div>
-  <div  aria-hidden="true"></div>
-    <!--  class="hero__overlay" -->
+  <div class="hero__overlay" aria-hidden="true"></div>
+
   <div class="container position-relative">
     <div class="row align-items-center hero__row">
       <div class="col-12 col-lg-7 p-4 p-md-5 rounded bg-dark bg-opacity-50 shadow">
         <h1 class="display-4 fw-bold lh-1 mb-3">{LEMA}</h1>
         {SUBTITLE && <p class="lead mb-4">{SUBTITLE}</p>}
-        <a class="btn btn-primary btn-lg shadow" href={CTA_HREF} aria-label={CTA_TEXT}>{CTA_TEXT}</a>
+
+        <div class="d-flex flex-column flex-sm-row gap-3 align-items-start align-items-sm-center">
+          <a
+            class="btn btn-primary btn-lg shadow"
+            href={CTA_HREF}
+            aria-label={CTA_TEXT}
+          >
+            {CTA_TEXT}
+          </a>
+
+          {QUOTE && (
+            <figure class="hero-quote mb-0">
+              <blockquote class="hero-quote__text mb-1">
+                “{QUOTE}”
+              </blockquote>
+              {QUOTE_AUTHOR && (
+                <figcaption class="hero-quote__author">
+                  — {QUOTE_AUTHOR}
+                </figcaption>
+              )}
+            </figure>
+          )}
+        </div>
       </div>
     </div>
   </div>
