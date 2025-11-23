@@ -124,8 +124,8 @@ const ogLocale = lang === "es" ? "es_ES" : "en_GB";
     <meta property="og:image:alt" content={pageTitle} />
 
     {/* Opcional pero recomendado si sabes el tamaño real de la imagen */}
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
+    <meta property="og:image:width" content="300" />
+    <meta property="og:image:height" content="300" />
 
     {/* ===== Twitter / X Cards ===== */}
     <meta name="twitter:card" content="summary_large_image" />
@@ -143,9 +143,7 @@ const ogLocale = lang === "es" ? "es_ES" : "en_GB";
     <a class="visually-hidden-focusable" href="#main-content">{skipText}</a>
 
     <Header lang={lang} otherHref={otherHref} />
-    <main id="main-content" class="py-4">
-      <slot />
-    </main>
+    <slot />
     <Footer lang={lang} />
 
     {
