@@ -1,1 +1,6 @@
-skipToContent: "Skip to content"
+# src/content/ui/baselayout/en.yml
+skipToContent: "Skip to main content"
+
+meta:
+  defaultTitle: "ALJÓFAR Association – Castilleja de la Cuesta"
+  defaultDescription: "We don't want to be normal, we want to be happy. Andalusian Association for the inclusion, training and development in society of people with intellectual, physical and sensory disabilities ALJÓFAR."

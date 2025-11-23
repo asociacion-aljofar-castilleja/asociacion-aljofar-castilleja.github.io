@@ -7,35 +7,119 @@ import { getEntry } from "astro:content";
 import "../../../styles/main.scss";
 
 type Lang = "es" | "en";
-interface Props { lang?: Lang; title?: string; description?: string; otherHref?: string; }
+interface Props {
+  lang?: Lang;
+  title?: string;
+  description?: string;
+  otherHref?: string;
+}
 
 const {
   lang = "es",
-  title = "Proyecto Web Solidario",
-  description = "Plantilla Astro + Bootstrap + Sass",
+  title,
+  description,
   otherHref,
 } = Astro.props as Props;
 
 const compIdMap = { es: "baselayout/es", en: "baselayout/en" } as const;
-type CompId = typeof compIdMap[Lang];
-interface LayoutI18n { skipToContent?: string; }
+type CompId = (typeof compIdMap)[Lang];
+
+interface LayoutI18n {
+  skipToContent?: string;
+  meta?: {
+    defaultTitle?: string;
+    defaultDescription?: string;
+    siteName?: string;
+    baseUrl?: string;
+    defaultImage?: string;
+  };
+}
 
 const entry = await getEntry({ collection: "ui", id: compIdMap[lang] as CompId });
 const I = (entry?.data ?? {}) as LayoutI18n;
-const skipText = I.skipToContent ?? (lang === "en" ? "Skip to content" : "Saltar al contenido");
+
+// ===== Textos por defecto (fallback si no vienen ni props ni YAML) =====
+const fallbackTitle =
+  lang === "es"
+    ? "Asociación ALJÓFAR – Castilleja de la Cuesta"
+    : "ALJÓFAR Association – Castilleja de la Cuesta";
+
+const fallbackDescription =
+  lang === "es"
+    ? "No queremos ser normales, queremos ser felices. Asociación Andaluza para la integración, formación y desarrollo en la sociedad de las personas con diversidad funcional, psíquica, física y sensorial ALJÓFAR."
+    : "We don't want to be normal, we want to be happy. Andalusian Association for the inclusion, training and development in society of people with intellectual, physical and sensory disabilities ALJÓFAR.";
+
+// Texto del enlace “Saltar al contenido”
+const skipText =
+  I.skipToContent ??
+  (lang === "en" ? "Skip to content" : "Saltar al contenido");
+
+// Título y descripción finales (prioridad: props > YAML > fallback)
+const pageTitle = title ?? I.meta?.defaultTitle ?? fallbackTitle;
+const pageDescription =
+  description ?? I.meta?.defaultDescription ?? fallbackDescription;
+
+// Site name (para OG)
+const siteName =
+  I.meta?.siteName ??
+  (lang === "es"
+    ? "Asociación ALJÓFAR"
+    : "ALJÓFAR Association");
+
+// URL base (si quieres, puedes rellenarla también en el YAML meta.baseUrl)
+const currentUrl = Astro.url;
+const siteFromConfig = Astro.site;
+
+// Si Astro.site está definido, construimos URL absoluta
+const canonicalUrl = siteFromConfig
+  ? new URL(currentUrl.pathname + currentUrl.search, siteFromConfig).toString()
+  : currentUrl.href;
+
+// Imagen por defecto para compartir
+const defaultOgImage =
+  I.meta?.defaultImage ?? "/images/seo/aljofar-og-default.png";
+
+// Locale para OG
+const ogLocale = lang === "es" ? "es_ES" : "en_GB";
 ---
+
 <!DOCTYPE html>
 <html lang={lang} data-bs-theme="light">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{title}</title>
-    <meta name="description" content={description} />
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <link rel="manifest" href="/site.webmanifest">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+
+    <title>{pageTitle}</title>
+    <meta name="description" content={pageDescription} />
+
+    {canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
+
+    {/* ===== Favicon & PWA ===== */}
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    {/* ===== Open Graph (Facebook, WhatsApp, etc.) ===== */}
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content={ogLocale} />
+    <meta property="og:site_name" content={siteName} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={pageDescription} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={defaultOgImage} />
+
+    {/* ===== Twitter / X Cards ===== */}
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={pageDescription} />
+    <meta name="twitter:image" content={defaultOgImage} />
+
+    {/* ===== Bootstrap Icons ===== */}
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
   </head>
   <body>
     <a class="visually-hidden-focusable" href="#main-content">{skipText}</a>
@@ -46,9 +130,9 @@ const skipText = I.skipToContent ?? (lang === "en" ? "Skip to content" : "Saltar
     </main>
     <Footer lang={lang} />
 
-    <!-- ✅ En dev importa /src/...; en build Vite lo reescribe a /_astro/app.[hash].js -->
-    {import.meta.env.DEV
-      ? (
+    {/* ✅ En dev importa /src/...; en build Vite lo reescribe a /_astro/app.[hash].js */}
+    {
+      import.meta.env.DEV ? (
         // Desarrollo: el dev server sirve el TS con HMR
         <script type="module">import "/src/scripts/app.ts";</script>
       ) : (
