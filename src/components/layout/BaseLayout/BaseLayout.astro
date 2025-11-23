@@ -30,8 +30,8 @@ interface LayoutI18n {
     defaultTitle?: string;
     defaultDescription?: string;
     siteName?: string;
-    baseUrl?: string;      // opcional, por si quieres fijar origen a mano
-    defaultImage?: string; // puede ser absoluta o relativa
+    baseUrl?: string;      // aquí pones tu dominio final en el YAML
+    defaultImage?: string; // puede ser relativa al dominio
   };
 }
 
@@ -71,48 +71,25 @@ const siteName =
     ? "Asociación ALJÓFAR"
     : "ALJÓFAR Association");
 
-// URL actual y sitio configurado en astro.config.mjs
+// Base URL que tú defines en el YAML (debe ser algo tipo "https://aljofar.org")
+const baseUrl = I.meta?.baseUrl; // si no la pones, se usarán URLs relativas
+
+// URL actual (ruta + query) desde Astro
 const currentUrl = Astro.url;
-const siteFromConfig = Astro.site;
 
-// URL base para construir absolutas (prioridad: meta.baseUrl > Astro.site)
-const baseForMeta =
-  I.meta?.baseUrl
-    ? new URL(I.meta.baseUrl)
-    : siteFromConfig
-    ? new URL(siteFromConfig)
-    : null;
-
-// Canonical absoluta si tenemos origen, si no, usa tal cual la actual
-const canonicalUrl = baseForMeta
-  ? new URL(currentUrl.pathname + currentUrl.search, baseForMeta).toString()
+// Canonical absoluta si tenemos baseUrl, si no, usamos la URL actual tal cual
+const canonicalUrl = baseUrl
+  ? new URL(currentUrl.pathname + currentUrl.search, baseUrl).toString()
   : currentUrl.href;
 
 // Imagen OG (puede venir del YAML o fallback relativa)
 const rawOgImage =
   I.meta?.defaultImage ?? "/images/seo/aljofar-og-default.png";
 
-// Convertimos a URL absoluta para que WhatsApp/Facebook la entiendan
-const ogImageUrl = (() => {
-  // Si ya es absoluta (http/https), la dejamos tal cual
-  if (/^https?:\/\//i.test(rawOgImage)) {
-    return rawOgImage;
-  }
-
-  // Si tenemos baseForMeta (config o baseUrl), resolvemos ahí
-  if (baseForMeta) {
-    return new URL(rawOgImage, baseForMeta).toString();
-  }
-
-  // Último recurso: usar origen de la URL actual
-  try {
-    const origin = new URL(currentUrl.href).origin;
-    return new URL(rawOgImage, origin).toString();
-  } catch {
-    // Si todo falla, devolvemos la ruta tal cual (peor caso, como antes)
-    return rawOgImage;
-  }
-})();
+// Convertimos a URL absoluta usando SIEMPRE baseUrl si está definida
+const ogImageUrl = baseUrl
+  ? new URL(rawOgImage, baseUrl).toString()
+  : rawOgImage; // si no hay baseUrl, se queda como está (relativa)
 
 // Locale para OG
 const ogLocale = lang === "es" ? "es_ES" : "en_GB";
