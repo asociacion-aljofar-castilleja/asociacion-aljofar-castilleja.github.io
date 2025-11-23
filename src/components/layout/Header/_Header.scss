@@ -129,7 +129,7 @@
   color: var(--bs-secondary);  /* en light será azul medio, en dark azul claro */
   text-decoration: none;
 
-  /* Touch target mínimo recomendado */
+  /* Touch target recomendado en escritorio/tablet */
   min-width: 44px;
   min-height: 44px;
   border-radius: 999px;
@@ -171,7 +171,7 @@
     justify-content: flex-end;
     padding-top: .5rem;
     padding-bottom: .5rem;
-    gap: .5rem;
+    gap: .4rem; /* un pelín menos que .5rem */
   }
 
   /* Un poco de respiro entre el listado de enlaces y los controles */
@@ -179,9 +179,17 @@
     margin-bottom: .5rem;
   }
 
-  /* Anula el ms-1 de las redes para que no empujen hacia dentro */
+  /* Redes: seguimos con buen target, pero algo más compacto en móvil */
   .header-social {
-    margin-left: 0; /* override de .ms-1 del HTML */
+    margin-left: 0;          /* override de .ms-1 del HTML */
+    gap: 0.25rem;            /* menos separación entre iconos */
+  }
+
+  .header-social-link {
+    min-width: 38px;         /* antes 44px */
+    min-height: 38px;
+    font-size: 1rem;         /* icono un pelín más pequeño */
+    padding: 4px;            /* compactamos un poco */
   }
 
   /* El contenedor del dropdown sirve de referencia para posicionar el menú */
@@ -199,8 +207,8 @@
     transform: none !important;
 
     width: auto;
-    min-width: 7rem;                         /* un pelín más pequeño */
-    max-width: min(50vw, 200px);             /* como mucho mitad de viewport y máx 200px */
+    min-width: 7rem;                         /* estrecho pero legible */
+    max-width: min(55vw, 200px);             /* un pelín más de 50vw pero controlado */
     box-sizing: border-box;
   }
 }
