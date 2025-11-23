@@ -38,7 +38,7 @@ interface LayoutI18n {
 const entry = await getEntry({ collection: "ui", id: compIdMap[lang] as CompId });
 const I = (entry?.data ?? {}) as LayoutI18n;
 
-// ===== Textos por defecto (fallback si no vienen ni props ni YAML) =====
+// ===== Textos por defecto (fallback final) =====
 const fallbackTitle =
   lang === "es"
     ? "Asociación ALJÓFAR – Castilleja de la Cuesta"
@@ -54,10 +54,17 @@ const skipText =
   I.skipToContent ??
   (lang === "en" ? "Skip to content" : "Saltar al contenido");
 
-// Título y descripción finales (prioridad: props > YAML > fallback)
-const pageTitle = title ?? I.meta?.defaultTitle ?? fallbackTitle;
+/**
+ * PRIORIDAD META (ya ordenada):
+ *  1) YAML baselayout (meta.defaultTitle / meta.defaultDescription)
+ *  2) Props de la página (title / description) – si quieres usarlas
+ *  3) Fallbacks hardcodeados
+ */
+const pageTitle =
+  I.meta?.defaultTitle ?? title ?? fallbackTitle;
+
 const pageDescription =
-  description ?? I.meta?.defaultDescription ?? fallbackDescription;
+  I.meta?.defaultDescription ?? description ?? fallbackDescription;
 
 // Site name (para OG)
 const siteName =
@@ -66,11 +73,10 @@ const siteName =
     ? "Asociación ALJÓFAR"
     : "ALJÓFAR Association");
 
-// URL base (si quieres, puedes rellenarla también en el YAML meta.baseUrl)
+// URL base
 const currentUrl = Astro.url;
 const siteFromConfig = Astro.site;
 
-// Si Astro.site está definido, construimos URL absoluta
 const canonicalUrl = siteFromConfig
   ? new URL(currentUrl.pathname + currentUrl.search, siteFromConfig).toString()
   : currentUrl.href;
@@ -130,7 +136,6 @@ const ogLocale = lang === "es" ? "es_ES" : "en_GB";
     </main>
     <Footer lang={lang} />
 
-    {/* ✅ En dev importa /src/...; en build Vite lo reescribe a /_astro/app.[hash].js */}
     {
       import.meta.env.DEV ? (
         // Desarrollo: el dev server sirve el TS con HMR
