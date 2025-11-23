@@ -14,7 +14,8 @@
   flex-shrink: 0;
 }
 
-.header .navbar-brand span {
+/* En escritorio: forzamos una sola línea para el título */
+.header .navbar-brand span.titulo-header {
   white-space: nowrap;
 }
 
@@ -24,10 +25,16 @@
   color: var(--bs-heading-color); /* usa el color de heading global */
 }
 
-/* En móvil un poco más pequeño */
+/* En móvil: texto más pequeño y permitimos salto de línea para que quepa el toggler */
 @media (max-width: 430px) {
   .titulo-header {
     font-size: 0.75rem;
+  }
+
+  .header .navbar-brand span.titulo-header {
+    white-space: normal;   /* permite partir en varias líneas */
+    max-width: 9.5rem;     /* fuerza aprox. 2 líneas según el texto */
+    line-height: 1.2;
   }
 
   .logoHeader {
