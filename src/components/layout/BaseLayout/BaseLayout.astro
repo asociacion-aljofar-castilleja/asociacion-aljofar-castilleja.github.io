@@ -30,15 +30,15 @@ interface LayoutI18n {
     defaultTitle?: string;
     defaultDescription?: string;
     siteName?: string;
-    baseUrl?: string;
-    defaultImage?: string;
+    baseUrl?: string;      // opcional, por si quieres fijar origen a mano
+    defaultImage?: string; // puede ser absoluta o relativa
   };
 }
 
 const entry = await getEntry({ collection: "ui", id: compIdMap[lang] as CompId });
 const I = (entry?.data ?? {}) as LayoutI18n;
 
-// ===== Textos por defecto (fallback final) =====
+// ===== Fallbacks globales =====
 const fallbackTitle =
   lang === "es"
     ? "Asociación ALJÓFAR – Castilleja de la Cuesta"
@@ -46,20 +46,18 @@ const fallbackTitle =
 
 const fallbackDescription =
   lang === "es"
-    ? "Asociación Andaluza para la integración, formación y desarrollo en la sociedad de las personas con diversidad funcional, psíquica, física y sensorial ALJÓFAR de Castilleja de la Cuesta (Sevilla). No queremos ser normales, queremos ser felices."
-    : "Andalusian Association for the inclusion, training and development in society of people with intellectual, physical and sensory disabilities ALJÓFAR from Castilleja de la Cuesta (Seville). We don't want to be normal, we want to be happy.";
+    ? "No queremos ser normales, queremos ser felices. Asociación Andaluza para la integración, formación y desarrollo en la sociedad de las personas con diversidad funcional, psíquica, física y sensorial ALJÓFAR de Castilleja de la Cuesta (Sevilla)."
+    : "We don't want to be normal, we want to be happy. Andalusian Association for the inclusion, training and development in society of people with intellectual, physical and sensory disabilities ALJÓFAR from Castilleja de la Cuesta (Seville).";
 
 // Texto del enlace “Saltar al contenido”
 const skipText =
   I.skipToContent ??
   (lang === "en" ? "Skip to content" : "Saltar al contenido");
 
-/**
- * PRIORIDAD META (ya ordenada):
- *  1) YAML baselayout (meta.defaultTitle / meta.defaultDescription)
- *  2) Props de la página (title / description) – si quieres usarlas
- *  3) Fallbacks hardcodeados
- */
+// ===== META: prioridad =====
+// 1) YAML baselayout (meta.defaultTitle / meta.defaultDescription)
+// 2) Props de la página
+// 3) Fallbacks hardcodeados
 const pageTitle =
   I.meta?.defaultTitle ?? title ?? fallbackTitle;
 
@@ -73,17 +71,48 @@ const siteName =
     ? "Asociación ALJÓFAR"
     : "ALJÓFAR Association");
 
-// URL base
+// URL actual y sitio configurado en astro.config.mjs
 const currentUrl = Astro.url;
 const siteFromConfig = Astro.site;
 
-const canonicalUrl = siteFromConfig
-  ? new URL(currentUrl.pathname + currentUrl.search, siteFromConfig).toString()
+// URL base para construir absolutas (prioridad: meta.baseUrl > Astro.site)
+const baseForMeta =
+  I.meta?.baseUrl
+    ? new URL(I.meta.baseUrl)
+    : siteFromConfig
+    ? new URL(siteFromConfig)
+    : null;
+
+// Canonical absoluta si tenemos origen, si no, usa tal cual la actual
+const canonicalUrl = baseForMeta
+  ? new URL(currentUrl.pathname + currentUrl.search, baseForMeta).toString()
   : currentUrl.href;
 
-// Imagen por defecto para compartir
-const defaultOgImage =
+// Imagen OG (puede venir del YAML o fallback relativa)
+const rawOgImage =
   I.meta?.defaultImage ?? "/images/seo/aljofar-og-default.png";
+
+// Convertimos a URL absoluta para que WhatsApp/Facebook la entiendan
+const ogImageUrl = (() => {
+  // Si ya es absoluta (http/https), la dejamos tal cual
+  if (/^https?:\/\//i.test(rawOgImage)) {
+    return rawOgImage;
+  }
+
+  // Si tenemos baseForMeta (config o baseUrl), resolvemos ahí
+  if (baseForMeta) {
+    return new URL(rawOgImage, baseForMeta).toString();
+  }
+
+  // Último recurso: usar origen de la URL actual
+  try {
+    const origin = new URL(currentUrl.href).origin;
+    return new URL(rawOgImage, origin).toString();
+  } catch {
+    // Si todo falla, devolvemos la ruta tal cual (peor caso, como antes)
+    return rawOgImage;
+  }
+})();
 
 // Locale para OG
 const ogLocale = lang === "es" ? "es_ES" : "en_GB";
@@ -113,13 +142,19 @@ const ogLocale = lang === "es" ? "es_ES" : "en_GB";
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={pageDescription} />
     <meta property="og:url" content={canonicalUrl} />
-    <meta property="og:image" content={defaultOgImage} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:image:secure_url" content={ogImageUrl} />
+    <meta property="og:image:alt" content={pageTitle} />
+
+    {/* Opcional pero recomendado si sabes el tamaño real de la imagen */}
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
 
     {/* ===== Twitter / X Cards ===== */}
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={pageTitle} />
     <meta name="twitter:description" content={pageDescription} />
-    <meta name="twitter:image" content={defaultOgImage} />
+    <meta name="twitter:image" content={ogImageUrl} />
 
     {/* ===== Bootstrap Icons ===== */}
     <link
