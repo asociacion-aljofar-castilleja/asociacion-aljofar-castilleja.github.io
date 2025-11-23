@@ -29,8 +29,10 @@ const T = {
   langEs: ui?.data?.lang?.esLabel ?? "Español",
   langEn: ui?.data?.lang?.enLabel ?? "Inglés",
   brandTitle: ui?.data?.brand?.title ?? "Asociación Aljófar - Castilleja de la Cuesta",
-  brandAria: ui?.data?.brand?.ariaLabel ?? "Inicio",
   brandAlt: ui?.data?.brand?.alt ?? "Logo Aljófar",
+  // Nueva etiqueta para el toggler del menú
+  navToggle: ui?.data?.nav?.toggleLabel
+    ?? (lang === "es" ? "Abrir o cerrar el menú de navegación" : "Open or close the navigation menu"),
 };
 
 const social = {
@@ -62,17 +64,22 @@ const esHref = lang === "es" ? pathname : (otherHref ?? "/");
 const enHref = lang === "en" ? pathname : (otherHref ?? "/en");
 ---
 
-<header class="header navbar navbar-expand-lg border-bottom bg-body" role="banner" data-module="Header">
+<header
+  class="header navbar navbar-expand-lg border-bottom bg-body"
+  role="banner"
+  data-module="Header"
+>
   <div class="container">
+    {/* Enlace a la home: texto visible = nombre accesible. Logo decorativo */}
     <a
       class="navbar-brand d-flex align-items-center gap-2"
       href={withBase(homeHref)}
-      aria-label={T.brandAria}
     >
       <img
         class="logoHeader"
         src={withBase("/images/logo/logo-aljofar.png")}
-        alt={T.brandAlt}
+        alt=""
+        aria-hidden="true"
         width="70"
         height="70"
         loading="lazy"
@@ -80,8 +87,12 @@ const enHref = lang === "en" ? pathname : (otherHref ?? "/en");
       <span class="fw-bold titulo-header">
         {T.brandTitle}
       </span>
+      <span class="visually-hidden">
+        {lang === "es" ? "Ir a la página de inicio" : "Go to the homepage"}
+      </span>
     </a>
 
+    {/* Botón hamburguesa accesible */}
     <button
       class="navbar-toggler"
       type="button"
@@ -89,9 +100,9 @@ const enHref = lang === "en" ? pathname : (otherHref ?? "/en");
       data-bs-target="#mainNav"
       aria-controls="mainNav"
       aria-expanded="false"
-      aria-label={T.brandAria}
+      aria-label={T.navToggle}
     >
-      <span class="navbar-toggler-icon"></span>
+      <span class="navbar-toggler-icon" aria-hidden="true"></span>
     </button>
 
     <nav id="mainNav" class="collapse navbar-collapse" aria-label="Menú principal">
@@ -122,25 +133,38 @@ const enHref = lang === "en" ? pathname : (otherHref ?? "/en");
             data-bs-toggle="dropdown"
             aria-expanded="false"
             title={T.themeTooltip}
+            aria-label={T.themeTooltip}
           >
-            <i class="bi bi-circle-half" id="themeIcon"></i>
+            <i class="bi bi-circle-half" id="themeIcon" aria-hidden="true"></i>
             <span class="d-none d-lg-inline">{T.themeBtn}</span>
           </button>
 
           <ul class="dropdown-menu dropdown-menu-end shadow-sm" aria-labelledby="themeDropdown">
             <li>
-              <button class="dropdown-item d-flex align-items-center gap-2" data-theme-value="light" type="button">
-                <i class="bi bi-sun"></i> {T.themeLight}
+              <button
+                class="dropdown-item d-flex align-items-center gap-2"
+                data-theme-value="light"
+                type="button"
+              >
+                <i class="bi bi-sun" aria-hidden="true"></i> {T.themeLight}
               </button>
             </li>
             <li>
-              <button class="dropdown-item d-flex align-items-center gap-2" data-theme-value="dark" type="button">
-                <i class="bi bi-moon"></i> {T.themeDark}
+              <button
+                class="dropdown-item d-flex align-items-center gap-2"
+                data-theme-value="dark"
+                type="button"
+              >
+                <i class="bi bi-moon" aria-hidden="true"></i> {T.themeDark}
               </button>
             </li>
             <li>
-              <button class="dropdown-item d-flex align-items-center gap-2" data-theme-value="auto" type="button">
-                <i class="bi bi-circle-half"></i> {T.themeAuto}
+              <button
+                class="dropdown-item d-flex align-items-center gap-2"
+                data-theme-value="auto"
+                type="button"
+              >
+                <i class="bi bi-circle-half" aria-hidden="true"></i> {T.themeAuto}
               </button>
             </li>
           </ul>
@@ -186,6 +210,7 @@ const enHref = lang === "en" ? pathname : (otherHref ?? "/en");
             data-bs-toggle="dropdown"
             aria-expanded="false"
             title={T.langCurrent}
+            aria-label={T.langCurrent}
           >
             {lang.toUpperCase()}
           </button>
@@ -194,6 +219,7 @@ const enHref = lang === "en" ? pathname : (otherHref ?? "/en");
               <a
                 class={`dropdown-item d-flex justify-content-between ${lang === "es" ? "active" : ""}`}
                 href={withBase(esHref)}
+                aria-current={lang === "es" ? "page" : undefined}
               >
                 ES <span class="ms-3 small text-muted">{T.langEs}</span>
               </a>
@@ -202,6 +228,7 @@ const enHref = lang === "en" ? pathname : (otherHref ?? "/en");
               <a
                 class={`dropdown-item d-flex justify-content-between ${lang === "en" ? "active" : ""}`}
                 href={withBase(enHref)}
+                aria-current={lang === "en" ? "page" : undefined}
               >
                 EN <span class="ms-3 small text-muted">{T.langEn}</span>
               </a>
@@ -209,17 +236,17 @@ const enHref = lang === "en" ? pathname : (otherHref ?? "/en");
           </ul>
         </div>
 
-        {/* Redes sociales (al lado del selector de idioma) */}
+        {/* Redes sociales */}
         <div class="header-social ms-1">
           {social.instagram && (
             <a
               href={social.instagram}
               class="header-social-link"
-              aria-label="Instagram"
+              aria-label={lang === "es" ? "Instagram de ALJÓFAR" : "ALJÓFAR on Instagram"}
               target="_blank"
               rel="noopener noreferrer"
             >
-              <i class="bi bi-instagram"></i>
+              <i class="bi bi-instagram" aria-hidden="true"></i>
             </a>
           )}
 
@@ -227,11 +254,11 @@ const enHref = lang === "en" ? pathname : (otherHref ?? "/en");
             <a
               href={social.facebook}
               class="header-social-link"
-              aria-label="Facebook"
+              aria-label={lang === "es" ? "Facebook de ALJÓFAR" : "ALJÓFAR on Facebook"}
               target="_blank"
               rel="noopener noreferrer"
             >
-              <i class="bi bi-facebook"></i>
+              <i class="bi bi-facebook" aria-hidden="true"></i>
             </a>
           )}
         </div>

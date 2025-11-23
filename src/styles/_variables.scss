@@ -1,9 +1,13 @@
 // src/styles/_variables.scss
 @use "sass:map";
 
-// Paleta base 
-$primary:   #274B91;
-$secondary: #3D8FBF;
+// =========================
+// 1. Paleta base (branding)
+// =========================
+
+// Colores de marca (puedes mantenerlos tal cual)
+$primary:   #274B91;  // azul corporativo
+$secondary: #2C5282;  // azul complementario
 $success:   #36BA8A;
 $info:      #3D8FBF;
 $warning:   #ffc107;
@@ -23,12 +27,97 @@ $theme-colors: (
   "dark":      $dark
 );
 
-// Variables CSS opcionales (tema claro/oscuro)
+// ======================================================
+// 2. Variables CSS para tema CLARO (data-bs-theme="light")
+// ======================================================
+
 :root[data-bs-theme="light"] {
+  /* Fondo y texto base */
   --bs-body-bg: #ffffff;
   --bs-body-color: #212529;
+
+  /* Headings con buen contraste */
+  --bs-heading-color: #111827;
+
+  /* Bordes neutros */
+  --bs-border-color: #dee2e6;
+
+  /* Texto "secundario"/muted MÁS OSCURO para contraste */
+  --bs-secondary-color: #495057;   // antes #6c757d
+
+  /* Links y estados hover */
+  --bs-link-color: #274B91;
+  --bs-link-hover-color: #1b3566;
+
+  /* Fondos secundarios claros (cards, secciones, etc.) */
+  --bs-secondary-bg: #f1f3f5;
 }
+
+
+/* ======================================================
+   3. Variables CSS para tema OSCURO (data-bs-theme="dark")
+   ====================================================== */
+/* Meta: fondo oscuro, texto e iconos en gris clarito con alto contraste.
+   Acentos azules más claros para botones y links. */
+
 :root[data-bs-theme="dark"] {
-  --bs-body-bg: #0f0f13;
-  --bs-body-color: #eaeaea;
+  /* Fondo y texto base */
+  --bs-body-bg: #0f0f13;           /* casi negro, pero no puro */
+  --bs-body-color: #e5e7eb;        /* gris claro (similar a Tailwind zinc-200) */
+
+  /* Headings un poco más claros que el body */
+  --bs-heading-color: #f9fafb;     /* casi blanco */
+
+  /* Bordes: gris intermedio para tarjetas, etc. */
+  --bs-border-color: #272b35;      /* gris oscuro pero visible */
+
+  /* Texto secundario/muted: gris medio-claro (menos contraste, pero aún OK) */
+  --bs-secondary-color: #9ca3af;   /* similar a Tailwind gray-400 */
+
+  /* Links: azul claro sobre fondo oscuro, con buen contraste */
+  --bs-link-color: #93c5fd;        /* azul claro */
+  --bs-link-hover-color: #bfdbfe;  /* azul aún más claro */
+
+  /* Colores de marca adaptados a dark mode.
+     OJO: no cambiamos tu SCSS $primary, solo cómo se representan en dark. */
+  --bs-primary: #60a5fa;           /* azul claro p/ botones, badges, etc. */
+  --bs-primary-rgb: 96, 165, 250;
+
+  --bs-secondary: #38bdf8;         /* azul-cian claro para elementos secundarios */
+  --bs-secondary-rgb: 56, 189, 248;
+
+  /* Fondos "elevados": tarjetas, navbar, footer, etc. */
+  --bs-secondary-bg: #111827;      /* para cards, headers, etc. si lo necesitas */
+}
+
+/* ======================================================
+   4. Mejora de contraste global para btn-outline-secondary (modo oscuro)
+   ====================================================== */
+
+/* Cualquier .btn-outline-secondary (button o <a>) en dark mode:
+   texto claro sobre fondo oscuro + estados hover/active accesibles */
+:root[data-bs-theme="dark"] .btn.btn-outline-secondary {
+  /* Estado normal: borde y texto claros sobre bg oscuro */
+  --bs-btn-color: #e5e7eb;          /* mismo tono que --bs-body-color */
+  --bs-btn-border-color: #9ca3af;   /* gris medio-claro visible */
+
+  /* Hover: ligero fondo más claro, mantiene contraste de texto */
+  --bs-btn-hover-bg: rgba(148, 163, 184, 0.18);  /* gris claro translúcido */
+  --bs-btn-hover-color: #f9fafb;                 /* casi blanco */
+  --bs-btn-hover-border-color: #e5e7eb;
+
+  /* Active/focus: fondo claro + texto muy oscuro (alto contraste) */
+  --bs-btn-active-bg: #e5e7eb;
+  --bs-btn-active-color: #020617;                /* casi negro */
+  --bs-btn-active-border-color: #e5e7eb;
+}
+
+/* ======================================================
+   5. Mejora de contraste para badges .text-bg-primary (modo oscuro)
+   ====================================================== */
+
+/* Para spans del timeline: <span class="badge text-bg-primary">Año</span> */
+:root[data-bs-theme="dark"] .badge.text-bg-primary {
+  background-color: #1d4ed8;  /* azul más oscuro */
+  color: #f9fafb;             /* casi blanco */
 }

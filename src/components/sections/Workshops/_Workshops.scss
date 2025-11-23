@@ -1,19 +1,49 @@
-.whatwedo-workshops { color: var(--bs-body-color, var(--text, #212529)); }
+/* ===========================
+   Workshops / Talleres
+   =========================== */
 
+.whatwedo-workshops {
+  color: var(--bs-body-color);
+}
+
+/* Tarjeta de workshop */
 .workshop-card {
-  background: var(--bs-card-bg, var(--card-bg, #fff));
-  border: 1px solid var(--bs-border-color, var(--card-border, rgba(0,0,0,.12)));
-  border-radius: var(--bs-border-radius-lg, .75rem);
-  box-shadow: var(--elev-shadow, 0 1px 2px rgba(0,0,0,.06));
+  background-color: var(--bs-card-bg, var(--bs-secondary-bg, #ffffff));
+  color: var(--bs-body-color);
+  border: 1px solid var(--bs-border-color, rgba(0, 0, 0, 0.12));
+  border-radius: var(--bs-border-radius-lg, 0.75rem);
+  box-shadow: var(--elev-shadow, 0 1px 2px rgba(0, 0, 0, 0.06));
   overflow: hidden;
+}
 
-  @media (prefers-reduced-motion: no-preference) {
-    @media (hover: hover) {
-      transition: transform .2s ease, box-shadow .2s ease;
-      &:hover { transform: translateY(-2px); box-shadow: 0 .5rem 1.25rem rgba(0,0,0,.08); }
-    }
+/* Hover solo si el usuario lo permite y hay hover real */
+@media (prefers-reduced-motion: no-preference) and (hover: hover) {
+  .workshop-card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  }
+
+  .workshop-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0.5rem 1.25rem rgba(0, 0, 0, 0.08);
+    border-color: rgba(0, 0, 0, 0.12);
   }
 }
+
+/* Variante interactiva (si envuelves en <a> o la haces clicable) */
+.workshop-card.workshop-card--link {
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+}
+
+.workshop-card.workshop-card--link:focus-visible {
+  outline: 3px solid var(--focus-ring-color);
+  outline-offset: 3px;
+}
+
+/* ===========================
+   Imagen del workshop
+   =========================== */
 
 /* Imagen con altura fija y cover para evitar CLS */
 .workshop-img {
@@ -23,34 +53,64 @@
   object-fit: cover;
 }
 
+/* ===========================
+   Carrusel
+   =========================== */
+
 /* Si solo hay 1 imagen, oculta controles/indicadores */
-.workshop-carousel.is-single {
-  .carousel-control-prev,
-  .carousel-control-next,
-  .carousel-indicators { display: none !important; }
+.workshop-carousel.is-single .carousel-control-prev,
+.workshop-carousel.is-single .carousel-control-next,
+.workshop-carousel.is-single .carousel-indicators {
+  display: none !important;
 }
 
 /* Reduce motion: evitar transiciones del carrusel */
 @media (prefers-reduced-motion: reduce) {
-  .carousel .carousel-item { transition: none !important; }
+  .carousel .carousel-item {
+    transition: none !important;
+  }
 }
 
-/* Flecha izquierda */
-.carousel-control-prev-icon {
-  background-image: url('data:image/svg+xml;utf8,<svg fill="%2300000" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M11.354 1.646a.5.5 0 0 1 0 .708L6.707 7l4.647 4.646a.5.5 0 0 1-.708.708l-5-5a.5.5 0 0 1 0-.708l5-5a.5.5 0 0 1 .708 0z"/></svg>');
-}
-
-/* Flecha derecha */
-.carousel-control-next-icon {
-  background-image: url('data:image/svg+xml;utf8,<svg fill="%23000000" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M4.646 1.646a.5.5 0 0 1 .708 0l5 5a.5.5 0 0 1 0 .708l-5 5a.5.5 0 0 1-.708-.708L9.293 7 4.646 2.354a.5.5 0 0 1 0-.708z"/></svg>');
-}
-
+/* Controles: que siempre se vean bien */
 .carousel-control-prev,
 .carousel-control-next {
   opacity: 1;
 }
 
+/* Mantenemos misma opacidad en hover para no “parpadear” */
 .carousel-control-prev:hover,
 .carousel-control-next:hover {
-  opacity: 1; /* evita que aumente o cambie al hover */
+  opacity: 1;
+}
+
+/* ===========================
+   Iconos de flecha accesibles
+   =========================== */
+
+/* Usamos currentColor para que funcionen en claro y oscuro */
+
+.carousel-control-prev-icon {
+  background-image: url('data:image/svg+xml;utf8,<svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M11.354 1.646a.5.5 0 0 1 0 .708L6.707 7l4.647 4.646a.5.5 0 0 1-.708.708l-5-5a.5.5 0 0 1 0-.708l5-5a.5.5 0 0 1 .708 0z"/></svg>');
+}
+
+.carousel-control-next-icon {
+  background-image: url('data:image/svg+xml;utf8,<svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M4.646 1.646a.5.5 0 0 1 .708 0l5 5a.5.5 0 0 1 0 .708l-5 5a.5.5 0 0 1-.708-.708L9.293 7 4.646 2.354a.5.5 0 0 1 0-.708z"/></svg>');
+}
+
+/* Color base de las flechas: que contraste en ambos temas */
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  filter: none; /* por si Bootstrap mete filtros */
+}
+
+/* En light: flechas oscuras sobre imagen/fondo claro */
+:root[data-bs-theme="light"] .carousel-control-prev-icon,
+:root[data-bs-theme="light"] .carousel-control-next-icon {
+  color: #111827; /* gris muy oscuro */
+}
+
+/* En dark: flechas claras sobre foto/fondo oscuro */
+:root[data-bs-theme="dark"] .carousel-control-prev-icon,
+:root[data-bs-theme="dark"] .carousel-control-next-icon {
+  color: #f9fafb; /* casi blanco */
 }

@@ -1,25 +1,117 @@
-.org-section { color: var(--text); }
-.section-title { font-weight: 700; }
-.org-list__item { border-bottom: 1px solid var(--border); }
-.org-role { color: var(--text); }
-.org-person { color: var(--text); opacity: .9; }
-.org-sep { color: var(--muted); }
+/* ===========================
+   Organización / Junta directiva
+   =========================== */
 
-.org-card {
-  background: var(--card-bg);
-  border: 1px solid var(--card-border);
-  border-radius: var(--radius-xl);
-  box-shadow: var(--elev-shadow);
+.org-section {
+  color: var(--bs-body-color);
 }
 
-.avatar { inline-size: 40px; block-size: 40px; border-radius: 999px; display:flex; align-items:center; justify-content:center; font-weight:700; }
-.avatar-primary { background: color-mix(in oklab, var(--bs-primary) 15%, transparent); color: var(--bs-primary); }
-.avatar-success { background: color-mix(in oklab, var(--bs-success) 15%, transparent); color: var(--bs-success); }
-.avatar-info { background: color-mix(in oklab, var(--bs-info) 15%, transparent); color: var(--bs-info); }
-.avatar-warning { background: color-mix(in oklab, var(--bs-warning) 15%, transparent); color: var(--bs-warning); }
+/* Títulos de sección genéricos (solo si no tienes uno global) */
+.section-title {
+  font-weight: 700;
+  color: var(--bs-heading-color);
+}
 
-.accent-dot { width: .75rem; height: .75rem; border-radius: 999px; display: inline-block; }
-.accent-primary { background: var(--bs-primary); }
-.accent-success { background: var(--bs-success); }
-.accent-info { background: var(--bs-info); }
-.accent-warning { background: var(--bs-warning); }
+/* Lista de cargos/personas */
+.org-list__item {
+  border-bottom: 1px solid var(--bs-border-color);
+}
+
+/* Rol (cargo) y persona */
+.org-role {
+  color: var(--bs-body-color);
+  font-weight: 500;
+}
+
+.org-person {
+  color: var(--bs-body-color);
+  opacity: 0.9;
+}
+
+/* Separador “·” o similar */
+.org-sep {
+  color: var(--bs-secondary-color);
+}
+
+/* ===========================
+   Tarjeta de organización
+   =========================== */
+
+.org-card {
+  background-color: var(--bs-card-bg, var(--bs-secondary-bg, #ffffff));
+  color: var(--bs-body-color);
+  border: 1px solid var(--bs-border-color);
+  border-radius: var(--bs-border-radius-lg, 0.75rem);
+  box-shadow: var(--elev-shadow, 0 1px 2px rgba(0, 0, 0, 0.06));
+}
+
+/* Un pelín más “elevada” en dark para separarla del fondo */
+:root[data-bs-theme="dark"] .org-card {
+  background-color: var(--bs-secondary-bg); /* #111827 en tus vars */
+}
+
+/* ===========================
+   Avatares (iniciales de persona)
+   =========================== */
+
+.avatar {
+  inline-size: 40px;
+  block-size: 40px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-weight: 700;
+  font-size: 0.95rem;
+
+  /* Base neutra accesible en ambos temas */
+  background-color: var(--bs-secondary-bg, #f8f9fa);
+  color: var(--bs-body-color);
+}
+
+/* Variantes de avatar: fondo ligeramente tintado por color, texto estándar.
+   Así mantenemos contraste alto siempre. */
+.avatar-primary {
+  background: color-mix(in srgb, var(--bs-primary) 20%, var(--bs-body-bg) 80%);
+}
+
+.avatar-success {
+  background: color-mix(in srgb, var(--bs-success) 20%, var(--bs-body-bg) 80%);
+}
+
+.avatar-info {
+  background: color-mix(in srgb, var(--bs-info) 20%, var(--bs-body-bg) 80%);
+}
+
+.avatar-warning {
+  background: color-mix(in srgb, var(--bs-warning) 20%, var(--bs-body-bg) 80%);
+}
+
+/* ===========================
+   Puntos de acento (legendas, estado, etc.)
+   =========================== */
+
+.accent-dot {
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 999px;
+  display: inline-block;
+}
+
+/* Colores de acento: solo fondo, sin texto encima → sin problemas de WCAG */
+.accent-primary {
+  background: var(--bs-primary);
+}
+
+.accent-success {
+  background: var(--bs-success);
+}
+
+.accent-info {
+  background: var(--bs-info);
+}
+
+.accent-warning {
+  background: var(--bs-warning);
+}

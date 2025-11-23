@@ -1,38 +1,64 @@
-.whatwedo-services { color: var(--bs-body-color, var(--text, #212529)); }
+/* ===========================
+   Servicios / What we do
+   =========================== */
 
-.service-card {
-  background: var(--bs-card-bg, var(--card-bg, #fff));
-  border: 1px solid var(--bs-border-color, var(--card-border, rgba(0,0,0,.12)));
-  border-radius: var(--bs-border-radius-lg, .75rem);
-  box-shadow: var(--elev-shadow, 0 1px 2px rgba(0,0,0,.06));
-  overflow: hidden; /* ← asegura que la imagen respete el radio */
+.whatwedo-services {
+  color: var(--bs-body-color);
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  @media (hover: hover) {
-    .service-card {
-      transition: transform .2s ease, box-shadow .2s ease;
-    }
-    .service-card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 .5rem 1.25rem rgba(0,0,0,.08);
-    }
+/* Tarjeta de servicio */
+.service-card {
+  background-color: var(--bs-card-bg, var(--bs-secondary-bg, #ffffff));
+  color: var(--bs-body-color);
+  border: 1px solid var(--bs-border-color, rgba(0, 0, 0, 0.12));
+  border-radius: var(--bs-border-radius-lg, 0.75rem);
+  box-shadow: var(--elev-shadow, 0 1px 2px rgba(0, 0, 0, 0.06));
+  overflow: hidden; /* asegura que la imagen respete el radio */
+}
+
+/* Hover solo si hay hover real y el usuario no ha pedido reducir movimiento */
+@media (prefers-reduced-motion: no-preference) and (hover: hover) {
+  .service-card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  }
+
+  .service-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0.5rem 1.25rem rgba(0, 0, 0, 0.08);
+    border-color: rgba(0, 0, 0, 0.12);
   }
 }
 
-/* Media con ratio controlable (por defecto 16/9) */
+/* Variante interactiva (tarjeta-enlace) */
+.service-card.service-card--link {
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+}
+
+.service-card.service-card--link:focus-visible {
+  outline: 3px solid var(--focus-ring-color);
+  outline-offset: 3px;
+}
+
+/* ===========================
+   Media con ratio controlable
+   =========================== */
+
 .service-media {
   position: relative;
   width: 100%;
   aspect-ratio: var(--ratio, 16/9);
-  background: var(--bs-tertiary-bg, #f7f7f7);
+  background-color: var(--bs-secondary-bg, #f7f7f7);
 }
+
 .service-media > img {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover; /* llena sin deformar */
+  display: block;
 }
 
 /* Placeholder cuando no hay imagen */
@@ -42,16 +68,24 @@
   display: grid;
   place-items: center;
   font-size: 2rem;
-  color: var(--bs-secondary-color, rgba(0,0,0,.55));
-  background:
-    repeating-linear-gradient(
-      45deg,
-      rgba(0,0,0,.03) 0 8px,
-      rgba(0,0,0,.06) 8px 16px
-    );
+  color: var(--bs-secondary-color);
+  background: repeating-linear-gradient(
+    45deg,
+    rgba(15, 23, 42, 0.04) 0 8px,
+    rgba(15, 23, 42, 0.08) 8px 16px
+  );
 }
 
+/* Ajuste del placeholder en tema oscuro para no “deslumbrar” */
+:root[data-bs-theme="dark"] .service-media--placeholder .ph {
+  background: repeating-linear-gradient(
+    45deg,
+    rgba(15, 23, 42, 0.8) 0 8px,
+    rgba(15, 23, 42, 0.9) 8px 16px
+  );
+}
+
+/* Texto de accesibilidad / notas del servicio */
 .service-access {
-  color: var(--bs-secondary-color, var(--muted, rgba(0,0,0,.65)));
+  color: var(--bs-secondary-color);
 }
-

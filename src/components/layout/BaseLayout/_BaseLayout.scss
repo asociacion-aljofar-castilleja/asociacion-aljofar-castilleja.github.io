@@ -1,42 +1,131 @@
-/* Aajuste del skip link si usas .visually-hidden-focusable */
-.visually-hidden-focusable:active,
-.visually-hidden-focusable:focus {
-  position: static !important;
-  width: auto;
-  height: auto;
-  margin: 0;
-  overflow: visible;
-  clip: auto;
+/* ===========================
+   Skip link accesible
+   =========================== */
+
+/* Estado oculto por defecto (offscreen) */
+.visually-hidden-focusable {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+  z-index: 1000;
 }
 
+/* Cuando recibe foco, se hace visible */
+.visually-hidden-focusable:focus-visible,
+.visually-hidden-focusable:active {
+  position: static;
+  width: auto;
+  height: auto;
+  margin: 0.5rem;
+  padding: 0.5rem 1rem;
+  overflow: visible;
+  clip: auto;
+  white-space: normal;
+  border-radius: 999px;
+  text-decoration: none;
 
-/* Base accesible: tamaño de fuente controlado por variable */
-:root { --base-font-size: 16px; } /* lo modifica el script del header */
-html { font-size: var(--base-font-size); }
+  /* Colores de alto contraste en ambos temas */
+  background-color: var(--skiplink-bg, #000);
+  color: var(--skiplink-color, #fff);
+}
 
-/* Mejor foco visible */
+/* ===========================
+   Tipografía base escalable
+   =========================== */
+
+:root {
+  --base-font-size: 16px; /* lo modifica el script del header */
+}
+
+html {
+  font-size: var(--base-font-size);
+  /* Indica al navegador que soportas light/dark, útil para scrollbars, formularios, etc. */
+  color-scheme: light dark;
+}
+
+/* ===========================
+   Foco visible
+   =========================== */
+
+/* Define un color de foco derivado de tu paleta para ambos temas */
+:root[data-bs-theme="light"] {
+  --focus-ring-color: rgba(39, 75, 145, 0.7);   /* $primary sobre fondo claro */
+}
+
+:root[data-bs-theme="dark"] {
+  --focus-ring-color: rgba(148, 163, 184, 0.9); /* gris claro sobre fondo oscuro */
+}
+
 :focus-visible {
-  outline: 3px solid rgba(var(--bs-primary-rgb), .6);
+  outline: 3px solid var(--focus-ring-color);
   outline-offset: 2px;
 }
 
-/* Transiciones suaves entre temas */
-@media (prefers-reduced-motion: no-preference) {
-  html { color-scheme: light dark; }
+/* ===========================
+   Transiciones entre temas
+   =========================== */
 
+@media (prefers-reduced-motion: no-preference) {
   body {
-    transition: background-color .3s ease, color .3s ease, border-color .3s ease;
+    transition:
+      background-color 0.3s ease,
+      color 0.3s ease,
+      border-color 0.3s ease;
   }
 
-  :where(.navbar, .card, .dropdown-menu, .offcanvas, .modal-content,
-         .list-group, .list-group-item, .table, .toast, .btn,
-         .form-control, .form-select, .alert, .badge, .accordion-button,
-         .nav-link, .btn-close) {
-    transition: background-color .3s ease, color .3s ease,
-                border-color .3s ease, box-shadow .3s ease;
+  :where(
+    .navbar,
+    .card,
+    .dropdown-menu,
+    .offcanvas,
+    .modal-content,
+    .list-group,
+    .list-group-item,
+    .table,
+    .toast,
+    .btn,
+    .form-control,
+    .form-select,
+    .alert,
+    .badge,
+    .accordion-button,
+    .nav-link,
+    .btn-close
+  ) {
+    transition:
+      background-color 0.3s ease,
+      color 0.3s ease,
+      border-color 0.3s ease,
+      box-shadow 0.3s ease;
+  }
+
+  .bg-body,
+  .bg-body-secondary,
+  .bg-body-tertiary {
+    transition:
+      background-color 0.3s ease,
+      color 0.3s ease,
+      border-color 0.3s ease;
   }
 }
 
-.bg-body, .bg-body-secondary, .bg-body-tertiary {
-  transition: background-color .3s ease, color .3s ease, border-color .3s ease;
+/* ===========================
+   Links accesibles
+   =========================== */
+
+a {
+  color: var(--bs-link-color);
+  text-decoration: underline; /* importante para no depender solo del color */
+}
+
+a:hover {
+  color: var(--bs-link-hover-color);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 2px;
 }

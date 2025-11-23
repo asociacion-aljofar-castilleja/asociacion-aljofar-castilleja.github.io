@@ -12,7 +12,13 @@ interface Props {
   accent?: "primary" | "success" | "info" | "warning";
 }
 
-const { lang, items = [], titleOverride, dense = false, accent = "primary" } = Astro.props as Props;
+const {
+  lang,
+  items = [],
+  titleOverride,
+  dense = false,
+  accent = "primary",
+} = Astro.props as Props;
 
 const idMap = { es: "timeline/es", en: "timeline/en" } as const;
 type I18n = { title?: string; ariaSection?: string; ariaItem?: string };
@@ -20,24 +26,44 @@ type I18n = { title?: string; ariaSection?: string; ariaItem?: string };
 const entry = await getEntry({ collection: "ui", id: idMap[lang] });
 const I = (entry?.data ?? {}) as I18n;
 
-const title = titleOverride ?? I.title ?? (lang === "en" ? "History" : "Historia");
+const title =
+  titleOverride ??
+  I.title ??
+  (lang === "en" ? "History" : "Historia");
+
 const ariaSection = I.ariaSection ?? title;
 const ariaItem = (year: string, text: string) =>
-  String(I.ariaItem ?? (lang === "en" ? "({{year}}) {{text}}" : "({{year}}) {{text}}"))
+  String(
+    I.ariaItem ??
+      (lang === "en" ? "({{year}}) {{text}}" : "({{year}}) {{text}}"),
+  )
     .replace("{{year}}", year || "")
     .replace("{{text}}", text || "");
 ---
 
-<section class={`about-timeline ${dense ? "about-timeline--dense" : ""}`} aria-label={ariaSection} data-module="AboutTimeline">
+<section
+  class={`about-timeline ${dense ? "about-timeline--dense" : ""}`}
+  aria-label={ariaSection}
+  data-module="AboutTimeline"
+>
   <div class="d-flex align-items-center gap-2 mb-3">
     <h2 class="section-title mb-0">{title}</h2>
   </div>
 
   <ol class="about-timeline__list list-unstyled">
     {items.map((it) => (
-      <li class="about-timeline__item" aria-label={ariaItem(it.year ?? "", it.text ?? "")}>
+      <li
+        class="about-timeline__item"
+        aria-label={ariaItem(it.year ?? "", it.text ?? "")}
+      >
         <div class="about-timeline__content">
-          {it.year && <span class={`badge text-bg-${accent} me-2`}>{it.year}</span>}
+          {it.year && (
+            <span
+              class={`about-timeline__badge about-timeline__badge--${accent} me-2`}
+            >
+              {it.year}
+            </span>
+          )}
           <span class="about-timeline__text">{it.text}</span>
         </div>
       </li>

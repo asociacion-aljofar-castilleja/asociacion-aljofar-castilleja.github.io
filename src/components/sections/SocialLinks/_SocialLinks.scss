@@ -1,21 +1,109 @@
-.social-links { color: var(--bs-body-color, var(--text, #212529)); }
-.social-card {
-  background: var(--bs-card-bg, var(--card-bg, #fff));
-  border: 1px solid var(--bs-border-color, var(--card-border, rgba(0,0,0,.12)));
-  border-radius: var(--bs-border-radius-lg, .75rem);
-  box-shadow: var(--elev-shadow, 0 1px 2px rgba(0,0,0,.06));
+/* ===========================
+   Bloque de enlaces sociales
+   =========================== */
 
-  @media (prefers-reduced-motion: no-preference) {
-    @media (hover: hover) {
-      transition: transform .2s ease, box-shadow .2s ease;
-      &:hover { transform: translateY(-2px); box-shadow: 0 .5rem 1.25rem rgba(0,0,0,.08); }
-    }
+.social-links {
+  color: var(--bs-body-color);
+}
+
+/* Lista de iconos (ul) */
+.social-links ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Cada enlace social (icon-only pero con buen target táctil) */
+.social-links a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-width: 48px;
+  min-height: 48px;
+  padding: 8px;                /* aunque el icono sea pequeño, el área clicable es grande */
+
+  border-radius: 999px;
+  text-decoration: none;
+
+  /* color del icono/enlace */
+  color: var(--bs-secondary-color);
+}
+
+/* Separación entre iconos */
+.social-links li + li {
+  margin-left: 8px; /* separación entre targets */
+}
+
+/* Hover / focus visual (sin romper contraste) */
+@media (hover: hover) {
+  .social-links a:hover {
+    color: var(--bs-primary);
+    background-color: rgba(15, 23, 42, 0.04);
   }
 }
 
+/* Foco accesible con teclado */
+.social-links a:focus-visible {
+  outline: 3px solid var(--focus-ring-color);
+  outline-offset: 2px;
+}
+
+/* ===========================
+   Tarjeta contenedora (si usas card alrededor)
+   =========================== */
+
+.social-card {
+  background-color: var(--bs-card-bg, var(--bs-secondary-bg, #ffffff));
+  color: var(--bs-body-color);
+  border: 1px solid var(--bs-border-color, rgba(0, 0, 0, 0.12));
+  border-radius: var(--bs-border-radius-lg, 0.75rem);
+  box-shadow: var(--elev-shadow, 0 1px 2px rgba(0, 0, 0, 0.06));
+}
+
+/* Respeta reduce-motion y aplica hover solo donde tiene sentido */
+@media (prefers-reduced-motion: no-preference) and (hover: hover) {
+  .social-card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  }
+
+  .social-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0.5rem 1.25rem rgba(0, 0, 0, 0.08);
+    border-color: rgba(0, 0, 0, 0.12);
+  }
+}
+
+/* ===========================
+   Iconos con mask-image
+   =========================== */
+
 /* Icono mínimo: usa tu librería real si la tienes (lucide, bootstrap, etc.) */
-.social-icon { width: 1.25rem; height: 1.25rem; display: inline-block; background: currentColor; mask-size: contain; mask-repeat: no-repeat; mask-position: center; }
-.social-icon--facebook  { mask-image: url("/images/social-media/facebook_logo_icon.svg");  }
-.social-icon--facebook_logo_icon  { mask-image: url("/images/social-media/facebook_logo_icon.svg");  }
-.social-icon--instagram { mask-image: url("/images/social-media/instagram_logo_icon.svg"); }
-.social-icon--instagram_logo_icon { mask-image: url("/images/social-media/instagram_logo_icon.svg"); }  
+.social-icon {
+  width: 1.25rem;
+  height: 1.25rem;
+  display: inline-block;
+  background: currentColor;
+
+  mask-size: contain;
+  mask-repeat: no-repeat;
+  mask-position: center;
+
+  -webkit-mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+}
+
+/* Facebook */
+.social-icon--facebook,
+.social-icon--facebook_logo_icon {
+  mask-image: url("/images/social-media/facebook_logo_icon.svg");
+  -webkit-mask-image: url("/images/social-media/facebook_logo_icon.svg");
+}
+
+/* Instagram */
+.social-icon--instagram,
+.social-icon--instagram_logo_icon {
+  mask-image: url("/images/social-media/instagram_logo_icon.svg");
+  -webkit-mask-image: url("/images/social-media/instagram_logo_icon.svg");
+}

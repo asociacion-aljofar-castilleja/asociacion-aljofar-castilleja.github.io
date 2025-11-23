@@ -1,6 +1,9 @@
-/* Sección actividades/puestos */
+/* ===========================
+   Sección actividades / puestos
+   =========================== */
+
 .leisure-list {
-  color: var(--bs-body-color, var(--text, #212529));
+  color: var(--bs-body-color);
 }
 
 /* Grid de tarjetas */
@@ -19,31 +22,63 @@
   list-style: none;
 }
 
-/* Tarjeta base */
+/* ===========================
+   Tarjeta base
+   =========================== */
+
 .project-card {
-  background: var(--bs-card-bg, var(--card-bg, #fff));
-  border: 1px solid var(--bs-border-color, var(--card-border, rgba(0, 0, 0, .12)));
-  border-radius: var(--bs-border-radius-lg, .75rem);
-  box-shadow: var(--elev-shadow, 0 1px 2px rgba(0, 0, 0, .06));
+  background-color: var(--bs-card-bg, var(--bs-secondary-bg, #ffffff));
+  color: var(--bs-body-color);
+  border: 1px solid var(--bs-border-color, rgba(0, 0, 0, 0.12));
+  border-radius: var(--bs-border-radius-lg, 0.75rem);
+  box-shadow: var(--elev-shadow, 0 1px 2px rgba(0, 0, 0, 0.06));
   display: grid;
   grid-template-rows: auto 1fr;
   overflow: hidden;
-  transition: transform .2s ease, box-shadow .2s ease;
 }
 
-@media (hover: hover) {
+/* Hover solo si el usuario lo permite y el dispositivo tiene hover real */
+@media (prefers-reduced-motion: no-preference) and (hover: hover) {
+  .project-card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  }
+
   .project-card:hover {
     transform: translateY(-2px);
-    box-shadow: 0 .5rem 1.25rem rgba(0, 0, 0, .08);
+    box-shadow: 0 0.5rem 1.25rem rgba(0, 0, 0, 0.08);
+    border-color: rgba(0, 0, 0, 0.12);
   }
 }
 
-/* Media con ratio configurable (por defecto 16/9) */
+/* Variante interactiva (si la envuelves en <a> o la haces clicable) */
+.project-card.project-card--link {
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+.project-card.project-card--link:focus-visible {
+  outline: 3px solid var(--focus-ring-color);
+  outline-offset: 3px;
+}
+
+/* Reduce motion: sin animaciones extra */
+@media (prefers-reduced-motion: reduce) {
+  .project-card {
+    transition: none !important;
+    transform: none !important;
+  }
+}
+
+/* ===========================
+   Media con ratio configurable
+   =========================== */
+
 .project-media {
   position: relative;
   width: 100%;
   aspect-ratio: var(--ratio, 16/9);
-  background: var(--bs-tertiary-bg, #f7f7f7);
+  background-color: var(--bs-secondary-bg, #f7f7f7);
 }
 
 .project-media > img {
@@ -62,34 +97,48 @@
   display: grid;
   place-items: center;
   font-size: 2rem;
-  color: var(--bs-secondary-color, rgba(0, 0, 0, .55));
+  color: var(--bs-secondary-color);
   background: repeating-linear-gradient(
     45deg,
-    rgba(0, 0, 0, .03) 0 8px,
-    rgba(0, 0, 0, .06) 8px 16px
+    rgba(15, 23, 42, 0.04) 0 8px,
+    rgba(15, 23, 42, 0.08) 8px 16px
   );
 }
 
-/* Título, tipo y metadatos */
+/* Ajuste del placeholder en tema oscuro para no deslumbrar */
+:root[data-bs-theme="dark"] .project-media--placeholder .ph {
+  background: repeating-linear-gradient(
+    45deg,
+    rgba(15, 23, 42, 0.8) 0 8px,
+    rgba(15, 23, 42, 0.9) 8px 16px
+  );
+}
+
+/* ===========================
+   Título, tipo y metadatos
+   =========================== */
+
 .project-title {
   line-height: 1.25;
+  color: var(--bs-heading-color);
 }
 
 .project-type {
-  font-size: .75rem;
+  font-size: 0.75rem;
   text-transform: uppercase;
-  letter-spacing: .04em;
+  letter-spacing: 0.04em;
+  color: var(--bs-secondary-color);
 }
 
 /* Lista de metadatos (lugar, fecha, etc.) */
 .project-meta {
-  margin: .35rem 0 .5rem;
+  margin: 0.35rem 0 0.5rem;
   padding: 0;
 }
 
 .project-meta li {
   display: flex;
-  gap: .25rem;
+  gap: 0.25rem;
   align-items: flex-start;
 }
 
@@ -99,12 +148,15 @@
 
 /* Descripción */
 .project-info {
-  font-size: .9rem;
-  color: var(--bs-body-color, var(--text, #212529));
-  opacity: .95;
+  font-size: 0.9rem;
+  color: var(--bs-body-color);
+  opacity: 0.95;
 }
 
-/* Variante mini (si la sigues usando en “Qué hacemos”) */
+/* ===========================
+   Variante mini
+   =========================== */
+
 .project-card--small {
   width: 100%;
   max-width: 150px;
@@ -113,7 +165,7 @@
 }
 
 .project-card--small .project-media {
-  aspect-ratio: 1/1;
+  aspect-ratio: 1 / 1;
 }
 
 .project-card--small .card-body {

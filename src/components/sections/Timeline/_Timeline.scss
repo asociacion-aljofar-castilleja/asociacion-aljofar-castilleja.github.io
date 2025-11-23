@@ -1,12 +1,103 @@
-.about-timeline { color: var(--text); }
-.about-timeline__list { border-left: 3px solid var(--border); margin: 0; padding-left: 1rem; }
-.about-timeline__item { position: relative; padding: .5rem 0 .5rem .25rem; }
-.about-timeline__dot { position: absolute; left: -0.53rem; top: .95rem; width: .65rem; height: .65rem; border-radius: 50%; }
-.about-timeline__text { color: var(--text); opacity: .95; }
-.about-timeline--dense .about-timeline__item { padding-top: .25rem; padding-bottom: .25rem; }
-.section-title { font-weight: 700; }
-.accent-dot { width: .75rem; height: .75rem; border-radius: 999px; display: inline-block; }
-.accent-primary { background: var(--bs-primary); }
-.accent-success { background: var(--bs-success); }
-.accent-info { background: var(--bs-info); }
-.accent-warning { background: var(--bs-warning); }
+/* ===========================
+   Timeline "Quiénes somos"
+   =========================== */
+
+.about-timeline {
+  color: var(--bs-body-color);
+}
+
+/* Línea vertical de la timeline */
+.about-timeline__list {
+  border-left: 3px solid var(--bs-border-color);
+  margin: 0;
+  padding-left: 1rem;
+  list-style: none;
+}
+
+/* Item de la timeline */
+.about-timeline__item {
+  position: relative;
+  padding: 0.5rem 0 0.5rem 0.25rem;
+}
+
+/* Punto de la línea temporal (si lo usas además de la badge) */
+.about-timeline__dot {
+  position: absolute;
+  left: -0.53rem;
+  top: 0.95rem;
+  width: 0.65rem;
+  height: 0.65rem;
+  border-radius: 50%;
+  background-color: var(--bs-primary);
+}
+
+/* Texto del evento */
+.about-timeline__text {
+  color: var(--bs-body-color);
+  opacity: 0.95;
+}
+
+/* Variante más compacta */
+.about-timeline--dense .about-timeline__item {
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+}
+
+/* Título de sección */
+.about-timeline .section-title {
+  font-weight: 700;
+  color: var(--bs-heading-color);
+}
+
+/* ===========================
+   Badge de año accesible
+   =========================== */
+
+.about-timeline__badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.15rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+}
+
+/* Colores con alto contraste para cualquier tema (claro/oscuro) */
+.about-timeline__badge--primary {
+  background-color: #1d4ed8;  /* azul intenso */
+  color: #f9fafb;             /* casi blanco */
+}
+
+.about-timeline__badge--success {
+  background-color: #15803d;  /* verde oscuro */
+  color: #f9fafb;
+}
+
+.about-timeline__badge--info {
+  background-color: #0369a1;  /* azul petróleo */
+  color: #f9fafb;
+}
+
+.about-timeline__badge--warning {
+  background-color: #f59e0b;  /* ámbar intenso */
+  color: #111827;             /* casi negro, buen contraste */
+}
+
+/* ===========================
+   Puntos de acento reutilizables (si los sigues usando)
+   =========================== */
+
+.accent-dot {
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 999px;
+  display: inline-block;
+}
+
+/* Solo fondo (no hay texto dentro, así que WCAG no aplica texto) */
+.accent-primary  { background: var(--bs-primary);  }
+.accent-success  { background: var(--bs-success);  }
+.accent-info     { background: var(--bs-info);     }
+.accent-warning  { background: var(--bs-warning);  }

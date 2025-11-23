@@ -1,3 +1,7 @@
+/* ===========================
+   Sección FbFeed
+   =========================== */
+
 .fbfeed-section {
   /* espaciado ya controlado por .py-5 */
 }
@@ -8,11 +12,11 @@
   --fbfeed-h: clamp(420px, 70vh, 720px);
 
   /* Tokens de esqueleto (se adaptan a tema) */
-  --fb-skel-a: #eee;
-  --fb-skel-b: #f6f6f6;
+  --fb-skel-a: #ececec;
+  --fb-skel-b: #f7f7f7;
   --fb-skel-radius: var(--bs-border-radius-lg, .75rem);
   --fb-border: var(--bs-border-color, rgba(0,0,0,.12));
-  --fb-surface: var(--bs-body-bg, #fff);
+  --fb-surface: var(--bs-secondary-bg, #fff);
 
   position: relative;
   min-height: var(--fbfeed-h);
@@ -22,12 +26,20 @@
 .fbfeed-embed .skeleton {
   height: var(--fbfeed-h);
   border-radius: var(--fb-skel-radius);
-  background: linear-gradient(90deg, var(--fb-skel-a), var(--fb-skel-b) 40%, var(--fb-skel-a) 80%);
+  background: linear-gradient(
+    90deg,
+    var(--fb-skel-a),
+    var(--fb-skel-b) 40%,
+    var(--fb-skel-a) 80%
+  );
   background-size: 200% 100%;
   box-shadow: 0 1px 2px rgba(0,0,0,.06);
   border: 1px solid var(--fb-border);
+}
 
-  @media (prefers-reduced-motion: no-preference) {
+/* Animación skeleton solo si el usuario no ha pedido reducir movimiento */
+@media (prefers-reduced-motion: no-preference) {
+  .fbfeed-embed .skeleton {
     animation: fb-skeleton 1.2s infinite linear both;
   }
 }
@@ -43,7 +55,7 @@
   contain: paint;
 }
 
-/* Variantes */
+/* Variantes de altura */
 .fbfeed-embed--compact { --fbfeed-h: clamp(360px, 55vh, 560px); }
 .fbfeed-embed--tall    { --fbfeed-h: clamp(520px, 80vh, 860px); }
 
@@ -53,30 +65,45 @@
   100% { background-position: 100% 0; }
 }
 
-/* Tema claro/oscuro (usa tu data-theme en <html> o <body>) */
-[data-theme="light"] .fbfeed-embed {
+/* ===========================
+   Tema CLARO (data-bs-theme)
+   =========================== */
+
+:root[data-bs-theme="light"] .fbfeed-embed {
   --fb-skel-a: #ececec;
   --fb-skel-b: #f7f7f7;
   --fb-border: rgba(0,0,0,.12);
-  --fb-surface: #fff;
+  --fb-surface: #ffffff;
 }
-[data-theme="dark"] .fbfeed-embed {
+
+/* ===========================
+   Tema OSCURO (data-bs-theme)
+   =========================== */
+
+:root[data-bs-theme="dark"] .fbfeed-embed {
   --fb-skel-a: #1f2937; /* gris-800 */
   --fb-skel-b: #374151; /* gris-700 */
   --fb-border: rgba(255,255,255,.12);
-  --fb-surface: #0b1220;
-  /* opcional: menos brillo en shadow en oscuro */
+  --fb-surface: #111827; /* consistente con tu --bs-secondary-bg */
 }
 
-/* Alto contraste: aumenta el diferencial del skeleton */
+/* ===========================
+   Alto contraste
+   =========================== */
+
 @media (prefers-contrast: more) {
-  .fbfeed-embed {
+  :root[data-bs-theme="light"] .fbfeed-embed {
     --fb-skel-a: #d6d6d6;
     --fb-skel-b: #ffffff;
   }
+
+  :root[data-bs-theme="dark"] .fbfeed-embed {
+    --fb-skel-a: #4b5563; /* gris-600 */
+    --fb-skel-b: #9ca3af; /* gris-400 */
+  }
 }
 
-/* Reduce motion: sin animación */
+/* Reduce motion: sin animación (extra por si algún user agent se lo toma más literal) */
 @media (prefers-reduced-motion: reduce) {
   .fbfeed-embed .skeleton {
     animation: none !important;

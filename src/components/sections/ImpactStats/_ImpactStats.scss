@@ -1,69 +1,83 @@
+/* ===========================
+   Sección de impacto
+   =========================== */
+
 .impact-section {
   /* Espaciado ya controlado por .py-5 */
-  color: var(--bs-body-color, var(--text, #212529));
+  color: var(--bs-body-color);
 }
 
 /* Tarjeta KPI */
 .impact-card {
-  border: 1px solid var(--bs-border-color, var(--card-border, rgba(0,0,0,.12)));
-  border-radius: var(--bs-border-radius-lg, .75rem);
-  box-shadow: var(--elev-shadow, 0 1px 2px rgba(0,0,0,.06));
+  background-color: var(--bs-card-bg, var(--bs-secondary-bg, #fff));
+  color: var(--bs-body-color);
+  border: 1px solid var(--bs-border-color, rgba(0, 0, 0, 0.12));
+  border-radius: var(--bs-border-radius-lg, 0.75rem);
+  box-shadow: var(--elev-shadow, 0 1px 2px rgba(0, 0, 0, 0.06));
   will-change: transform;
+}
 
-  /* Transiciones solo si el usuario lo permite y el dispositivo tiene hover real */
-  @media (prefers-reduced-motion: no-preference) {
-    @media (hover: hover) {
-      transition: transform .25s ease, box-shadow .25s ease;
-      &:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 .5rem 1.25rem rgba(0,0,0,.08);
-      }
-    }
+/* Hover solo si hay hover real y el usuario no ha pedido reducir movimiento */
+@media (prefers-reduced-motion: no-preference) and (hover: hover) {
+  .impact-card {
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
   }
 
-  /* Estado presionado (mejor feedback) */
-  &:active {
-    transform: translateY(0);
-  }
-
-  /* Accesibilidad: foco visible cuando es interactivo */
-  &.impact-card--clickable {
-    cursor: pointer;
-    text-decoration: none;
-    color: inherit;
-
-    &:focus-visible {
-      outline: 2px solid var(--bs-primary, #0d6efd);
-      outline-offset: 3px;
-    }
+  .impact-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0.5rem 1.25rem rgba(0, 0, 0, 0.08);
   }
 }
+
+/* Estado presionado (mejor feedback) */
+.impact-card:active {
+  transform: translateY(0);
+}
+
+/* Tarjeta clicable como enlace/botón */
+.impact-card.impact-card--clickable {
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Foco visible cuando es interactiva */
+.impact-card.impact-card--clickable:focus-visible {
+  outline: 3px solid var(--focus-ring-color);
+  outline-offset: 3px;
+}
+
+/* ===========================
+   Contenido: contador / texto
+   =========================== */
 
 /* Contador/KPI grande */
 .impact-counter {
   line-height: 1;
   font-variant-numeric: tabular-nums; /* evita “baile” de dígitos */
   font-feature-settings: "tnum" 1, "lnum" 1;
-  /* Tamaño adaptable (ajusta a tu diseño) */
   font-size: clamp(1.75rem, 3.5vw, 2.5rem);
-  color: var(--bs-emphasis-color, var(--text, currentColor));
+  color: var(--bs-emphasis-color, var(--bs-body-color));
 }
 
 /* Sufijo (%, K, M, etc.) opcional */
 .impact-counter__suffix {
-  font-size: .6em;
-  opacity: .8;
-  margin-left: .15em;
+  font-size: 0.6em;
+  opacity: 0.85;
+  margin-left: 0.15em;
   vertical-align: baseline;
 }
 
 /* Etiqueta descriptiva del KPI */
 .impact-label {
-  margin-top: .25rem;
-  color: var(--bs-secondary-color, var(--muted, rgba(0,0,0,.65)));
+  margin-top: 0.25rem;
+  color: var(--bs-secondary-color);
 }
 
-/* Alto contraste: refuerza borde y sombra */
+/* ===========================
+   Alto contraste
+   =========================== */
+
 @media (prefers-contrast: more) {
   .impact-card {
     border-color: currentColor;
@@ -71,22 +85,13 @@
   }
 }
 
-/* Reduce motion: elimina transiciones/transformaciones */
+/* ===========================
+   Reduce motion
+   =========================== */
+
 @media (prefers-reduced-motion: reduce) {
   .impact-card {
     transition: none !important;
     transform: none !important;
   }
-
-
 }
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --card-bg: #1e1e1e;
-    --card-border: rgba(255,255,255,.15);
-    --text: #f5f5f5;
-    --muted: rgba(255,255,255,.6);
-  }
-}
-

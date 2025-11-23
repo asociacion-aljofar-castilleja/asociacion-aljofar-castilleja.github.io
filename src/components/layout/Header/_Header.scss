@@ -1,11 +1,65 @@
-/* src/components/layout/Header/_header.scss */
+/* ===========================
+   Header – estilos base
+   =========================== */
 
-/* Afinado visual del header */
+/* Que el header herede correctamente los colores del tema */
+.header {
+  background-color: var(--bs-body-bg);
+  color: var(--bs-body-color);
+  border-bottom: 1px solid var(--bs-border-color);
+}
+
+/* Logo + texto marca */
 .header .navbar-brand svg {
   flex-shrink: 0;
 }
+
 .header .navbar-brand span {
   white-space: nowrap;
+}
+
+/* Título de la marca */
+.titulo-header {
+  font-size: 1rem;
+  color: var(--bs-heading-color); /* usa el color de heading global */
+}
+
+/* En móvil un poco más pequeño */
+@media (max-width: 430px) {
+  .titulo-header {
+    font-size: 0.75rem;
+  }
+
+  .logoHeader {
+    width: 45px;
+    height: 45px;
+  }
+}
+
+/* Tamaño del logo del Header en escritorio */
+.logoHeader {
+  width: 70px;
+  height: 70px;
+}
+
+/* Si quieres que en tema claro el título tenga el acento azul corporativo
+   sin romper contraste en oscuro: */
+:root[data-bs-theme="light"] .header .titulo-header {
+  color: var(--bs-primary);
+}
+
+/* ===========================
+   Navegación
+   =========================== */
+
+/* Estado normal y hover de enlaces del nav */
+.header .nav-link {
+  color: inherit; /* usa el color de texto del header según tema */
+}
+
+.header .nav-link:hover {
+  color: var(--bs-link-hover-color);
+  text-decoration: underline;
 }
 
 /* Estado activo claro en nav */
@@ -15,15 +69,35 @@
   text-underline-offset: .35em;
 }
 
-/* Accesible: foco visible en links */
+/* Foco visible en links del menú (usa el ring global) */
 .header .nav-link:focus-visible {
-  outline: 2px solid rgba(var(--bs-primary-rgb), .5);
+  outline: 3px solid var(--focus-ring-color);
   outline-offset: 2px;
 }
+
+/* ===========================
+   Botones del header
+   =========================== */
 
 /* Botones pequeños más legibles */
 .header .btn.btn-sm {
   --bs-btn-font-size: .85rem;
+}
+
+/* Foco visible en todos los botones del header (tema, idioma, font-size, toggler) */
+.header .btn:focus-visible,
+.header .navbar-toggler:focus-visible {
+  outline: 3px solid var(--focus-ring-color);
+  outline-offset: 2px;
+}
+
+/* Botón hamburguesa con área táctil suficiente */
+.navbar-toggler {
+  min-width: 44px;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* Dropdown con sombra suave */
@@ -31,37 +105,17 @@
   box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .08);
 }
 
-/* Solo dropdown del Header para el selector de tema */
+/* Solo dropdown del Header para el selector de tema/idioma */
 .header .dropdown-menu .dropdown-item.active {
   font-weight: 600;
   color: var(--bs-primary);
-  background-color: var(--bs-primary-bg-subtle);
+  background-color: var(--bs-secondary-bg);
 }
 
-/* Tamaño del logo del Header -> MÁS GRANDE EN ESCRITORIO */
-.logoHeader {
-  width: 70px;
-  height: 70px;
-}
+/* ===========================
+   Redes sociales en el header
+   =========================== */
 
-/* Título más pequeño y en color principal */
-.titulo-header {
-  font-size: 1rem;          /* antes 1.2rem */
-  color: var(--bs-primary); /* color principal de Bootstrap */
-}
-
-@media (max-width: 430px) {
-  .titulo-header {
-    font-size: 0.75rem; /* un pelín más pequeño en móvil */
-  }
-
-  .logoHeader {
-    width: 45px;
-    height: 45px;
-  }
-}
-
-/* === Redes sociales en el header === */
 .header-social {
   display: inline-flex;
   align-items: center;
@@ -73,11 +127,35 @@
   align-items: center;
   justify-content: center;
   font-size: 1.1rem;
-  color: var(--bs-secondary);          /* color secundario */
+  color: var(--bs-secondary);  /* en light será azul medio, en dark azul claro */
   text-decoration: none;
+
+  /* Touch target mínimo recomendado */
+  min-width: 44px;
+  min-height: 44px;
+  border-radius: 999px;
 }
 
+/* Hover y foco accesibles */
 .header-social-link:hover,
 .header-social-link:focus-visible {
-  color: var(--bs-primary);            /* al pasar el ratón, primario */
+  color: var(--bs-primary);
+  outline: 3px solid var(--focus-ring-color);
+  outline-offset: 2px;
+}
+
+/* ===========================
+   Utilidad para texto solo lectores pantalla
+   =========================== */
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }

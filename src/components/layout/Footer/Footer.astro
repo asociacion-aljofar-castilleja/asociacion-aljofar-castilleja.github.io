@@ -43,7 +43,7 @@ const copyright = (data.copyright ?? defaults.copyright).replace('{year}', Strin
 ---
 
 <footer class="footer py-4 border-top">
-  <div class="container text-center small d-flex flex-column flex-lg-row justify-content-center align-items-center gap-2">
+  <div class="container text-center d-flex flex-column flex-lg-row justify-content-center align-items-center gap-2">
     <div class="footer-social">
       {social.instagram && (
         <a
@@ -69,7 +69,7 @@ const copyright = (data.copyright ?? defaults.copyright).replace('{year}', Strin
         </a>
       )}
     </div>
-    <span class="text-muted">
+    <span class="text-muted footer-text">
       {copyright} — {taglineData.text}{' '}
       <a
         href={taglineData.brandHref}

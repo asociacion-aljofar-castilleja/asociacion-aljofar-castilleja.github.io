@@ -1,101 +1,174 @@
+/* ===========================
+   Hero accesible (claro / oscuro)
+   =========================== */
+
 .hero {
   /* Altura y fondo */
   --hero-minvh: 65vh;
   --hero-bg: none;                /* url(...) o none */
   --hero-parallax: 0px;
 
+  /* Color del texto en el hero (por defecto blanco) */
+  --hero-text-color: #ffffff;
+
   /* Overlay tokens (se sobreescriben por tema y preferencias) */
-  --hero-ov-start: rgba(0, 0, 0, .48); /* arriba */
-  --hero-ov-mid:   rgba(0, 0, 0, .30); /* 30% */
-  --hero-ov-end:   rgba(0, 0, 0, .48); /* abajo */
+  --hero-ov-start: rgba(0, 0, 0, 0.55); /* arriba */
+  --hero-ov-mid:   rgba(0, 0, 0, 0.35); /* 30% */
+  --hero-ov-end:   rgba(0, 0, 0, 0.55); /* abajo */
 
   position: relative;
   min-height: var(--hero-minvh);
   isolation: isolate; /* aísla contexto para overlay y z-index */
 
-  /* Fondo */
+  /* Fallback si no hay imagen: fondo oscuro */
+  background-color: #0b1220;
+
+  /* Aseguramos texto legible sobre foto + overlay */
+  color: var(--hero-text-color);
+}
+
+/* Título principal del hero */
+.hero__title {
+  color: var(--hero-text-color);
+  letter-spacing: 0.01em;
+}
+
+/* Fondo (imagen + degradado base) */
+.hero__bg {
+  position: absolute;
+  inset: 0;
+  background-image: var(--hero-bg),
+    linear-gradient(180deg, #0b1220 0%, #0b1220 100%);
+  background-size: cover, 100% 100%;
+  background-position: center, center;
+  background-repeat: no-repeat, no-repeat;
+  transform: translateY(var(--hero-parallax));
+  will-change: transform;
+}
+
+/* Animación solo si el usuario no ha pedido reducir movimiento */
+@media (prefers-reduced-motion: no-preference) {
   .hero__bg {
-    position: absolute;
-    inset: 0;
-    background-image: var(--hero-bg),
-      linear-gradient(180deg, #0b1220 0%, #0b1220 100%); /* fallback si no hay imagen */
-    background-size: cover, 100% 100%;
-    background-position: center, center;
-    background-repeat: no-repeat, no-repeat;
-    transform: translateY(var(--hero-parallax));
-    will-change: transform;
-
-    @media (prefers-reduced-motion: no-preference) {
-      transition: transform .1s linear;
-    }
-  }
-
-  /* Overlay para legibilidad del texto sobre foto */
-  .hero__overlay {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    background: linear-gradient(
-      180deg,
-      var(--hero-ov-start),
-      var(--hero-ov-mid) 30%,
-      var(--hero-ov-end)
-    );
-    background-clip: padding-box;
-  }
-
-  .hero__row {
-    min-height: var(--hero-minvh);
-    padding-block: clamp(2rem, 5vw, 4rem);
-  }
-
-  /* ===== Cita dentro del hero ===== */
-  .hero-quote {
-    max-width: 28rem;
-    padding-left: 1rem;
-    margin: 0;
-    border-left: 3px solid rgba(255, 255, 255, 0.7);
-    font-size: 0.95rem;
-  }
-
-  .hero-quote__text {
-    margin: 0 0 .25rem 0;
-    font-style: italic;
-    line-height: 1.4;
-  }
-
-  .hero-quote__author {
-    margin: 0;
-    font-size: 0.85rem;
-    opacity: 0.85;
+    transition: transform 0.1s linear;
   }
 }
 
-/* Tema claro/oscuro (usa tu data-theme en <html> o <body>) */
-[data-theme="light"] .hero {
-  --hero-ov-start: rgba(0, 0, 0, .45);
-  --hero-ov-mid:   rgba(0, 0, 0, .25);
-  --hero-ov-end:   rgba(0, 0, 0, .45);
+/* Overlay para legibilidad del texto sobre foto */
+.hero__overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    var(--hero-ov-start),
+    var(--hero-ov-mid) 30%,
+    var(--hero-ov-end)
+  );
+  background-clip: padding-box;
 }
-[data-theme="dark"] .hero {
+
+/* Contenedor de contenido del hero */
+.hero__row {
+  position: relative;
+  z-index: 1; /* por encima del overlay */
+  min-height: var(--hero-minvh);
+  padding-block: clamp(2rem, 5vw, 4rem);
+}
+
+/* ===========================
+   Cita dentro del hero
+   =========================== */
+
+.hero-quote {
+  max-width: 28rem;
+  padding-left: 1rem;
+  margin: 0;
+  border-left: 3px solid rgba(255, 255, 255, 0.7);
+  font-size: 0.95rem;
+}
+
+.hero-quote__text {
+  margin: 0 0 0.25rem 0;
+  font-style: italic;
+  line-height: 1.4;
+}
+
+.hero-quote__author {
+  margin: 0;
+  font-size: 0.85rem;
+  opacity: 0.9; /* un poco más alto para contraste */
+}
+
+/* ===========================
+   Enlaces y botones dentro del hero
+   =========================== */
+
+.hero a,
+.hero button {
+  color: var(--hero-text-color);
+}
+
+/* Enlaces: respetan tu sistema global de subrayado */
+.hero a {
+  text-decoration: underline;
+}
+
+.hero a:hover {
+  text-decoration-thickness: 2px;
+  text-underline-offset: 2px;
+}
+
+/* Botones dentro del hero (por si usas .btn-primary, etc.) */
+.hero .btn {
+  color: var(--hero-text-color);
+}
+
+/* Foco bien visible dentro del hero (usa ring global, no hardcode blanco) */
+.hero a:focus-visible,
+.hero button:focus-visible {
+  outline: 3px solid var(--focus-ring-color);
+  outline-offset: 3px;
+}
+
+/* ===========================
+   Tema claro / oscuro
+   =========================== */
+
+/* Ojo: usamos data-bs-theme como en el resto de la app */
+:root[data-bs-theme="light"] .hero {
+  --hero-ov-start: rgba(0, 0, 0, 0.45);
+  --hero-ov-mid:   rgba(0, 0, 0, 0.25);
+  --hero-ov-end:   rgba(0, 0, 0, 0.45);
+  --hero-text-color: #ffffff; /* texto claro sobre overlay oscuro */
+}
+
+:root[data-bs-theme="dark"] .hero {
   /* un poco más de densidad para fotos claras en oscuro */
-  --hero-ov-start: rgba(0, 0, 0, .58);
-  --hero-ov-mid:   rgba(0, 0, 0, .42);
-  --hero-ov-end:   rgba(0, 0, 0, .58);
+  --hero-ov-start: rgba(0, 0, 0, 0.6);
+  --hero-ov-mid:   rgba(0, 0, 0, 0.45);
+  --hero-ov-end:   rgba(0, 0, 0, 0.6);
+  --hero-text-color: #f9fafb; /* casi blanco, mantiene contraste */
 }
 
-/* Alta preferencia de contraste: sube opacidad del overlay */
+/* ===========================
+   Alta preferencia de contraste
+   =========================== */
+
 @media (prefers-contrast: more) {
   .hero {
-    --hero-ov-start: rgba(0, 0, 0, .70);
-    --hero-ov-mid:   rgba(0, 0, 0, .55);
-    --hero-ov-end:   rgba(0, 0, 0, .70);
+    --hero-ov-start: rgba(0, 0, 0, 0.85);
+    --hero-ov-mid:   rgba(0, 0, 0, 0.7);
+    --hero-ov-end:   rgba(0, 0, 0, 0.85);
+    --hero-text-color: #ffffff;
   }
 }
 
-/* Reduce motion: sin transición ni parallax */
+/* ===========================
+   Reduce motion: sin parallax
+   =========================== */
+
 @media (prefers-reduced-motion: reduce) {
-  .hero .hero__bg {
+  .hero__bg {
     transform: none !important;
     transition: none !important;
   }

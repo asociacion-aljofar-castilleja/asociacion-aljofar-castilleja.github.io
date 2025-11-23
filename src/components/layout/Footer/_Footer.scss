@@ -1,31 +1,15 @@
-/* Estilo predeterminado para el tema claro */
+/* ===========================
+   Footer – estilos base
+   =========================== */
+
 .footer {
-  background-color: #f1f3f5;
-  color: #343a40;
-}
-
-.text-muted {
-  opacity: 0.8;
-  font-family: 'Arial', sans-serif;
-}
-
-.container.small {
-  margin-top: 1rem;
+  border-top: 1px solid var(--bs-border-color);
   font-size: 0.875rem;
-  color: #6c757d;
+}
+
+/* Bloque de texto principal del footer */
+.footer-text {
   font-style: italic;
-}
-
-/* Enlace AlixarCoders */
-.footer .footer-link {
-  font-weight: 600;
-  color: var(--bs-primary);
-  text-decoration: none;
-}
-
-.footer .footer-link:hover,
-.footer .footer-link:focus-visible {
-  text-decoration: underline;
 }
 
 /* Redes sociales */
@@ -36,30 +20,74 @@
 }
 
 .footer-social-link {
-  color: inherit;
+  color: inherit;        /* hereda del footer, cambia según tema */
   font-size: 1.1rem;
 }
 
 .footer-social-link:hover,
 .footer-social-link:focus-visible {
-  color: var(--bs-primary);
+  color: var(--bs-link-color);
 }
 
-/* Estilo para el tema oscuro usando el atributo `data-bs-theme` */
-[data-bs-theme="dark"] .footer {
-  background-color: #151b20;  /* Fondo oscuro */
-  color: #f1f3f5;             /* Texto claro */
+/* Enlace AlixarCoders */
+.footer .footer-link {
+  font-weight: 600;
+  color: var(--bs-link-color);
+  text-decoration: none;
 }
 
-[data-bs-theme="dark"] .text-muted {
-  color: #adb5bd;             /* Texto atenuado en modo oscuro */
+.footer .footer-link:hover,
+.footer .footer-link:focus-visible {
+  color: var(--bs-link-hover-color);
+  text-decoration: underline;
 }
 
-[data-bs-theme="dark"] .container.small {
-  color: #ced4da;             /* Texto más claro en el footer */
+/* ===========================
+   Tema CLARO
+   =========================== */
+
+:root[data-bs-theme="light"] .footer {
+  background-color: #f1f3f5;         /* gris clarito */
+  color: var(--bs-body-color);       /* #212529 por tus variables */
 }
 
-[data-bs-theme="dark"] .footer .footer-link {
-  color: #63e6be;             /* un toque de color en dark mode */
+/* Texto atenuado en light (copyright + tagline) */
+:root[data-bs-theme="light"] .footer .text-muted,
+:root[data-bs-theme="light"] .footer .footer-text {
+  color: #495057;                    /* gris accesible sobre #f1f3f5 */
 }
 
+/* Iconos sociales en light: un pelín más suaves pero con contraste suficiente */
+:root[data-bs-theme="light"] .footer .footer-social-link {
+  color: #495057;
+}
+
+/* ===========================
+   Tema OSCURO
+   =========================== */
+
+:root[data-bs-theme="dark"] .footer {
+  background-color: #111827;         /* gris muy oscuro, consistente con vars */
+  color: var(--bs-body-color);       /* #e5e7eb */
+}
+
+/* Texto atenuado en dark, pero legible */
+:root[data-bs-theme="dark"] .footer .text-muted,
+:root[data-bs-theme="dark"] .footer .footer-text {
+  color: var(--bs-secondary-color);  /* #9ca3af por tus variables */
+}
+
+/* Iconos sociales en dark: gris clarito con buen contraste */
+:root[data-bs-theme="dark"] .footer .footer-social-link {
+  color: var(--bs-secondary-color);
+}
+
+/* Enlaces del footer en dark: usan el azul claro global */
+:root[data-bs-theme="dark"] .footer .footer-link {
+  color: var(--bs-link-color);       /* #93c5fd */
+}
+
+:root[data-bs-theme="dark"] .footer .footer-link:hover,
+:root[data-bs-theme="dark"] .footer .footer-link:focus-visible {
+  color: var(--bs-link-hover-color); /* #bfdbfe */
+}
