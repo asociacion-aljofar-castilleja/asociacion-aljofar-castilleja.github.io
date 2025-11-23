@@ -18,20 +18,35 @@ servicios:
 proyectos:
   - tipo: "actividad"
     titulo: "Actividades de ocio y convivencia"
-    fecha: "A lo largo del año"
-    lugar: "Distintos espacios públicos y centros sociales"
-    horario: "Se celebran en días señalados como la comida de Navidad o el Día Internacional de las Personas con Discapacidad, cada 3 de diciembre"
-    precio: "Gratuito, pero puedes aportar lo que puedas, incluso simbólico"
+    fecha: "Durante todo el año"
+    lugar: "Espacios públicos y centros sociales de Castilleja de la Cuesta"
     edad: "Todas las edades"
-    organizador: "Asociación Aljofar"
-    notas: >
-      Cada año se organizan algunas salidas y excursiones, así como jornadas de convivencia como la comida de Navidad o la celebración del Día Internacional de las Personas con Discapacidad que se celebra cada 3 de diciembre.
+    organizador: "Asociación ALJÓFAR"
+    info: >
+      A lo largo del año organizamos salidas, excursiones y jornadas de convivencia,
+      como la comida de Navidad o la celebración del Día Internacional de las Personas
+      con Discapacidad (3 de diciembre). Son momentos para compartir, relacionarnos
+      y disfrutar en comunidad.
     imagen:
-      src: "/images/ocio-actividades.jpg"
-      alt: "Cualquier persona puede acudir a nuestras actividades y aportar en nuestros puestos solidarios"
+      src: "/images/actividades-ocio/castilleja-de-la-cuesta.jpg"
+      alt: "Personas participando en una actividad de ocio organizada por la asociación"
       aspectRatio: "4/3"
 
   - tipo: "puesto"
+    titulo: "Puestos solidarios de artesanía"
+    fecha: "Varias fechas al año"
+    ubicacion: "Ferias y eventos locales"
+    productos: "Artesanía y productos elaborados en los talleres"
+    contacto: "Asociación ALJÓFAR — info@asociacionaljofarcastilleja.es"
+    info: >
+      Montamos puestos solidarios donde vendemos las piezas realizadas en el taller
+      de manualidades. La recaudación se destina a mantener las actividades de la
+      asociación y a impulsar nuevos proyectos sociales.
+    imagen:
+      src: "/images/actividades-ocio/puestos-artesania.jpg"
+      alt: "Puesto solidario con productos artesanales de la asociación"
+      aspectRatio: "4/3"
+
     titulo: "Puestos solidarios de artesanía"
     fecha: "Varias veces al año"
     ubicacion: "Ferias locales y eventos comunitarios"
@@ -41,7 +56,7 @@ proyectos:
     notas: >
       Organizamos puestos de venta con los productos realizados en el taller de manualidades. La recaudación se destina a la autofinanciación de la asociación y a apoyar nuevas actividades y proyectos sociales.
     imagen:
-      src: "/images/puesto-artesania.jpg"
+      src: "/images/actividades-ocio/puestos-artesania.jpg"
       alt: "Mesa con nuestros productos artesanales en un puesto solidario"
       aspectRatio: "4/3"
 

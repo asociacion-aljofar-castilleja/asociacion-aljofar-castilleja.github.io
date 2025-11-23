@@ -35,13 +35,18 @@ const ariaLink = (name: string) =>
   String(I.ariaLink ?? (lang === "en" ? "{{name}}: open website" : "{{name}}: abrir sitio web"))
     .replace("{{name}}", name);
 
-const colGrid = "row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-6 g-4";
+const colGrid = "row g-4 row-cols-2 row-cols-sm-3 row-cols-md-6";
 ---
 
 <section class="partners-section py-5" aria-label={ariaSection} data-module="Partners">
   <div class="container">
     <div class="d-flex align-items-center justify-content-between mb-4">
       <h2 class="mb-0">{title}</h2>
+      {seeAllHref && (
+        <a href={seeAllHref} class="btn btn-outline-secondary btn-sm">
+          {I.seeAll ?? (lang === "en" ? "See all partners" : "Ver todas las alianzas")}
+        </a>
+      )}
     </div>
 
     {layout === "grid" ? (
@@ -50,7 +55,7 @@ const colGrid = "row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-6 g-4";
           <div class="col d-flex">
             <a
               href={p.url}
-              class="card shadow-sm border-0 w-100 align-items-center justify-content-center d-flex"
+              class="card shadow-sm border-0 w-100 d-flex flex-column align-items-center justify-content-center partners-card"
               target="_blank" rel="noopener"
               aria-label={ariaLink(p.name)}
             >
@@ -62,6 +67,9 @@ const colGrid = "row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-6 g-4";
                 loading="lazy"
                 decoding="async"
               />
+              <span class="partners__name text-center">
+                {p.name}
+              </span>
             </a>
           </div>
         ))}
@@ -72,18 +80,23 @@ const colGrid = "row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-6 g-4";
           <a
             role="listitem"
             href={p.url}
-            class="partners-marquee__item"
+            class="partners-marquee__item partners-card"
             target="_blank" rel="noopener"
             aria-label={ariaLink(p.name)}
           >
-            <img
-              src={p.logo}
-              alt={p.alt ?? p.name}
-              height={logoHeight}
-              class="opacity-75 partners__logo"
-              loading={i > 6 ? "lazy" : "eager"}
-              decoding="async"
-            />
+            <div class="d-flex flex-column align-items-center">
+              <img
+                src={p.logo}
+                alt={p.alt ?? p.name}
+                height={logoHeight}
+                class="opacity-75 partners__logo"
+                loading={i > 6 ? "lazy" : "eager"}
+                decoding="async"
+              />
+              <span class="partners__name text-center">
+                {p.name}
+              </span>
+            </div>
           </a>
         ))}
       </div>

@@ -5,51 +5,48 @@ heroSubtitle: "Workshops, services and activities."
 
 # ------- Services / Programs -------
 servicios:
-  - nombre: "Name of the service or program"
-    objetivo: "Goal: Benefit or expected change."
-    destinatarios: "Target audience (e.g., children, families, members, general community)"
-    requisitos: "Access requirements, documentation, cost, etc. (optional)"
-    horario_lugar: "When and where: days/hours, venue, online/presential"
-    como_solicitar: "Application process: form, email, counter, phone"
-    accesibilidad: "Accessibility measures of the service/venue (easy-to-read, hearing loop, access, support…)"
-  - nombre: "Another service or program"
-    objetivo: "…"
-    destinatarios: "…"
-    requisitos: "…"
-    horario_lugar: "…"
-    como_solicitar: "…"
-    accesibilidad: "…"
+  - nombre: "Morning classroom"
+    imagen: "/images/servicios/aula-matinal.jpg"
+    objetivo: "Training in various educational subjects, fostering writing, reading, arithmetic, memory, and the overall development of participating members."
+    destinatarios: "Members of the association."
+    requisitos: "No prior registration is required."
+    horario_lugar: "From October to June, Monday to Friday, from 10:00 to 13:00 in the classroom at the Civic Center."
+    como_solicitar: "Come to the classroom during activity hours or contact the association."
+    accesibilidad: "Accessible activity."
 
 # ------- Projects -------
 proyectos:
   - tipo: "actividad"
-    titulo: "Leisure and social activities"
+    titulo: "Leisure and community activities"
     fecha: "Throughout the year"
-    lugar: "Various public spaces and community centers"
-    horario: "Held on special days such as the Christmas lunch or the annual International Day of People with Disabilities on December 3rd"
-    precio: "Free, but you can contribute whatever you can, even a symbolic amount"
+    lugar: "Public spaces and social centres in Castilleja de la Cuesta"
     edad: "All ages"
-    organizador: "Aljofar Association"
-    notas: >
-      Each year, outings and excursions are organized, as well as social gatherings such as the Christmas lunch or the International Day of People with Disabilities celebrated annually on December 3rd.
+    organizador: "ALJÓFAR Association"
+    info: >
+      Throughout the year we organise outings, trips, and community events such
+      as the Christmas gathering and the celebration of the International Day of
+      Persons with Disabilities (3rd of December). These are moments to share,
+      connect, and enjoy together as a community.
     imagen:
-      src: "/images/ocio-actividades.jpg"
-      alt: "Anyone can join our activities and contribute at our charity stalls!"
+      src: "/images/actividades-ocio/castilleja-de-la-cuesta.jpg"
+      alt: "People taking part in a leisure activity organised by the association"
       aspectRatio: "4/3"
 
   - tipo: "puesto"
-    titulo: "Charity craft stalls"
-    fecha: "Several times a year"
+    titulo: "Solidarity craft stalls"
+    fecha: "Several dates throughout the year"
     ubicacion: "Local fairs and community events"
-    horario: "These stalls are held throughout the year"
-    productos: "We organize stalls to sell the items made in the craft workshop, raising funds for self-financing."
-    contacto: "Aljofar Association — info@asociacionaljofarcastilleja.es"
-    notas: >
-      We organize sales stalls with products made in the craft workshop. The proceeds go to the self-financing of the association and to support new social activities and projects.
+    productos: "Handicrafts and items made in our workshops"
+    contacto: "ALJÓFAR Association — info@asociacionaljofarcastilleja.es"
+    info: >
+      We set up solidarity stalls where we sell the pieces created in the
+      handicraft workshop. The funds raised help sustain the association’s
+      activities and support new social projects.
     imagen:
-      src: "/images/puesto-artesania.jpg"
-      alt: "Table with our handcrafted products at a charity stall"
+      src: "/images/actividades-ocio/puestos-artesania.jpg"
+      alt: "Solidarity stall displaying the association’s handmade products"
       aspectRatio: "4/3"
+
 
 # ------- Workshops & Activities -------
 talleres:

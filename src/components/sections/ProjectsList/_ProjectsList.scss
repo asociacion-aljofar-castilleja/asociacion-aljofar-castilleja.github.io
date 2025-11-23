@@ -1,83 +1,30 @@
-.whatwedo-projects { 
-  color: var(--bs-body-color, var(--text, #212529)); 
+/* Sección actividades/puestos */
+.leisure-list {
+  color: var(--bs-body-color, var(--text, #212529));
 }
 
-.project-list { 
-  display: grid; 
-  gap: 1rem; 
+/* Grid de tarjetas */
+.project-list {
+  display: grid;
+  gap: 1rem;
 }
 
-/* En pantallas medianas, dos columnas tipo tarjetas */
 @media (min-width: 768px) {
-  .project-list { 
-    grid-template-columns: repeat(2, minmax(0, 1fr)); 
+  .project-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
+.project-item {
+  list-style: none;
+}
+
+/* Tarjeta base */
 .project-card {
   background: var(--bs-card-bg, var(--card-bg, #fff));
-  border: 1px solid var(--bs-border-color, var(--card-border, rgba(0,0,0,.12)));
+  border: 1px solid var(--bs-border-color, var(--card-border, rgba(0, 0, 0, .12)));
   border-radius: var(--bs-border-radius-lg, .75rem);
-  box-shadow: var(--elev-shadow, 0 1px 2px rgba(0,0,0,.06));
-  overflow: hidden;
-  display: grid;
-  grid-template-rows: auto 1fr;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  @media (hover: hover) {
-    .project-card { 
-      transition: transform .2s ease, box-shadow .2s ease; 
-    }
-    .project-card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 .5rem 1.25rem rgba(0,0,0,.08);
-    }
-  }
-}
-
-/* Media con ratio controlable (por defecto 16/9) */
-.project-media {
-  position: relative;
-  width: 100%;
-  aspect-ratio: var(--ratio, 16/9);
-  background: var(--bs-tertiary-bg, #f7f7f7);
-}
-
-.project-media > img {
-  position: absolute;
-  inset: 0;
-  width: 100%; 
-  height: 100%;
-  object-fit: cover;
-}
-
-/* Placeholder cuando no hay imagen */
-.project-media--placeholder .ph {
-  position: absolute; 
-  inset: 0;
-  display: grid; 
-  place-items: center;
-  font-size: 2rem;
-  color: var(--bs-secondary-color, rgba(0,0,0,.55));
-  background:
-    repeating-linear-gradient(
-      45deg,
-      rgba(0,0,0,.03) 0 8px,
-      rgba(0,0,0,.06) 8px 16px
-    );
-}
-
-.project-title { line-height: 1.25; }
-.project-date { white-space: nowrap; }
-.project-icon { margin-right: .375rem; }
-
-/* ------------------ Tarjetas estándar ------------------ */
-.project-card {
-  background: var(--bs-card-bg, #fff);
-  border: 1px solid var(--bs-border-color, rgba(0,0,0,.12));
-  border-radius: var(--bs-border-radius-lg, .75rem);
-  box-shadow: 0 1px 2px rgba(0,0,0,.06);
+  box-shadow: var(--elev-shadow, 0 1px 2px rgba(0, 0, 0, .06));
   display: grid;
   grid-template-rows: auto 1fr;
   overflow: hidden;
@@ -87,11 +34,11 @@
 @media (hover: hover) {
   .project-card:hover {
     transform: translateY(-2px);
-    box-shadow: 0 .5rem 1.25rem rgba(0,0,0,.08);
+    box-shadow: 0 .5rem 1.25rem rgba(0, 0, 0, .08);
   }
 }
 
-/* Media dentro de la tarjeta */
+/* Media con ratio configurable (por defecto 16/9) */
 .project-media {
   position: relative;
   width: 100%;
@@ -115,51 +62,60 @@
   display: grid;
   place-items: center;
   font-size: 2rem;
-  color: var(--bs-secondary-color, rgba(0,0,0,.55));
+  color: var(--bs-secondary-color, rgba(0, 0, 0, .55));
   background: repeating-linear-gradient(
     45deg,
-    rgba(0,0,0,.03) 0 8px,
-    rgba(0,0,0,.06) 8px 16px
+    rgba(0, 0, 0, .03) 0 8px,
+    rgba(0, 0, 0, .06) 8px 16px
   );
 }
 
-/* Títulos y fechas */
-.project-title { line-height: 1.25; }
-.project-date { white-space: nowrap; }
-.project-icon { margin-right: .375rem; }
+/* Título, tipo y metadatos */
+.project-title {
+  line-height: 1.25;
+}
 
-/* ------------------ Tarjeta mini responsive (Qué hacemos) ------------------ */
+.project-type {
+  font-size: .75rem;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+}
+
+/* Lista de metadatos (lugar, fecha, etc.) */
+.project-meta {
+  margin: .35rem 0 .5rem;
+  padding: 0;
+}
+
+.project-meta li {
+  display: flex;
+  gap: .25rem;
+  align-items: flex-start;
+}
+
+.project-meta-label {
+  font-weight: 600;
+}
+
+/* Descripción */
+.project-info {
+  font-size: .9rem;
+  color: var(--bs-body-color, var(--text, #212529));
+  opacity: .95;
+}
+
+/* Variante mini (si la sigues usando en “Qué hacemos”) */
 .project-card--small {
   width: 100%;
-  max-width: 150px;       /* ancho máximo deseado */
+  max-width: 150px;
   margin: 1rem auto;
   overflow: hidden;
 }
 
 .project-card--small .project-media {
-  width: 100%;
-  aspect-ratio: 1/1;      /* cuadrada */
-  position: relative;
-}
-
-.project-card--small .project-media > img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;      /* recorta sin deformar */
+  aspect-ratio: 1/1;
 }
 
 .project-card--small .card-body {
-  display: none;          /* oculta texto para miniatura */
-}
-
-/* ------------------ Lista de proyectos / tarjetas ------------------ */
-.project-list {
-  display: grid;
-  gap: 1rem;
-}
-
-@media (min-width: 768px) {
-  .project-list {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
+  display: none;
 }
