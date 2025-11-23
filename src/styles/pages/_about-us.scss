@@ -1,0 +1,26 @@
+/* Contenedor de secciones de "Quiénes somos" */
+.about-page > .about-section {
+  /* por si quieres algo común a todas */
+}
+
+/* Secciones IMPARES: fondo base */
+.about-page > .about-section:nth-of-type(odd) {
+  background-color: var(--bs-body-bg);
+}
+
+/* Secciones PARES: fondo alternativo + bordes suaves */
+.about-page > .about-section:nth-of-type(even) {
+  background-color: var(--bs-secondary-bg);
+  border-top: 1px solid var(--bs-border-color);
+  border-bottom: 1px solid var(--bs-border-color);
+}
+
+/* Si quieres un tratamiento especial para la zona del logo: */
+.about-page > .about-section--logo {
+  /* sigue respetando la alternancia, pero puedes ajustar un poco: */
+  background: linear-gradient(
+    135deg,
+    color-mix(in oklab, var(--bs-primary) 6%, var(--bs-secondary-bg)),
+    var(--bs-body-bg)
+  );
+}

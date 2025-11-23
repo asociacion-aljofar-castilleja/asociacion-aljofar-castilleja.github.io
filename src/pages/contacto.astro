@@ -12,14 +12,33 @@ type ContactData = {
   telefono?: { display?: string; tel?: string };
   email?: { display?: string; mailto?: string };
   horario?: string[];
-  direccion?: { linea1?: string; linea2?: string; cp?: string; localidad?: string; provincia?: string; pais?: string };
+  direccion?: {
+    linea1?: string;
+    linea2?: string;
+    cp?: string;
+    localidad?: string;
+    provincia?: string;
+    pais?: string;
+  };
   notas?: string;
 };
-type MapData = { embedUrl?: string; lat?: number; lng?: number; placeId?: string; zoom?: number; ariaLabel?: string };
+
+type MapData = {
+  embedUrl?: string;
+  lat?: number;
+  lng?: number;
+  placeId?: string;
+  zoom?: number;
+  ariaLabel?: string;
+};
+
 type Social = { nombre?: string; handle?: string; url?: string; icon?: string };
 
 type PageData = {
-  title?: string; description?: string; heroTitle?: string; heroSubtitle?: string;
+  title?: string;
+  description?: string;
+  heroTitle?: string;
+  heroSubtitle?: string;
   contacto?: ContactData;
   ubicacion?: MapData;
   sedeFoto?: { src?: string; alt?: string };
@@ -32,23 +51,61 @@ const data = (entry?.data ?? {}) as PageData;
 const pageTitle = data.heroTitle ?? data.title ?? "Contacto";
 ---
 
-<BaseLayout lang={lang} title={data.title} description={data.description} otherHref={otherHref}>
-  <section class="container py-4">
-    <h1 class="display-5 fw-bold">{pageTitle}</h1>
-    {data.heroSubtitle && <p class="fs-5">{data.heroSubtitle}</p>}
-
-    <article class="content mt-4">
-      {data.contacto && (
-        <ContactInfo lang={lang} data={{ ...data.contacto, sedeFoto: data.sedeFoto }} showPhoto={true} />
+<BaseLayout
+  lang={lang}
+  title={data.title}
+  description={data.description}
+  otherHref={otherHref}
+>
+  {/* HERO de la página de contacto */}
+  <header class="page-hero position-relative overflow-hidden">
+    <div class="container py-4 py-lg-5 position-relative">
+      <h1 class="display-5 fw-bold mb-2">{pageTitle}</h1>
+      {data.heroSubtitle && (
+        <p class="fs-5 mb-0 text-body-emphasis">{data.heroSubtitle}</p>
       )}
+    </div>
+  </header>
 
-      {data.ubicacion && (
-        <MapEmbed lang={lang} data={data.ubicacion} height={420} />
-      )}
+  <main id="main-content" class="contact-page">
+    {/* SECCIÓN 1: Datos de contacto + foto de la sede */}
+    {data.contacto && (
+      <section
+        id="contact-info"
+        class="contact-section contact-section--info"
+      >
+        <div class="container py-5">
+          <ContactInfo
+            lang={lang}
+            data={{ ...data.contacto, sedeFoto: data.sedeFoto }}
+            showPhoto={true}
+          />
+        </div>
+      </section>
+    )}
 
-      {Array.isArray(data.redes) && data.redes.length > 0 && (
-        <SocialLinks lang={lang} items={data.redes} />
-      )}
-    </article>
-  </section>
+    {/* SECCIÓN 2: Mapa / ubicación */}
+    {data.ubicacion && (
+      <section
+        id="location"
+        class="contact-section contact-section--map"
+      >
+        <div class="container py-5">
+          <MapEmbed lang={lang} data={data.ubicacion} height={420} />
+        </div>
+      </section>
+    )}
+
+    {/* SECCIÓN 3: Redes sociales */}
+    {Array.isArray(data.redes) && data.redes.length > 0 && (
+      <section
+        id="social"
+        class="contact-section contact-section--social"
+      >
+        <div class="container py-5">
+          <SocialLinks lang={lang} items={data.redes} />
+        </div>
+      </section>
+    )}
+  </main>
 </BaseLayout>

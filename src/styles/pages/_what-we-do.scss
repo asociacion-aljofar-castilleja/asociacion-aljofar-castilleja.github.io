@@ -1,0 +1,15 @@
+/* Layout general para “Qué hacemos” */
+.whatwedo-page > .whatwedo-section:nth-of-type(odd) {
+  background-color: var(--bs-body-bg); /* fondo principal */
+  border-top: 1px solid var(--bs-border-color);
+}
+
+.whatwedo-page > .whatwedo-section:nth-of-type(even) {
+  background-color: var(--bs-secondary-bg); /* fondo terciario/claro u oscuro */
+  border-top: 1px solid var(--bs-border-color);
+}
+
+/* opcional: separar un poco la primera sección del hero */
+.page-hero + .whatwedo-page .whatwedo-section:first-of-type {
+  border-top: none;
+}

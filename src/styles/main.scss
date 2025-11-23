@@ -45,4 +45,6 @@
 @use "../components/sections/SocialLinks/_SocialLinks";
 
 // Estilos globales adicionales asociados a las paginas
-//@import "../pages/home/_Home";
+@import "./pages/_about-us";
+@import "./pages/_what-we-do";
+@import "./pages/_contact";

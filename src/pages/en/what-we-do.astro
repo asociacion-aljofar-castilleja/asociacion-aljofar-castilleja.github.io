@@ -40,7 +40,7 @@ type PageData = {
   description?: string;
   heroTitle?: string;
   heroSubtitle?: string;
-  servicios?: Service[];   // you can rename to "services" if you prefer; update YAML/code accordingly
+  servicios?: Service[];   // services
   proyectos?: Project[];   // projects
   talleres?: Workshop[];   // workshops
 };
@@ -51,29 +51,57 @@ const data = (entry?.data ?? {}) as PageData;
 const pageTitle = data.heroTitle ?? data.title ?? "What we do";
 ---
 
-<BaseLayout lang={lang} title={data.title} description={data.description} otherHref={otherHref}>
-  <section class="container py-4">
-    <h1 class="display-5 fw-bold">{pageTitle}</h1>
-    {data.heroSubtitle && <p class="fs-5">{data.heroSubtitle}</p>}
+<BaseLayout
+  lang={lang}
+  title={data.title}
+  description={data.description}
+  otherHref={otherHref}
+>
+  {/* HERO for the page */}
+  <header class="page-hero position-relative overflow-hidden">
+    <div class="container py-4 py-lg-5 position-relative">
+      <h1 class="display-5 fw-bold mb-2">{pageTitle}</h1>
+      {data.heroSubtitle && (
+        <p class="fs-5 mb-0 text-body-emphasis">{data.heroSubtitle}</p>
+      )}
+    </div>
+  </header>
 
+  <main id="main-content" class="whatwedo-page">
+    {/* SECTION 1: Workshops */}
     {Array.isArray(data.talleres) && data.talleres.length > 0 && (
-        <section id="workshops" class="mb-5">
+      <section
+        id="workshops"
+        class="whatwedo-section whatwedo-section--workshops"
+      >
+        <div class="container py-5">
           <Workshops lang={lang} items={data.talleres} />
-        </section>
-      )}
-      
-    <article class="content mt-4">
-      {Array.isArray(data.servicios) && data.servicios.length > 0 && (
-        <section id="services" class="mb-5">
-          <ServicesGrid lang={lang} items={data.servicios} />
-        </section>
-      )}
+        </div>
+      </section>
+    )}
 
-      {Array.isArray(data.proyectos) && data.proyectos.length > 0 && (
-        <section id="projects" class="mb-5">
+    {/* SECTION 2: Services */}
+    {Array.isArray(data.servicios) && data.servicios.length > 0 && (
+      <section
+        id="services"
+        class="whatwedo-section whatwedo-section--services"
+      >
+        <div class="container py-5">
+          <ServicesGrid lang={lang} items={data.servicios} />
+        </div>
+      </section>
+    )}
+
+    {/* SECTION 3: Projects */}
+    {Array.isArray(data.proyectos) && data.proyectos.length > 0 && (
+      <section
+        id="projects"
+        class="whatwedo-section whatwedo-section--projects"
+      >
+        <div class="container py-5">
           <ProjectsList lang={lang} items={data.proyectos} />
-        </section>
-      )}
-    </article>
-  </section>
+        </div>
+      </section>
+    )}
+  </main>
 </BaseLayout>
