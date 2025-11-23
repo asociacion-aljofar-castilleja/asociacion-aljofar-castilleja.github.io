@@ -47,19 +47,6 @@ proyectos:
       alt: "Puesto solidario con productos artesanales de la asociación"
       aspectRatio: "4/3"
 
-    titulo: "Puestos solidarios de artesanía"
-    fecha: "Varias veces al año"
-    ubicacion: "Ferias locales y eventos comunitarios"
-    horario: "Estos puestos se realizan durante todo el año"
-    productos: "Organizamos puestos para la venta de los artículos realizados en el taller de manualidades, recaudando fondos para la autofinanciación."
-    contacto: "Asociación Aljofar — info@asociacionaljofarcastilleja.es"
-    notas: >
-      Organizamos puestos de venta con los productos realizados en el taller de manualidades. La recaudación se destina a la autofinanciación de la asociación y a apoyar nuevas actividades y proyectos sociales.
-    imagen:
-      src: "/images/actividades-ocio/puestos-artesania.jpg"
-      alt: "Mesa con nuestros productos artesanales en un puesto solidario"
-      aspectRatio: "4/3"
-
 # ------- Talleres y Actividades (con galería opcional) -------
 talleres:
   - titulo: "Taller de Manualidades"

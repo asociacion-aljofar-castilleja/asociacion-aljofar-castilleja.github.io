@@ -19,7 +19,7 @@ proyectos:
   - tipo: "actividad"
     titulo: "Leisure and community activities"
     fecha: "Throughout the year"
-    lugar: "Public spaces and social centres in Castilleja de la Cuesta"
+    lugar: "Public spaces and social centres in Castilleja de la Cuesta"  # centres/centers según prefieras UK/US
     edad: "All ages"
     organizador: "ALJÓFAR Association"
     info: >
