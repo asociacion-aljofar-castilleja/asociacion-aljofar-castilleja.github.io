@@ -1,0 +1,59 @@
+---
+import BaseLayout from "../components/layout/BaseLayout/BaseLayout.astro";
+import FbFeed from "../components/sections/FbFeed/FbFeed.astro";
+import { getEntry } from "astro:content";
+
+type Lang = "es" | "en";
+const lang: Lang = "es";
+
+type FbConfig = {
+  pageUrl?: string;
+  height?: number;
+  showNote?: boolean;
+};
+
+type PageData = {
+  title?: string;
+  description?: string;
+  heroTitle?: string;
+  heroSubtitle?: string;
+  intro?: string;
+  fb?: FbConfig;
+};
+
+// Cargamos los datos de la página desde la colección "pages"
+const entry = await getEntry({ collection: "pages", id: "es/noticias" });
+const data = (entry?.data ?? {}) as PageData;
+
+// Fallbacks razonables por si falta algo en el YAML
+const pageTitle = data.heroTitle ?? data.title ?? "Noticias";
+const intro = data.intro ?? "Estas son las noticias generales de la asociación y de nuestra página de Facebook.";
+const fbConfig: FbConfig = data.fb ?? {};
+---
+
+<BaseLayout
+  lang={lang}
+  title={data.title ?? pageTitle}
+  description={data.description}
+>
+  <div class="container-fluid py-4 text-center">
+    {/* Título centrado */}
+    <h1 class="display-5 fw-bold mb-3">{pageTitle}</h1>
+
+    {/* Subtítulo opcional (si lo defines en el YAML) */}
+    {data.heroSubtitle && (
+      <p class="fs-5 mb-2 text-body-emphasis">{data.heroSubtitle}</p>
+    )}
+
+    {/* Párrafo de introducción */}
+    {intro && <p class="lead mb-4">{intro}</p>}
+
+    {/* Feed de Facebook centrado, parametrizado desde el YAML */}
+    <FbFeed
+      lang={lang}
+      pageUrl={fbConfig.pageUrl ?? "https://www.facebook.com/p/Asociaci%C3%B3n-Aljofar-100079476353855"}
+      height={fbConfig.height ?? 1000}
+      showNote={fbConfig.showNote ?? false}
+    />
+  </div>
+</BaseLayout>

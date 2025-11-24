@@ -1,5 +1,10 @@
-title: "Latest news"
-ariaSection: "Latest news"
-viewOnFacebook: "View on Facebook"
-openInNew: "Opens in a new window"
-privacyNote: "This block loads content from Facebook. It may use cookies."
+title: "News"
+description: "General association news and the latest posts from our Facebook page."
+heroTitle: "News & Updates"
+heroSubtitle: "Stay up to date with everything happening at ALJÓFAR."
+intro: "Here you can find the association’s general news and our latest Facebook posts."
+
+fb:
+  pageUrl: "https://www.facebook.com/p/Asociaci%C3%B3n-Aljofar-100079476353855"
+  height: 1000
+  showNote: false

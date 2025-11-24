@@ -1,5 +1,10 @@
-title: "Últimas noticias"
-ariaSection: "Últimas noticias"
-viewOnFacebook: "Ver en Facebook"
-openInNew: "Se abre en una ventana nueva"
-privacyNote: "Este bloque carga contenido de Facebook. Puede usar cookies."
+title: "Noticias"
+description: "Noticias generales de la asociación y últimas publicaciones en Facebook."
+heroTitle: "Noticias y actualidad"
+heroSubtitle: "Mantente al día de todo lo que pasa en ALJÓFAR."
+intro: "Estas son las noticias generales de la asociación y de nuestra página de Facebook."
+
+fb:
+  pageUrl: "https://www.facebook.com/p/Asociaci%C3%B3n-Aljofar-100079476353855"
+  height: 1000
+  showNote: false
