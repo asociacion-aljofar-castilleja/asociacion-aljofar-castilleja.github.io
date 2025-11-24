@@ -1,0 +1,26 @@
+---
+import BaseLayout from '../../components/layout/BaseLayout/BaseLayout.astro';
+import FbFeed from '../../components/sections/FbFeed/FbFeed.astro';
+
+const lang = "en";
+const title = "General News of the Association";
+const intro = "These are the general news of the association and from our Facebook page.";
+---
+
+<BaseLayout lang={lang} title={title}>
+  <div class="container-fluid py-4 text-center">
+    <!-- Título centrado -->
+    <h1 class="display-5 fw-bold mb-3">{title}</h1>
+
+    <!-- Párrafo de introducción -->
+    <p class="lead mb-4">{intro}</p>
+
+    <!-- Feed de Facebook centrado -->
+    <FbFeed
+      lang={lang}
+      pageUrl="https://www.facebook.com/p/Asociaci%C3%B3n-Aljofar-100079476353855"
+      height={1000}
+      showNote={false}
+    />
+  </div>
+</BaseLayout>
